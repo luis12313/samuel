@@ -19,19 +19,15 @@
 
 <body>
 
-    <!-- =====================================================
-         PARTICULAS
-         ===================================================== -->
-
+    <!-- PARTICULAS -->
     <div
         class="particulas"
         id="particulas"
     ></div>
 
 
-
     <!-- =====================================================
-         VIAJE
+         VIAJE COLOMBIA → COSTA RICA
          ===================================================== -->
 
     <section
@@ -46,78 +42,56 @@
 
         <div class="mapa">
 
-            <!--
-                MAPA REAL
-
-                Basado en Natural Earth.
-                El SVG contiene las fronteras
-                de los países.
-            -->
-
+            <!-- MAPA LOCAL -->
             <img
+                src="america.svg"
                 class="mapa-america"
-                src="https://upload.wikimedia.org/wikipedia/commons/5/5e/NED_worldmap_110m.svg"
                 alt="Mapa de América"
             >
 
 
-            <!-- =================================================
-                 CAPA PARA LA RUTA
-                 ================================================= -->
-
+            <!-- RUTA -->
             <svg
                 id="mapaSvg"
                 class="ruta-svg"
-                viewBox="0 0 800 400"
+                viewBox="0 0 1000 600"
                 preserveAspectRatio="xMidYMid meet"
-                xmlns="http://www.w3.org/2000/svg"
             >
-
-                <!--
-                    Colombia → Costa Rica
-
-                    La ruta se dibuja sobre el mapa.
-                -->
 
                 <path
                     id="rutaInicial"
                     class="ruta-curva"
                     d="
-                        M 218 276
+                        M 490 410
 
-                        C 205 250
-                          214 220
-                          236 195
+                        C 475 375
+                          480 335
+                          500 300
 
-                        C 255 173
-                          275 157
-                          292 145
+                        C 515 275
+                          535 250
+                          555 225
                     "
                 />
 
-                <!-- Puntos de origen y destino -->
-
                 <circle
                     class="punto-mapa"
-                    cx="218"
-                    cy="276"
-                    r="5"
+                    cx="490"
+                    cy="410"
+                    r="6"
                 />
 
                 <circle
                     class="punto-mapa"
-                    cx="292"
-                    cy="145"
-                    r="5"
+                    cx="555"
+                    cy="225"
+                    r="6"
                 />
 
             </svg>
 
 
-            <!-- =================================================
-                 AVIÓN
-                 ================================================= -->
-
+            <!-- AVION -->
             <div
                 id="avionInicial"
                 class="avion"
@@ -134,10 +108,7 @@
             </div>
 
 
-            <!-- =================================================
-                 ETIQUETAS
-                 ================================================= -->
-
+            <!-- PAISES -->
             <div
                 class="nombre-pais colombia-nombre"
             >
@@ -154,11 +125,7 @@
         </div>
 
 
-
-        <!-- =====================================================
-             TEXTO
-             ===================================================== -->
-
+        <!-- TEXTO -->
         <p
             class="viaje-inicial-texto"
             id="textoViaje"
@@ -167,11 +134,7 @@
         </p>
 
 
-
-        <!-- =====================================================
-             CONTADOR
-             ===================================================== -->
-
+        <!-- CONTADOR -->
         <div
             class="contador"
             id="contador"
@@ -279,7 +242,7 @@
 
 
     <!-- =====================================================
-         PRIMERA ESCENA
+         ESCENA 1
          ===================================================== -->
 
     <section
@@ -309,7 +272,7 @@
 
 
     <!-- =====================================================
-         SEGUNDA ESCENA
+         ESCENA 2
          ===================================================== -->
 
     <section
@@ -394,9 +357,7 @@
     </section>
 
 
-
     <script src="script.js"></script>
 
 </body>
-
 </html>
