@@ -38,7 +38,6 @@ for (let i = 0; i < 45; i++) {
 }
 
 
-
 /* =====================================================
    ELEMENTOS
    ===================================================== */
@@ -124,7 +123,6 @@ const segundosElemento =
     );
 
 
-
 /* =====================================================
    FECHAS
    ===================================================== */
@@ -143,7 +141,6 @@ let llegadaProcesada =
     false;
 
 
-
 /* =====================================================
    CONTADOR
    ===================================================== */
@@ -155,7 +152,6 @@ function actualizarContador() {
 
     const diferencia =
         llegadaViaje - ahora;
-
 
     if (diferencia <= 0) {
 
@@ -184,7 +180,6 @@ function actualizarContador() {
             (1000 * 60 * 60 * 24)
         );
 
-
     const horas =
         Math.floor(
             (
@@ -194,7 +189,6 @@ function actualizarContador() {
             (1000 * 60 * 60)
         );
 
-
     const minutos =
         Math.floor(
             (
@@ -203,7 +197,6 @@ function actualizarContador() {
             ) /
             (1000 * 60)
         );
-
 
     const segundos =
         Math.floor(
@@ -241,9 +234,8 @@ function actualizarContador() {
 }
 
 
-
 /* =====================================================
-   AVIÓN
+   POSICION DEL AVION
    ===================================================== */
 
 function actualizarAvion() {
@@ -286,10 +278,6 @@ function actualizarAvion() {
         );
 
 
-    /* ---------------------------------------------
-       LONGITUD DE LA RUTA
-       --------------------------------------------- */
-
     const longitud =
         rutaInicial.getTotalLength();
 
@@ -299,21 +287,11 @@ function actualizarAvion() {
         longitud;
 
 
-
-    /* ---------------------------------------------
-       POSICIÓN ACTUAL
-       --------------------------------------------- */
-
     const puntoActual =
         rutaInicial.getPointAtLength(
             distancia
         );
 
-
-
-    /* ---------------------------------------------
-       PUNTO SIGUIENTE
-       --------------------------------------------- */
 
     const puntoSiguiente =
         rutaInicial.getPointAtLength(
@@ -323,11 +301,6 @@ function actualizarAvion() {
             )
         );
 
-
-
-    /* ---------------------------------------------
-       DIRECCIÓN EXACTA DE LA CURVA
-       --------------------------------------------- */
 
     const dx =
         puntoSiguiente.x -
@@ -349,25 +322,15 @@ function actualizarAvion() {
 
 
     /*
-        El emoji ✈️ apunta originalmente
-        hacia arriba.
-
-        Se corrige para que su punta
-        coincida con la dirección de
-        la curva.
+        El emoji del avión
+        originalmente apunta hacia arriba.
     */
 
     angulo += 90;
 
 
-
-    /* ---------------------------------------------
-       CONVERTIR SVG A PANTALLA
-       --------------------------------------------- */
-
     const puntoSVG =
         mapaSvg.createSVGPoint();
-
 
     puntoSVG.x =
         puntoActual.x;
@@ -377,7 +340,7 @@ function actualizarAvion() {
 
 
     const matriz =
-        rutaInicial.getScreenCTM();
+        mapaSvg.getScreenCTM();
 
 
     if (!matriz) {
@@ -399,16 +362,10 @@ function actualizarAvion() {
         puntoPantalla.x -
         rectMapa.left;
 
-
     const y =
         puntoPantalla.y -
         rectMapa.top;
 
-
-
-    /* ---------------------------------------------
-       MOVER AVIÓN
-       --------------------------------------------- */
 
     avionInicial.style.left =
         `${x}px`;
@@ -416,11 +373,6 @@ function actualizarAvion() {
     avionInicial.style.top =
         `${y}px`;
 
-
-
-    /* ---------------------------------------------
-       ROTAR AVIÓN
-       --------------------------------------------- */
 
     const avionEmoji =
         avionInicial.querySelector(
@@ -434,11 +386,6 @@ function actualizarAvion() {
             `rotate(${angulo}deg)`;
     }
 
-
-
-    /* ---------------------------------------------
-       LLEGADA
-       --------------------------------------------- */
 
     if (progreso >= 1) {
 
@@ -468,9 +415,8 @@ function actualizarAvion() {
 }
 
 
-
 /* =====================================================
-   BOTÓN ABRIR
+   ABRIR
    ===================================================== */
 
 botonAbrir.addEventListener(
@@ -480,7 +426,6 @@ botonAbrir.addEventListener(
         inicio.classList.remove(
             "mostrar"
         );
-
 
         setTimeout(() => {
 
@@ -493,9 +438,8 @@ botonAbrir.addEventListener(
 );
 
 
-
 /* =====================================================
-   PRIMERA ESCENA
+   CONTINUAR
    ===================================================== */
 
 continuar.addEventListener(
@@ -505,7 +449,6 @@ continuar.addEventListener(
         carta.classList.remove(
             "mostrar"
         );
-
 
         setTimeout(() => {
 
@@ -518,9 +461,8 @@ continuar.addEventListener(
 );
 
 
-
 /* =====================================================
-   SEGUNDA → FINAL
+   FINAL
    ===================================================== */
 
 continuar2.addEventListener(
@@ -530,7 +472,6 @@ continuar2.addEventListener(
         segunda.classList.remove(
             "mostrar"
         );
-
 
         setTimeout(() => {
 
@@ -545,7 +486,6 @@ continuar2.addEventListener(
 );
 
 
-
 /* =====================================================
    FUEGOS
    ===================================================== */
@@ -556,7 +496,6 @@ function crearFuego() {
         document.createElement(
             "div"
         );
-
 
     fuego.classList.add(
         "fuego"
@@ -583,12 +522,8 @@ function crearFuego() {
 
 
     document
-        .getElementById(
-            "fuegos"
-        )
-        .appendChild(
-            fuego
-        );
+        .getElementById("fuegos")
+        .appendChild(fuego);
 
 
     setTimeout(() => {
@@ -601,8 +536,7 @@ function crearFuego() {
 
 function iniciarFuegos() {
 
-    let cantidad =
-        0;
+    let cantidad = 0;
 
 
     const intervalo =
@@ -624,9 +558,8 @@ function iniciarFuegos() {
 }
 
 
-
 /* =====================================================
-   INICIAR
+   INICIO
    ===================================================== */
 
 actualizarContador();
