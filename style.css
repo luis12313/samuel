@@ -12,7 +12,9 @@ body {
 
 body {
     overflow: hidden;
+
     font-family: Arial, Helvetica, sans-serif;
+
     background:
         radial-gradient(
             circle at center,
@@ -20,6 +22,7 @@ body {
             #0d1028 45%,
             #050713 100%
         );
+
     color: white;
 }
 
@@ -31,18 +34,28 @@ body {
 .particulas {
     position: fixed;
     inset: 0;
+
     overflow: hidden;
+
     pointer-events: none;
+
     z-index: 1;
 }
 
 .particula {
     position: absolute;
+
     border-radius: 50%;
+
     background: #8ed8ff;
-    box-shadow: 0 0 10px #8ed8ff;
+
+    box-shadow:
+        0 0 10px #8ed8ff;
+
     opacity: 0.7;
-    animation: flotar linear infinite;
+
+    animation:
+        flotar linear infinite;
 }
 
 @keyframes flotar {
@@ -69,16 +82,21 @@ body {
 
 
 /* ==========================================
-   VIAJE INICIAL
+   VIAJE
    ========================================== */
 
 .viaje-inicial {
+
     position: fixed;
+
     inset: 0;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
 
     padding: 20px;
@@ -98,18 +116,27 @@ body {
 }
 
 .viaje-inicial.ocultar {
+
     opacity: 0;
+
     visibility: hidden;
 }
 
+
 .viaje-titulo {
-    font-size: clamp(22px, 4vw, 36px);
+
+    font-size:
+        clamp(22px, 4vw, 36px);
+
     font-weight: bold;
-    margin-bottom: 25px;
+
+    margin-bottom: 20px;
+
     text-align: center;
 
     text-shadow:
-        0 0 15px rgba(180, 100, 255, 0.8);
+        0 0 15px
+        rgba(180, 100, 255, 0.8);
 }
 
 
@@ -118,40 +145,61 @@ body {
    ========================================== */
 
 .mapa {
+
     position: relative;
-    width: min(700px, 95vw);
+
+    width:
+        min(700px, 95vw);
 }
 
 .mapa-svg {
+
     width: 100%;
+
     height: auto;
+
     display: block;
 }
 
 
-/* COLOMBIA */
+/* TERRITORIOS */
 
 .territorio {
-    fill: rgba(90, 50, 150, 0.35);
-    stroke: #a66cff;
+
+    fill:
+        rgba(90, 50, 150, 0.35);
+
+    stroke:
+        #a66cff;
+
     stroke-width: 2;
+
     filter:
         drop-shadow(
-            0 0 8px rgba(166, 108, 255, 0.7)
+            0 0 8px
+            rgba(166, 108, 255, 0.7)
         );
 }
 
+
 .colombia-mapa {
-    fill: rgba(100, 65, 180, 0.45);
+
+    fill:
+        rgba(100, 65, 180, 0.45);
 }
 
 
 /* CENTROAMÉRICA */
 
 .centroamerica {
+
     fill: none;
-    stroke: rgba(166, 108, 255, 0.7);
+
+    stroke:
+        rgba(166, 108, 255, 0.7);
+
     stroke-width: 3;
+
     stroke-linecap: round;
 }
 
@@ -159,18 +207,28 @@ body {
 /* COSTA RICA */
 
 .costa-rica-mapa {
-    fill: rgba(120, 70, 200, 0.45);
+
+    fill:
+        rgba(120, 70, 200, 0.45);
 }
 
 
 /* RUTA */
 
 .ruta-curva {
+
     fill: none;
-    stroke: #8ed8ff;
+
+    stroke:
+        #8ed8ff;
+
     stroke-width: 2;
-    stroke-dasharray: 8 8;
+
+    stroke-dasharray:
+        8 8;
+
     opacity: 0.7;
+
     filter:
         drop-shadow(
             0 0 6px #8ed8ff
@@ -181,7 +239,10 @@ body {
 /* PUNTOS */
 
 .punto-mapa {
-    fill: #8ed8ff;
+
+    fill:
+        #8ed8ff;
+
     filter:
         drop-shadow(
             0 0 8px #8ed8ff
@@ -192,62 +253,179 @@ body {
 /* AVIÓN */
 
 #avionInicial {
-    transform-origin: center;
+
+    transform-origin:
+        center;
 }
 
+
 .avion-icono {
+
     font-size: 25px;
+
     fill: white;
+
     text-anchor: middle;
+
     dominant-baseline: middle;
+
     filter:
         drop-shadow(
             0 0 8px #8ed8ff
         );
 }
 
+
 .carta-icono {
+
     font-size: 17px;
+
     text-anchor: middle;
 }
 
 
-/* NOMBRES */
+/* ==========================================
+   NOMBRES
+   ========================================== */
 
 .nombre-pais {
+
     position: absolute;
 
-    font-size: clamp(14px, 2vw, 20px);
+    font-size:
+        clamp(14px, 2vw, 20px);
+
     font-weight: bold;
 
     text-shadow:
-        0 0 8px rgba(180, 100, 255, 0.8);
+        0 0 8px
+        rgba(180, 100, 255, 0.8);
 }
 
+
 .colombia-nombre {
+
     left: 20%;
+
     top: 45%;
 }
 
+
 .costa-rica-nombre {
+
     right: 14%;
+
     top: 58%;
 }
 
 
-/* TEXTO VIAJE */
+/* ==========================================
+   TEXTO VIAJE
+   ========================================== */
 
 .viaje-inicial-texto {
-    margin-top: 20px;
 
-    font-size: clamp(14px, 2vw, 18px);
+    margin-top: 12px;
 
-    color: #cfcfff;
+    font-size:
+        clamp(14px, 2vw, 18px);
+
+    color:
+        #cfcfff;
 
     text-align: center;
 
     text-shadow:
-        0 0 10px rgba(140, 100, 255, 0.5);
+        0 0 10px
+        rgba(140, 100, 255, 0.5);
+}
+
+
+/* ==========================================
+   CONTADOR
+   ========================================== */
+
+.contador {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+    padding: 12px 18px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(10, 8, 30, 0.65);
+
+    border:
+        1px solid
+        rgba(166, 108, 255, 0.45);
+
+    box-shadow:
+        0 0 20px
+        rgba(120, 70, 200, 0.25);
+
+    backdrop-filter:
+        blur(8px);
+}
+
+
+.contador-bloque {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    min-width: 55px;
+}
+
+
+.contador-bloque span {
+
+    font-size:
+        clamp(22px, 5vw, 34px);
+
+    font-weight: bold;
+
+    color:
+        #8ed8ff;
+
+    text-shadow:
+        0 0 10px
+        rgba(142, 216, 255, 0.7);
+}
+
+
+.contador-bloque small {
+
+    margin-top: 2px;
+
+    font-size: 9px;
+
+    color:
+        #c9c4df;
+
+    letter-spacing: 1px;
+}
+
+
+.separador {
+
+    font-size: 25px;
+
+    color:
+        #9b65dd;
+
+    margin-bottom: 12px;
 }
 
 
@@ -256,13 +434,17 @@ body {
    ========================================== */
 
 .inicio {
+
     position: fixed;
+
     inset: 0;
 
     display: flex;
+
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
@@ -270,9 +452,11 @@ body {
     padding: 30px;
 
     opacity: 0;
+
     visibility: hidden;
 
-    transform: scale(0.96);
+    transform:
+        scale(0.96);
 
     transition:
         opacity 1s ease,
@@ -282,16 +466,24 @@ body {
     z-index: 5;
 }
 
+
 .inicio.mostrar {
+
     opacity: 1;
+
     visibility: visible;
-    transform: scale(1);
+
+    transform:
+        scale(1);
 }
 
+
 .corazon {
+
     font-size: 75px;
 
-    color: #b67cff;
+    color:
+        #b67cff;
 
     text-shadow:
         0 0 15px #9b4dff,
@@ -300,6 +492,7 @@ body {
     animation:
         latido 1.5s infinite;
 }
+
 
 @keyframes latido {
 
@@ -314,21 +507,29 @@ body {
 
 }
 
+
 .inicio h1 {
+
     margin-top: 10px;
 
-    font-size: clamp(40px, 8vw, 75px);
+    font-size:
+        clamp(40px, 8vw, 75px);
 
     text-shadow:
-        0 0 20px rgba(160, 100, 255, 0.8);
+        0 0 20px
+        rgba(160, 100, 255, 0.8);
 }
 
+
 .inicio p {
+
     margin-top: 15px;
 
-    font-size: clamp(17px, 3vw, 24px);
+    font-size:
+        clamp(17px, 3vw, 24px);
 
-    color: #d9d6ff;
+    color:
+        #d9d6ff;
 }
 
 
@@ -337,11 +538,14 @@ body {
    ========================================== */
 
 button {
+
     margin-top: 30px;
 
-    padding: 15px 30px;
+    padding:
+        15px 30px;
 
     border: none;
+
     border-radius: 12px;
 
     background:
@@ -354,27 +558,36 @@ button {
     color: white;
 
     font-size: 16px;
+
     font-weight: bold;
 
     cursor: pointer;
 
     box-shadow:
-        0 0 15px rgba(156, 82, 232, 0.6);
+        0 0 15px
+        rgba(156, 82, 232, 0.6);
 
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
 }
 
+
 button:hover {
-    transform: scale(1.06);
+
+    transform:
+        scale(1.06);
 
     box-shadow:
-        0 0 25px rgba(156, 82, 232, 0.9);
+        0 0 25px
+        rgba(156, 82, 232, 0.9);
 }
 
+
 button:active {
-    transform: scale(0.97);
+
+    transform:
+        scale(0.97);
 }
 
 
@@ -383,25 +596,30 @@ button:active {
    ========================================== */
 
 .escena {
+
     position: fixed;
+
     inset: 0;
 
     display: flex;
+
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
 
     padding:
-        30px
-        max(20px, 5vw);
+        30px max(20px, 5vw);
 
     opacity: 0;
+
     visibility: hidden;
 
-    transform: translateY(20px);
+    transform:
+        translateY(20px);
 
     transition:
         opacity 0.8s ease,
@@ -411,50 +629,64 @@ button:active {
     z-index: 5;
 }
 
+
 .escena.mostrar {
+
     opacity: 1;
+
     visibility: visible;
 
-    transform: translateY(0);
+    transform:
+        translateY(0);
 }
 
 
 /* ==========================================
-   CONTENIDO DE LAS ESCENAS
+   CONTENIDO
    ========================================== */
 
 .icono {
+
     font-size: 65px;
 
     margin-bottom: 20px;
 
     filter:
         drop-shadow(
-            0 0 12px rgba(180, 100, 255, 0.8)
+            0 0 12px
+            rgba(180, 100, 255, 0.8)
         );
 }
 
+
 .escena h2 {
+
     max-width: 800px;
 
-    font-size: clamp(28px, 5vw, 50px);
+    font-size:
+        clamp(28px, 5vw, 50px);
 
     margin-bottom: 25px;
 
     text-shadow:
-        0 0 15px rgba(170, 100, 255, 0.7);
+        0 0 15px
+        rgba(170, 100, 255, 0.7);
 }
 
+
 .escena p {
+
     max-width: 700px;
 
     margin-top: 12px;
 
-    font-size: clamp(16px, 2.5vw, 21px);
+    font-size:
+        clamp(16px, 2.5vw, 21px);
 
     line-height: 1.6;
 
-    color: #dedcff;
+    color:
+        #dedcff;
 }
 
 
@@ -463,22 +695,22 @@ button:active {
    ========================================== */
 
 .final {
+
     overflow: hidden;
 }
 
-.final h2 {
+
+.final h2,
+.final p,
+.firma {
+
     position: relative;
+
     z-index: 5;
 }
 
-.final p {
-    position: relative;
-    z-index: 5;
-}
 
 .firma {
-    position: relative;
-    z-index: 5;
 
     margin-top: 25px;
 
@@ -486,22 +718,28 @@ button:active {
 
     line-height: 1.6;
 
-    color: #dcd8ff;
+    color:
+        #dcd8ff;
 }
 
+
 .firma strong {
-    color: #9ddcff;
+
+    color:
+        #9ddcff;
 
     font-size: 25px;
 }
 
 
 /* ==========================================
-   FUEGOS ARTIFICIALES
+   FUEGOS
    ========================================== */
 
 .fuegos {
+
     position: absolute;
+
     inset: 0;
 
     pointer-events: none;
@@ -509,12 +747,15 @@ button:active {
     overflow: hidden;
 }
 
+
 .fuego {
+
     position: absolute;
 
     border-radius: 50%;
 
-    background: #8ed8ff;
+    background:
+        #8ed8ff;
 
     box-shadow:
         0 0 8px #8ed8ff,
@@ -524,20 +765,30 @@ button:active {
         explotar 1.8s ease-out forwards;
 }
 
+
 @keyframes explotar {
 
     0% {
-        transform: scale(0);
+
+        transform:
+            scale(0);
+
         opacity: 1;
     }
 
     30% {
-        transform: scale(3);
+
+        transform:
+            scale(3);
+
         opacity: 1;
     }
 
     100% {
-        transform: scale(0);
+
+        transform:
+            scale(0);
+
         opacity: 0;
     }
 
@@ -551,35 +802,86 @@ button:active {
 @media (max-width: 600px) {
 
     .viaje-titulo {
-        margin-bottom: 10px;
+
+        margin-bottom: 5px;
     }
 
+
     .viaje-inicial-texto {
+
         margin-top: 5px;
     }
 
+
     .nombre-pais {
+
         font-size: 13px;
     }
 
+
+    .contador {
+
+        gap: 4px;
+
+        padding:
+            10px 8px;
+    }
+
+
+    .contador-bloque {
+
+        min-width: 48px;
+    }
+
+
+    .contador-bloque span {
+
+        font-size: 22px;
+    }
+
+
+    .contador-bloque small {
+
+        font-size: 7px;
+    }
+
+
+    .separador {
+
+        font-size: 20px;
+
+        margin-bottom: 10px;
+    }
+
+
     .inicio {
+
         padding: 20px;
     }
 
+
     .corazon {
+
         font-size: 60px;
     }
 
+
     .escena {
+
         padding: 20px;
     }
 
+
     .icono {
+
         font-size: 50px;
     }
 
+
     button {
-        padding: 13px 25px;
+
+        padding:
+            13px 25px;
     }
 
 }
