@@ -1,347 +1,608 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Para Samuel ❤️</title>
-
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-    <!-- PARTÍCULAS -->
-    <div class="particulas" id="particulas"></div>
-
-
-    <!-- =====================================================
-         VIAJE INICIAL
-         ===================================================== -->
-
-    <section class="viaje-inicial" id="viajeInicial">
-
-        <div class="viaje-titulo">
-            Una pequeña carta...
-        </div>
-
-
-        <div class="mapa">
-
-            <!-- MAPA -->
-            <svg
-                id="mapaSvg"
-                class="mapa-svg"
-                viewBox="0 0 900 500"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-
-                <!-- COLOMBIA -->
-                <!-- Silueta estilizada basada en la forma geográfica real -->
-                <path
-                    id="colombia"
-                    class="pais"
-                    d="
-                    M150 150
-                    L165 132
-                    L180 124
-                    L190 105
-                    L207 98
-                    L222 108
-                    L239 104
-                    L254 116
-                    L270 118
-                    L286 131
-                    L300 139
-                    L308 154
-                    L300 168
-                    L309 184
-                    L298 200
-                    L286 214
-                    L276 230
-                    L265 245
-                    L250 250
-                    L242 268
-                    L228 279
-                    L216 294
-                    L200 299
-                    L187 292
-                    L174 301
-                    L160 291
-                    L148 280
-                    L137 264
-                    L128 248
-                    L116 238
-                    L120 222
-                    L111 208
-                    L120 192
-                    L130 180
-                    L126 166
-                    Z
-                    "
-                />
-
-                <!-- COSTA RICA -->
-                <path
-                    id="costaRica"
-                    class="pais costa-rica"
-                    d="
-                    M665 218
-                    L678 210
-                    L692 214
-                    L703 222
-                    L716 224
-                    L728 232
-                    L737 243
-                    L733 254
-                    L722 262
-                    L708 264
-                    L696 259
-                    L683 263
-                    L671 256
-                    L660 246
-                    L651 238
-                    L655 228
-                    Z
-                    "
-                />
+/* =====================================================
+   PARTICULAS
+   ===================================================== */
 
-                <!-- RUTA -->
-                <path
-                    id="rutaInicial"
-                    class="ruta-curva"
-                    d="
-                    M255 205
-                    C350 90 520 95 690 240
-                    "
-                />
+const contenedorParticulas =
+    document.getElementById("particulas");
 
-                <!-- PUNTOS DE SALIDA Y LLEGADA -->
-                <circle
-                    class="punto-mapa"
-                    cx="255"
-                    cy="205"
-                    r="8"
-                />
+for (let i = 0; i < 45; i++) {
 
-                <circle
-                    class="punto-mapa"
-                    cx="690"
-                    cy="240"
-                    r="8"
-                />
+    const particula =
+        document.createElement("div");
 
-            </svg>
+    particula.classList.add("particula");
 
+    const tamaño =
+        Math.random() * 4 + 2;
 
-            <!-- AVIÓN -->
-            <div id="avionInicial" class="avion">
+    particula.style.width =
+        `${tamaño}px`;
 
-                <div class="avion-emoji">
-                    ✈️
-                </div>
+    particula.style.height =
+        `${tamaño}px`;
 
-                <div class="carta-emoji">
-                    💌
-                </div>
+    particula.style.left =
+        `${Math.random() * 100}%`;
 
-            </div>
+    particula.style.animationDuration =
+        `${Math.random() * 8 + 7}s`;
 
+    particula.style.animationDelay =
+        `${Math.random() * 8}s`;
 
-            <!-- NOMBRES -->
-            <div class="nombre-pais colombia-nombre">
-                🇨🇴 Colombia
-            </div>
+    contenedorParticulas.appendChild(
+        particula
+    );
+}
 
-            <div class="nombre-pais costa-rica-nombre">
-                🇨🇷 Costa Rica
-            </div>
 
-        </div>
 
+/* =====================================================
+   ELEMENTOS
+   ===================================================== */
 
-        <!-- TEXTO -->
-        <p
-            class="viaje-inicial-texto"
-            id="textoViaje"
-        >
-            💌 Tu carta está viajando...
-        </p>
+const viajeInicial =
+    document.getElementById("viajeInicial");
 
+const inicio =
+    document.getElementById("inicio");
 
-        <!-- CUENTA REGRESIVA -->
-        <div
-            class="contador"
-            id="contador"
-        >
+const carta =
+    document.getElementById("carta");
 
-            <div class="contador-bloque">
-                <span id="dias">00</span>
-                <small>DÍAS</small>
-            </div>
+const segunda =
+    document.getElementById("segunda");
 
-            <div class="separador">:</div>
+const final =
+    document.getElementById("final");
 
-            <div class="contador-bloque">
-                <span id="horas">00</span>
-                <small>HORAS</small>
-            </div>
+const botonAbrir =
+    document.getElementById("botonAbrir");
 
-            <div class="separador">:</div>
+const continuar =
+    document.getElementById("continuar");
 
-            <div class="contador-bloque">
-                <span id="minutos">00</span>
-                <small>MIN</small>
-            </div>
+const continuar2 =
+    document.getElementById("continuar2");
 
-            <div class="separador">:</div>
+const avionInicial =
+    document.getElementById("avionInicial");
 
-            <div class="contador-bloque">
-                <span id="segundos">00</span>
-                <small>SEG</small>
-            </div>
+const rutaInicial =
+    document.getElementById("rutaInicial");
 
-        </div>
+const mapaSvg =
+    document.getElementById("mapaSvg");
 
-    </section>
+const textoViaje =
+    document.getElementById("textoViaje");
 
+const diasElemento =
+    document.getElementById("dias");
 
+const horasElemento =
+    document.getElementById("horas");
 
-    <!-- =====================================================
-         PORTADA
-         ===================================================== -->
+const minutosElemento =
+    document.getElementById("minutos");
 
-    <main
-        class="inicio"
-        id="inicio"
-    >
+const segundosElemento =
+    document.getElementById("segundos");
 
-        <div class="corazon">
-            ♥
-        </div>
 
-        <h1>
-            Para Samuel
-        </h1>
 
-        <p>
-            Hice algo especialmente para ti...
-        </p>
+/* =====================================================
+   FECHAS DEL VIAJE
+   ===================================================== */
 
-        <button id="botonAbrir">
-            ABRIR ❤️
-        </button>
+const inicioViaje =
+    new Date("2026-09-28T00:00:00");
 
-    </main>
+const llegadaViaje =
+    new Date("2026-10-18T00:00:00");
 
+let llegadaProcesada = false;
 
 
-    <!-- =====================================================
-         PRIMERA ESCENA
-         ===================================================== -->
 
-    <section
-        class="escena carta"
-        id="carta"
-    >
+/* =====================================================
+   CUENTA REGRESIVA
+   ===================================================== */
 
-        <div class="icono">
-            💌
-        </div>
+function actualizarContador() {
 
-        <h2>
-            Hay algo que quiero agradecerte...
-        </h2>
+    const ahora =
+        new Date();
 
-        <p>
-            Gracias por hacerme entender muchas cosas que antes no sabía.
-        </p>
+    const diferencia =
+        llegadaViaje - ahora;
 
-        <button id="continuar">
-            CONTINUAR
-        </button>
 
-    </section>
+    if (diferencia <= 0) {
 
+        diasElemento.textContent = "00";
+        horasElemento.textContent = "00";
+        minutosElemento.textContent = "00";
+        segundosElemento.textContent = "00";
 
+        textoViaje.textContent =
+            "💌 ¡La carta llegó a Costa Rica!";
 
-    <!-- =====================================================
-         SEGUNDA ESCENA
-         ===================================================== -->
+        return;
+    }
 
-    <section
-        class="escena segunda"
-        id="segunda"
-    >
 
-        <div class="icono">
-            💜
-        </div>
+    const dias =
+        Math.floor(
+            diferencia /
+            (1000 * 60 * 60 * 24)
+        );
 
-        <h2>
-            Quiero que sepas algo, Samuel...
-        </h2>
 
-        <p>
-            Gracias por hacer que entienda cosas que antes no sabía.
-        </p>
+    const horas =
+        Math.floor(
+            (
+                diferencia %
+                (1000 * 60 * 60 * 24)
+            ) /
+            (1000 * 60 * 60)
+        );
 
-        <p>
-            Gracias también por ayudarme a quererme un poco más a mí mismo.
-        </p>
 
-        <p>
-            Puede que no siempre encuentre las palabras correctas para decirte lo mucho que significas para mí...
-        </p>
+    const minutos =
+        Math.floor(
+            (
+                diferencia %
+                (1000 * 60 * 60)
+            ) /
+            (1000 * 60)
+        );
 
-        <button id="continuar2">
-            CONTINUAR
-        </button>
 
-    </section>
+    const segundos =
+        Math.floor(
+            (
+                diferencia %
+                (1000 * 60)
+            ) /
+            1000
+        );
 
 
+    diasElemento.textContent =
+        String(dias).padStart(2, "0");
 
-    <!-- =====================================================
-         FINAL
-         ===================================================== -->
+    horasElemento.textContent =
+        String(horas).padStart(2, "0");
 
-    <section
-        class="escena final"
-        id="final"
-    >
+    minutosElemento.textContent =
+        String(minutos).padStart(2, "0");
 
-        <div
-            class="fuegos"
-            id="fuegos"
-        ></div>
+    segundosElemento.textContent =
+        String(segundos).padStart(2, "0");
+}
 
-        <div class="icono">
-            🎂
-        </div>
 
-        <h2>
-            FELICES 15 AÑOS, SAMUEL ❤️
-        </h2>
 
-        <p>
-            Espero que este nuevo año de tu vida esté lleno de momentos bonitos,
-            nuevas experiencias y muchas razones para sonreír.
-        </p>
+/* =====================================================
+   POSICIÓN Y RUMBO DEL AVIÓN
+   ===================================================== */
 
-        <p>
-            Gracias por estar en mi vida, incluso a pesar de la distancia.
-        </p>
+function actualizarAvion() {
 
-        <div class="firma">
-            Con cariño,<br>
-            <strong>Luis ❤️</strong>
-        </div>
+    if (
+        !rutaInicial ||
+        !avionInicial ||
+        !mapaSvg
+    ) {
+        return;
+    }
 
-    </section>
 
+    const ahora =
+        new Date();
 
-    <script src="script.js"></script>
 
-</body>
-</html>
+    /* ---------------------------------------------
+       CALCULAR PROGRESO DEL VIAJE
+       --------------------------------------------- */
+
+    const tiempoTotal =
+        llegadaViaje -
+        inicioViaje;
+
+    const tiempoTranscurrido =
+        ahora -
+        inicioViaje;
+
+
+    let progreso =
+        tiempoTranscurrido /
+        tiempoTotal;
+
+
+    progreso =
+        Math.max(
+            0,
+            Math.min(
+                1,
+                progreso
+            )
+        );
+
+
+
+    /* ---------------------------------------------
+       OBTENER LONGITUD TOTAL DE LA CURVA
+       --------------------------------------------- */
+
+    const longitud =
+        rutaInicial.getTotalLength();
+
+
+    const distancia =
+        progreso *
+        longitud;
+
+
+
+    /* ---------------------------------------------
+       PUNTO ACTUAL
+       --------------------------------------------- */
+
+    const puntoActual =
+        rutaInicial.getPointAtLength(
+            distancia
+        );
+
+
+
+    /* ---------------------------------------------
+       PUNTO HACIA ADELANTE
+       
+       Este punto permite calcular exactamente
+       hacia dónde está avanzando el avión.
+       --------------------------------------------- */
+
+    const distanciaAdelante =
+        Math.min(
+            longitud,
+            distancia + 5
+        );
+
+
+    const puntoSiguiente =
+        rutaInicial.getPointAtLength(
+            distanciaAdelante
+        );
+
+
+
+    /* ---------------------------------------------
+       CALCULAR DIRECCIÓN DE LA CURVA
+       --------------------------------------------- */
+
+    const dx =
+        puntoSiguiente.x -
+        puntoActual.x;
+
+    const dy =
+        puntoSiguiente.y -
+        puntoActual.y;
+
+
+    let angulo =
+        Math.atan2(
+            dy,
+            dx
+        )
+        *
+        180 /
+        Math.PI;
+
+
+
+    /* ---------------------------------------------
+       CORRECCIÓN DE ORIENTACIÓN DEL EMOJI
+
+       El emoji ✈️ no apunta hacia la derecha
+       como un vector matemático normal.
+
+       Esta corrección hace que la punta del
+       avión coincida con el rumbo calculado.
+       --------------------------------------------- */
+
+    angulo += 90;
+
+
+
+    /* ---------------------------------------------
+       CONVERTIR COORDENADAS SVG A PANTALLA
+       --------------------------------------------- */
+
+    const puntoSVG =
+        mapaSvg.createSVGPoint();
+
+    puntoSVG.x =
+        puntoActual.x;
+
+    puntoSVG.y =
+        puntoActual.y;
+
+
+    const matriz =
+        rutaInicial.getScreenCTM();
+
+
+    if (!matriz) {
+        return;
+    }
+
+
+    const puntoPantalla =
+        puntoSVG.matrixTransform(
+            matriz
+        );
+
+
+    const rectMapa =
+        mapaSvg.getBoundingClientRect();
+
+
+    const x =
+        puntoPantalla.x -
+        rectMapa.left;
+
+    const y =
+        puntoPantalla.y -
+        rectMapa.top;
+
+
+
+    /* ---------------------------------------------
+       MOVER EL AVIÓN
+       --------------------------------------------- */
+
+    avionInicial.style.left =
+        `${x}px`;
+
+    avionInicial.style.top =
+        `${y}px`;
+
+
+
+    /* ---------------------------------------------
+       ROTAR EL EMOJI
+       --------------------------------------------- */
+
+    const avionEmoji =
+        avionInicial.querySelector(
+            ".avion-emoji"
+        );
+
+
+    if (avionEmoji) {
+
+        avionEmoji.style.transform =
+            `rotate(${angulo}deg)`;
+    }
+
+
+
+    /* ---------------------------------------------
+       LLEGADA A COSTA RICA
+       --------------------------------------------- */
+
+    if (progreso >= 1) {
+
+        textoViaje.textContent =
+            "💌 ¡La carta llegó a Costa Rica!";
+
+
+        if (!llegadaProcesada) {
+
+            llegadaProcesada =
+                true;
+
+
+            setTimeout(() => {
+
+                viajeInicial.classList.add(
+                    "ocultar"
+                );
+
+                inicio.classList.add(
+                    "mostrar"
+                );
+
+            }, 2500);
+        }
+    }
+}
+
+
+
+/* =====================================================
+   BOTÓN ABRIR
+   ===================================================== */
+
+botonAbrir.addEventListener(
+    "click",
+    () => {
+
+        inicio.classList.remove(
+            "mostrar"
+        );
+
+
+        setTimeout(() => {
+
+            carta.classList.add(
+                "mostrar"
+            );
+
+        }, 400);
+    }
+);
+
+
+
+/* =====================================================
+   PRIMERA ESCENA
+   ===================================================== */
+
+continuar.addEventListener(
+    "click",
+    () => {
+
+        carta.classList.remove(
+            "mostrar"
+        );
+
+
+        setTimeout(() => {
+
+            segunda.classList.add(
+                "mostrar"
+            );
+
+        }, 400);
+    }
+);
+
+
+
+/* =====================================================
+   SEGUNDA ESCENA → FINAL
+   ===================================================== */
+
+continuar2.addEventListener(
+    "click",
+    () => {
+
+        segunda.classList.remove(
+            "mostrar"
+        );
+
+
+        setTimeout(() => {
+
+            final.classList.add(
+                "mostrar"
+            );
+
+            iniciarFuegos();
+
+        }, 400);
+    }
+);
+
+
+
+/* =====================================================
+   FUEGOS ARTIFICIALES
+   ===================================================== */
+
+function crearFuego() {
+
+    const fuego =
+        document.createElement("div");
+
+
+    fuego.classList.add(
+        "fuego"
+    );
+
+
+    fuego.style.left =
+        `${Math.random() * 100}%`;
+
+
+    fuego.style.top =
+        `${Math.random() * 70 + 5}%`;
+
+
+    const tamaño =
+        Math.random() * 4 + 4;
+
+
+    fuego.style.width =
+        `${tamaño}px`;
+
+
+    fuego.style.height =
+        `${tamaño}px`;
+
+
+    document
+        .getElementById("fuegos")
+        .appendChild(
+            fuego
+        );
+
+
+    setTimeout(() => {
+
+        fuego.remove();
+
+    }, 1800);
+}
+
+
+
+function iniciarFuegos() {
+
+    let cantidad =
+        0;
+
+
+    const intervalo =
+        setInterval(() => {
+
+            crearFuego();
+
+            cantidad++;
+
+
+            if (cantidad >= 18) {
+
+                clearInterval(
+                    intervalo
+                );
+            }
+
+        }, 280);
+}
+
+
+
+/* =====================================================
+   INICIAR
+   ===================================================== */
+
+actualizarContador();
+
+actualizarAvion();
+
+
+
+/* =====================================================
+   ACTUALIZACIONES
+   ===================================================== */
+
+setInterval(
+    actualizarContador,
+    1000
+);
+
+
+setInterval(
+    actualizarAvion,
+    1000
+);
+
+
+window.addEventListener(
+    "resize",
+    actualizarAvion
+);
