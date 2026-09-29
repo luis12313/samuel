@@ -47,13 +47,13 @@ const mensajeViaje =
 
 
 /*
-    COORDENADAS DEL MAPA ORIGINAL
+    COORDENADAS DEL MAPA
 
     Colombia:
-        712,724
+        1654,837
 
     Costa Rica:
-        627,677
+        1462,731
 
     Por lo tanto:
 
@@ -63,13 +63,13 @@ const mensajeViaje =
 
 
 const colombia = {
-    x: 712,
-    y: 724
+    x: 1654,
+    y: 837
 };
 
 const costaRica = {
-    x: 627,
-    y: 677
+    x: 1462,
+    y: 731
 };
 
 
@@ -129,11 +129,11 @@ function calcularPosicion(progreso) {
         colombia.x,
         colombia.y,
 
-        690,
-        705,
+        1595,
+        825,
 
-        650,
-        680,
+        1505,
+        755,
 
         costaRica.x,
         costaRica.y,
