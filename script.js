@@ -1,100 +1,207 @@
-/* =====================================================
-   PARTICULAS
-   ===================================================== */
+/* =========================================
+   CAMBIO DE ESCENAS
+========================================= */
 
-const particulas =
-    document.getElementById("particulas");
+const escenas = document.querySelectorAll(".escena");
 
-for (let i = 0; i < 70; i++) {
+function mostrarEscena(id) {
 
-    const particula =
-        document.createElement("div");
+    escenas.forEach(escena => {
+        escena.classList.remove("activa");
+    });
 
-    particula.className =
-        "particula";
+    const escena = document.getElementById(id);
 
-    particula.style.left =
-        Math.random() * 100 + "%";
-
-    particula.style.animationDuration =
-        (5 + Math.random() * 8) + "s";
-
-    particula.style.animationDelay =
-        Math.random() * 8 + "s";
-
-    particula.style.opacity =
-        0.3 + Math.random() * 0.7;
-
-    particulas.appendChild(
-        particula
-    );
+    if (escena) {
+        escena.classList.add("activa");
+    }
 }
 
 
-/* =====================================================
-   ELEMENTOS
-   ===================================================== */
-
-const viajeInicial =
-    document.getElementById(
-        "viajeInicial"
-    );
-
-const inicio =
-    document.getElementById(
-        "inicio"
-    );
-
-const rutaInicial =
-    document.getElementById(
-        "rutaInicial"
-    );
-
-const avionInicial =
-    document.getElementById(
-        "avionInicial"
-    );
-
-const textoViaje =
-    document.getElementById(
-        "textoViaje"
-    );
-
-
-/* =====================================================
-   FECHAS
-   ===================================================== */
+/* =========================================
+   VIAJE COLOMBIA -> COSTA RICA
+========================================= */
 
 const inicioViaje =
-    new Date(
-        "2026-09-28T00:00:00"
-    );
+    new Date("2026-09-28T00:00:00");
 
 const llegadaViaje =
-    new Date(
-        "2026-10-18T00:00:00"
+    new Date("2026-10-18T00:00:00");
+
+
+/*
+    Esta es EXACTAMENTE la ruta que
+    ya existe dentro de america.svg.
+
+    No estamos dibujando otra ruta.
+*/
+
+const ruta = {
+    x1: 610,
+    y1: 329,
+
+    x2: 340,
+    y2: 205
+};
+
+
+/* =========================================
+   ELEMENTOS
+========================================= */
+
+const avion =
+    document.getElementById("avion");
+
+const contador =
+    document.getElementById("contador");
+
+const mensajeViaje =
+    document.getElementById("mensajeViaje");
+
+
+/* =========================================
+   BEZIER
+
+   Misma forma aproximada de la ruta
+   del SVG.
+========================================= */
+
+function calcularPosicion(t) {
+
+    /*
+        Ruta original del SVG:
+
+        M610 329
+        C575 285 520 252 449 235
+        C410 226 375 216 340 205
+    */
+
+    if (t <= 0.5) {
+
+        const localT = t * 2;
+
+        return bezier(
+            610, 329,
+            575, 285,
+            520, 252,
+            449, 235,
+            localT
+        );
+
+    } else {
+
+        const localT = (t - 0.5) * 2;
+
+        return bezier(
+            449, 235,
+            410, 226,
+            375, 216,
+            340, 205,
+            localT
+        );
+    }
+}
+
+
+function bezier(
+    x0,
+    y0,
+    x1,
+    y1,
+    x2,
+    y2,
+    x3,
+    y3,
+    t
+) {
+
+    const u = 1 - t;
+
+    const x =
+        u * u * u * x0 +
+        3 * u * u * t * x1 +
+        3 * u * t * t * x2 +
+        t * t * t * x3;
+
+    const y =
+        u * u * u * y0 +
+        3 * u * u * t * y1 +
+        3 * u * t * t * y2 +
+        t * t * t * y3;
+
+    return { x, y };
+}
+
+
+/* =========================================
+   ANIMACIÓN DEL AVIÓN
+========================================= */
+
+function actualizarViaje() {
+
+    const ahora = new Date();
+
+    let progreso =
+        (ahora - inicioViaje) /
+        (llegadaViaje - inicioViaje);
+
+    progreso =
+        Math.max(
+            0,
+            Math.min(1, progreso)
+        );
+
+
+    const posicion =
+        calcularPosicion(progreso);
+
+
+    /*
+        El avión usa las mismas coordenadas
+        del viewBox del america.svg.
+    */
+
+    avion.setAttribute(
+        "transform",
+        `translate(${posicion.x}, ${posicion.y})`
     );
 
 
-let llegadaProcesada =
-    false;
+    /* =====================================
+       CONTADOR
+    ====================================== */
 
-
-/* =====================================================
-   CONTADOR
-   ===================================================== */
-
-function actualizarContador() {
-
-    const ahora =
-        new Date();
-
-    let diferencia =
+    const diferencia =
         llegadaViaje - ahora;
 
-    if (diferencia < 0) {
-        diferencia = 0;
+
+    if (diferencia <= 0) {
+
+        contador.textContent =
+            "✈️ El viaje terminó";
+
+        mensajeViaje.textContent =
+            "💌 ¡La carta llegó a Costa Rica!";
+
+        /*
+            Después de llegar dejamos unos
+            segundos para mostrar el mensaje.
+        */
+
+        if (!window.cartaLlegadaMostrada) {
+
+            window.cartaLlegadaMostrada = true;
+
+            setTimeout(() => {
+
+                mostrarEscena("portada");
+
+            }, 2500);
+        }
+
+        return;
     }
+
 
     const dias =
         Math.floor(
@@ -105,380 +212,231 @@ function actualizarContador() {
     const horas =
         Math.floor(
             (diferencia %
-                (1000 * 60 * 60 * 24))
-            /
+                (1000 * 60 * 60 * 24)) /
             (1000 * 60 * 60)
         );
 
     const minutos =
         Math.floor(
             (diferencia %
-                (1000 * 60 * 60))
-            /
+                (1000 * 60 * 60)) /
             (1000 * 60)
         );
 
     const segundos =
         Math.floor(
             (diferencia %
-                (1000 * 60))
-            /
+                (1000 * 60)) /
             1000
         );
 
 
-    document.getElementById(
-        "dias"
-    ).textContent =
-        String(dias).padStart(2, "0");
-
-    document.getElementById(
-        "horas"
-    ).textContent =
-        String(horas).padStart(2, "0");
-
-    document.getElementById(
-        "minutos"
-    ).textContent =
-        String(minutos).padStart(2, "0");
-
-    document.getElementById(
-        "segundos"
-    ).textContent =
-        String(segundos).padStart(2, "0");
+    contador.textContent =
+        `${dias}d ${horas}h ${minutos}m ${segundos}s`;
 }
 
 
-/* =====================================================
-   AVION
-   ===================================================== */
+/* Actualizar cada segundo */
 
-function actualizarAvion() {
-
-    const ahora =
-        new Date();
-
-
-    const duracionTotal =
-        llegadaViaje -
-        inicioViaje;
-
-
-    const transcurrido =
-        ahora -
-        inicioViaje;
-
-
-    let progreso =
-        transcurrido /
-        duracionTotal;
-
-
-    progreso =
-        Math.max(
-            0,
-            Math.min(
-                1,
-                progreso
-            )
-        );
-
-
-    /*
-        La ruta mide exactamente lo que
-        utilizamos para mover el avión.
-    */
-
-    const longitud =
-        rutaInicial.getTotalLength();
-
-
-    const distancia =
-        progreso *
-        longitud;
-
-
-    const punto =
-        rutaInicial.getPointAtLength(
-            distancia
-        );
-
-
-    /*
-        Punto ligeramente adelantado
-        para saber hacia dónde apunta
-        el avión.
-    */
-
-    const puntoSiguiente =
-        rutaInicial.getPointAtLength(
-            Math.min(
-                longitud,
-                distancia + 1
-            )
-        );
-
-
-    const dx =
-        puntoSiguiente.x -
-        punto.x;
-
-    const dy =
-        puntoSiguiente.y -
-        punto.y;
-
-
-    let angulo =
-        Math.atan2(
-            dy,
-            dx
-        ) *
-        180 /
-        Math.PI;
-
-
-    /*
-        El emoji del avión apunta
-        hacia arriba.
-    */
-
-    angulo += 90;
-
-
-    avionInicial.setAttribute(
-        "transform",
-        `
-        translate(
-            ${punto.x}
-            ${punto.y}
-        )
-        rotate(${angulo})
-        `
-    );
-
-
-    /* =================================================
-       LLEGADA
-       ================================================= */
-
-    if (progreso >= 1) {
-
-        textoViaje.textContent =
-            "💌 ¡La carta llegó a Costa Rica!";
-
-
-        if (!llegadaProcesada) {
-
-            llegadaProcesada =
-                true;
-
-
-            setTimeout(() => {
-
-                viajeInicial.classList.add(
-                    "ocultar"
-                );
-
-                inicio.classList.add(
-                    "mostrar"
-                );
-
-            }, 2500);
-        }
-    }
-}
-
-
-/* =====================================================
-   ACTUALIZACION
-   ================================================= */
-
-function actualizarTodo() {
-
-    actualizarContador();
-
-    actualizarAvion();
-}
-
-
-actualizarTodo();
-
+actualizarViaje();
 
 setInterval(
-    actualizarTodo,
+    actualizarViaje,
     1000
 );
 
 
-/* =====================================================
-   BOTONES
-   ===================================================== */
+/* =========================================
+   BOTÓN ABRIR
+========================================= */
 
-const botonAbrir =
-    document.getElementById(
-        "botonAbrir"
-    );
+const abrirBtn =
+    document.getElementById("abrirBtn");
 
-const carta =
-    document.getElementById(
-        "carta"
-    );
-
-const segunda =
-    document.getElementById(
-        "segunda"
-    );
-
-const final =
-    document.getElementById(
-        "final"
-    );
-
-const continuar =
-    document.getElementById(
-        "continuar"
-    );
-
-const continuar2 =
-    document.getElementById(
-        "continuar2"
-    );
-
-
-botonAbrir.addEventListener(
+abrirBtn.addEventListener(
     "click",
     () => {
 
-        inicio.classList.remove(
-            "mostrar"
-        );
+        mostrarEscena("escena1");
 
-        carta.classList.add(
-            "activa"
-        );
     }
 );
 
 
-continuar.addEventListener(
-    "click",
-    () => {
+/* =========================================
+   BOTONES CONTINUAR
+========================================= */
 
-        carta.classList.remove(
-            "activa"
+document
+    .querySelectorAll(".continuar")
+    .forEach(boton => {
+
+        boton.addEventListener(
+            "click",
+            () => {
+
+                const siguiente =
+                    boton.dataset.next;
+
+                mostrarEscena(siguiente);
+
+                /*
+                    Si llegamos al final,
+                    iniciamos los fuegos.
+                */
+
+                if (siguiente === "final") {
+
+                    iniciarFuegos();
+
+                }
+
+            }
         );
 
-        segunda.classList.add(
-            "activa"
+    });
+
+
+/* =========================================
+   PARTÍCULAS
+========================================= */
+
+const contenedorParticulas =
+    document.getElementById("particulas");
+
+
+function crearParticulas() {
+
+    for (let i = 0; i < 45; i++) {
+
+        const particula =
+            document.createElement("div");
+
+        particula.className =
+            "particula";
+
+        particula.style.left =
+            `${Math.random() * 100}%`;
+
+        particula.style.top =
+            `${Math.random() * 100}%`;
+
+        particula.style.animationDelay =
+            `${Math.random() * 4}s`;
+
+        particula.style.animationDuration =
+            `${3 + Math.random() * 4}s`;
+
+        contenedorParticulas.appendChild(
+            particula
         );
     }
-);
+}
+
+crearParticulas();
 
 
-continuar2.addEventListener(
-    "click",
-    () => {
-
-        segunda.classList.remove(
-            "activa"
-        );
-
-        final.classList.add(
-            "activa"
-        );
-
-        lanzarFuegos();
-    }
-);
-
-
-/* =====================================================
+/* =========================================
    FUEGOS ARTIFICIALES
-   ===================================================== */
+========================================= */
 
-function lanzarFuegos() {
+function iniciarFuegos() {
 
     const contenedor =
-        document.getElementById(
-            "fuegos"
-        );
+        document.getElementById("fuegos");
+
+    /*
+        Limpiar fuegos anteriores.
+    */
+
+    contenedor.innerHTML = "";
 
 
-    for (let explosion = 0;
-         explosion < 8;
-         explosion++) {
+    /*
+        Lanzamos varios fuegos.
+    */
+
+    for (let i = 0; i < 9; i++) {
 
         setTimeout(() => {
 
-            const centroX =
-                10 +
-                Math.random() * 80;
+            crearFuego(
+                15 + Math.random() * 70,
+                15 + Math.random() * 50
+            );
 
-            const centroY =
-                10 +
-                Math.random() * 50;
-
-
-            for (let i = 0;
-                 i < 35;
-                 i++) {
-
-                const particula =
-                    document.createElement(
-                        "div"
-                    );
-
-                particula.className =
-                    "fuego";
+        }, i * 500);
+    }
+}
 
 
-                particula.style.left =
-                    centroX + "%";
+function crearFuego(x, y) {
 
-                particula.style.top =
-                    centroY + "%";
-
-
-                const angulo =
-                    Math.random() *
-                    Math.PI *
-                    2;
+    const cantidad =
+        30;
 
 
-                const distancia =
-                    50 +
-                    Math.random() *
-                    100;
+    for (let i = 0; i < cantidad; i++) {
+
+        const particula =
+            document.createElement("div");
+
+        particula.className =
+            "fuego";
 
 
-                particula.style.setProperty(
-                    "--x",
-                    Math.cos(angulo) *
-                    distancia +
-                    "px"
-                );
+        const angulo =
+            Math.random() *
+            Math.PI *
+            2;
 
 
-                particula.style.setProperty(
-                    "--y",
-                    Math.sin(angulo) *
-                    distancia +
-                    "px"
-                );
+        const distancia =
+            60 +
+            Math.random() * 130;
 
 
-                contenedor.appendChild(
-                    particula
-                );
+        const destinoX =
+            Math.cos(angulo) *
+            distancia;
 
 
-                setTimeout(() => {
+        const destinoY =
+            Math.sin(angulo) *
+            distancia;
 
-                    particula.remove();
 
-                }, 1600);
-            }
+        particula.style.left =
+            `${x}%`;
 
-        }, explosion * 500);
+        particula.style.top =
+            `${y}%`;
+
+
+        particula.style.setProperty(
+            "--x",
+            `${destinoX}px`
+        );
+
+        particula.style.setProperty(
+            "--y",
+            `${destinoY}px`
+        );
+
+
+        particula.style.animationDelay =
+            `${Math.random() * 0.15}s`;
+
+
+        document
+            .getElementById("fuegos")
+            .appendChild(particula);
+
+
+        setTimeout(() => {
+
+            particula.remove();
+
+        }, 2200);
     }
 }
