@@ -10,7 +10,9 @@ for (let i = 0; i < 45; i++) {
     const particula =
         document.createElement("div");
 
-    particula.classList.add("particula");
+    particula.classList.add(
+        "particula"
+    );
 
     const tamaño =
         Math.random() * 4 + 2;
@@ -42,71 +44,108 @@ for (let i = 0; i < 45; i++) {
    ===================================================== */
 
 const viajeInicial =
-    document.getElementById("viajeInicial");
+    document.getElementById(
+        "viajeInicial"
+    );
 
 const inicio =
-    document.getElementById("inicio");
+    document.getElementById(
+        "inicio"
+    );
 
 const carta =
-    document.getElementById("carta");
+    document.getElementById(
+        "carta"
+    );
 
 const segunda =
-    document.getElementById("segunda");
+    document.getElementById(
+        "segunda"
+    );
 
 const final =
-    document.getElementById("final");
+    document.getElementById(
+        "final"
+    );
 
 const botonAbrir =
-    document.getElementById("botonAbrir");
+    document.getElementById(
+        "botonAbrir"
+    );
 
 const continuar =
-    document.getElementById("continuar");
+    document.getElementById(
+        "continuar"
+    );
 
 const continuar2 =
-    document.getElementById("continuar2");
+    document.getElementById(
+        "continuar2"
+    );
 
 const avionInicial =
-    document.getElementById("avionInicial");
+    document.getElementById(
+        "avionInicial"
+    );
 
 const rutaInicial =
-    document.getElementById("rutaInicial");
+    document.getElementById(
+        "rutaInicial"
+    );
 
 const mapaSvg =
-    document.getElementById("mapaSvg");
+    document.getElementById(
+        "mapaSvg"
+    );
 
 const textoViaje =
-    document.getElementById("textoViaje");
+    document.getElementById(
+        "textoViaje"
+    );
 
 const diasElemento =
-    document.getElementById("dias");
+    document.getElementById(
+        "dias"
+    );
 
 const horasElemento =
-    document.getElementById("horas");
+    document.getElementById(
+        "horas"
+    );
 
 const minutosElemento =
-    document.getElementById("minutos");
+    document.getElementById(
+        "minutos"
+    );
 
 const segundosElemento =
-    document.getElementById("segundos");
+    document.getElementById(
+        "segundos"
+    );
 
 
 
 /* =====================================================
-   FECHAS DEL VIAJE
+   FECHAS
    ===================================================== */
 
 const inicioViaje =
-    new Date("2026-09-28T00:00:00");
+    new Date(
+        "2026-09-28T00:00:00"
+    );
 
 const llegadaViaje =
-    new Date("2026-10-18T00:00:00");
+    new Date(
+        "2026-10-18T00:00:00"
+    );
 
-let llegadaProcesada = false;
+let llegadaProcesada =
+    false;
 
 
 
 /* =====================================================
-   CUENTA REGRESIVA
+   CONTADOR
    ===================================================== */
 
 function actualizarContador() {
@@ -120,10 +159,17 @@ function actualizarContador() {
 
     if (diferencia <= 0) {
 
-        diasElemento.textContent = "00";
-        horasElemento.textContent = "00";
-        minutosElemento.textContent = "00";
-        segundosElemento.textContent = "00";
+        diasElemento.textContent =
+            "00";
+
+        horasElemento.textContent =
+            "00";
+
+        minutosElemento.textContent =
+            "00";
+
+        segundosElemento.textContent =
+            "00";
 
         textoViaje.textContent =
             "💌 ¡La carta llegó a Costa Rica!";
@@ -170,22 +216,34 @@ function actualizarContador() {
 
 
     diasElemento.textContent =
-        String(dias).padStart(2, "0");
+        String(dias).padStart(
+            2,
+            "0"
+        );
 
     horasElemento.textContent =
-        String(horas).padStart(2, "0");
+        String(horas).padStart(
+            2,
+            "0"
+        );
 
     minutosElemento.textContent =
-        String(minutos).padStart(2, "0");
+        String(minutos).padStart(
+            2,
+            "0"
+        );
 
     segundosElemento.textContent =
-        String(segundos).padStart(2, "0");
+        String(segundos).padStart(
+            2,
+            "0"
+        );
 }
 
 
 
 /* =====================================================
-   POSICIÓN Y RUMBO DEL AVIÓN
+   AVIÓN
    ===================================================== */
 
 function actualizarAvion() {
@@ -203,13 +261,10 @@ function actualizarAvion() {
         new Date();
 
 
-    /* ---------------------------------------------
-       CALCULAR PROGRESO DEL VIAJE
-       --------------------------------------------- */
-
     const tiempoTotal =
         llegadaViaje -
         inicioViaje;
+
 
     const tiempoTranscurrido =
         ahora -
@@ -231,9 +286,8 @@ function actualizarAvion() {
         );
 
 
-
     /* ---------------------------------------------
-       OBTENER LONGITUD TOTAL DE LA CURVA
+       LONGITUD DE LA RUTA
        --------------------------------------------- */
 
     const longitud =
@@ -247,7 +301,7 @@ function actualizarAvion() {
 
 
     /* ---------------------------------------------
-       PUNTO ACTUAL
+       POSICIÓN ACTUAL
        --------------------------------------------- */
 
     const puntoActual =
@@ -258,28 +312,21 @@ function actualizarAvion() {
 
 
     /* ---------------------------------------------
-       PUNTO HACIA ADELANTE
-       
-       Este punto permite calcular exactamente
-       hacia dónde está avanzando el avión.
+       PUNTO SIGUIENTE
        --------------------------------------------- */
-
-    const distanciaAdelante =
-        Math.min(
-            longitud,
-            distancia + 5
-        );
-
 
     const puntoSiguiente =
         rutaInicial.getPointAtLength(
-            distanciaAdelante
+            Math.min(
+                longitud,
+                distancia + 5
+            )
         );
 
 
 
     /* ---------------------------------------------
-       CALCULAR DIRECCIÓN DE LA CURVA
+       DIRECCIÓN EXACTA DE LA CURVA
        --------------------------------------------- */
 
     const dx =
@@ -301,27 +348,26 @@ function actualizarAvion() {
         Math.PI;
 
 
+    /*
+        El emoji ✈️ apunta originalmente
+        hacia arriba.
 
-    /* ---------------------------------------------
-       CORRECCIÓN DE ORIENTACIÓN DEL EMOJI
-
-       El emoji ✈️ no apunta hacia la derecha
-       como un vector matemático normal.
-
-       Esta corrección hace que la punta del
-       avión coincida con el rumbo calculado.
-       --------------------------------------------- */
+        Se corrige para que su punta
+        coincida con la dirección de
+        la curva.
+    */
 
     angulo += 90;
 
 
 
     /* ---------------------------------------------
-       CONVERTIR COORDENADAS SVG A PANTALLA
+       CONVERTIR SVG A PANTALLA
        --------------------------------------------- */
 
     const puntoSVG =
         mapaSvg.createSVGPoint();
+
 
     puntoSVG.x =
         puntoActual.x;
@@ -353,6 +399,7 @@ function actualizarAvion() {
         puntoPantalla.x -
         rectMapa.left;
 
+
     const y =
         puntoPantalla.y -
         rectMapa.top;
@@ -360,7 +407,7 @@ function actualizarAvion() {
 
 
     /* ---------------------------------------------
-       MOVER EL AVIÓN
+       MOVER AVIÓN
        --------------------------------------------- */
 
     avionInicial.style.left =
@@ -372,7 +419,7 @@ function actualizarAvion() {
 
 
     /* ---------------------------------------------
-       ROTAR EL EMOJI
+       ROTAR AVIÓN
        --------------------------------------------- */
 
     const avionEmoji =
@@ -390,7 +437,7 @@ function actualizarAvion() {
 
 
     /* ---------------------------------------------
-       LLEGADA A COSTA RICA
+       LLEGADA
        --------------------------------------------- */
 
     if (progreso >= 1) {
@@ -473,7 +520,7 @@ continuar.addEventListener(
 
 
 /* =====================================================
-   SEGUNDA ESCENA → FINAL
+   SEGUNDA → FINAL
    ===================================================== */
 
 continuar2.addEventListener(
@@ -500,13 +547,15 @@ continuar2.addEventListener(
 
 
 /* =====================================================
-   FUEGOS ARTIFICIALES
+   FUEGOS
    ===================================================== */
 
 function crearFuego() {
 
     const fuego =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     fuego.classList.add(
@@ -529,13 +578,14 @@ function crearFuego() {
     fuego.style.width =
         `${tamaño}px`;
 
-
     fuego.style.height =
         `${tamaño}px`;
 
 
     document
-        .getElementById("fuegos")
+        .getElementById(
+            "fuegos"
+        )
         .appendChild(
             fuego
         );
@@ -547,7 +597,6 @@ function crearFuego() {
 
     }, 1800);
 }
-
 
 
 function iniciarFuegos() {
@@ -584,11 +633,6 @@ actualizarContador();
 
 actualizarAvion();
 
-
-
-/* =====================================================
-   ACTUALIZACIONES
-   ===================================================== */
 
 setInterval(
     actualizarContador,
