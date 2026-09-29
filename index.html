@@ -19,7 +19,10 @@
 
 <body>
 
-    <!-- PARTICULAS -->
+    <!-- =====================================================
+         PARTICULAS
+         ===================================================== -->
+
     <div
         class="particulas"
         id="particulas"
@@ -42,7 +45,7 @@
 
         <div class="mapa">
 
-            <!-- MAPA LOCAL -->
+            <!-- MAPA REAL DE AMÉRICA -->
             <img
                 src="america.svg"
                 class="mapa-america"
@@ -50,48 +53,49 @@
             >
 
 
-            <!-- RUTA -->
+            <!-- CAPA PARA LA RUTA -->
             <svg
                 id="mapaSvg"
                 class="ruta-svg"
-                viewBox="0 0 1000 600"
+                viewBox="0 0 1000 1000"
                 preserveAspectRatio="xMidYMid meet"
             >
 
+                <!-- Ruta Colombia → Costa Rica -->
                 <path
                     id="rutaInicial"
                     class="ruta-curva"
-                    d="
-                        M 490 410
+                    d="M 540 610
+                       C 525 575
+                         510 535
+                         495 500
+                       C 485 475
+                         475 455
+                         465 435"
+                ></path>
 
-                        C 475 375
-                          480 335
-                          500 300
 
-                        C 515 275
-                          535 250
-                          555 225
-                    "
-                />
-
+                <!-- Punto Colombia -->
                 <circle
                     class="punto-mapa"
-                    cx="490"
-                    cy="410"
-                    r="6"
-                />
+                    cx="540"
+                    cy="610"
+                    r="7"
+                ></circle>
 
+
+                <!-- Punto Costa Rica -->
                 <circle
                     class="punto-mapa"
-                    cx="555"
-                    cy="225"
-                    r="6"
-                />
+                    cx="465"
+                    cy="435"
+                    r="7"
+                ></circle>
 
             </svg>
 
 
-            <!-- AVION -->
+            <!-- AVIÓN -->
             <div
                 id="avionInicial"
                 class="avion"
@@ -108,24 +112,18 @@
             </div>
 
 
-            <!-- PAISES -->
-            <div
-                class="nombre-pais colombia-nombre"
-            >
+            <!-- NOMBRES -->
+            <div class="nombre-pais colombia-nombre">
                 🇨🇴 Colombia
             </div>
 
-
-            <div
-                class="nombre-pais costa-rica-nombre"
-            >
+            <div class="nombre-pais costa-rica-nombre">
                 🇨🇷 Costa Rica
             </div>
 
         </div>
 
 
-        <!-- TEXTO -->
         <p
             class="viaje-inicial-texto"
             id="textoViaje"
@@ -134,76 +132,43 @@
         </p>
 
 
-        <!-- CONTADOR -->
+        <!-- CUENTA REGRESIVA -->
+
         <div
             class="contador"
             id="contador"
         >
 
             <div class="contador-bloque">
-
-                <span id="dias">
-                    00
-                </span>
-
-                <small>
-                    DÍAS
-                </small>
-
+                <span id="dias">00</span>
+                <small>DÍAS</small>
             </div>
-
 
             <div class="separador">
                 :
             </div>
 
-
             <div class="contador-bloque">
-
-                <span id="horas">
-                    00
-                </span>
-
-                <small>
-                    HORAS
-                </small>
-
+                <span id="horas">00</span>
+                <small>HORAS</small>
             </div>
-
 
             <div class="separador">
                 :
             </div>
 
-
             <div class="contador-bloque">
-
-                <span id="minutos">
-                    00
-                </span>
-
-                <small>
-                    MIN
-                </small>
-
+                <span id="minutos">00</span>
+                <small>MIN</small>
             </div>
-
 
             <div class="separador">
                 :
             </div>
 
-
             <div class="contador-bloque">
-
-                <span id="segundos">
-                    00
-                </span>
-
-                <small>
-                    SEG
-                </small>
-
+                <span id="segundos">00</span>
+                <small>SEG</small>
             </div>
 
         </div>
@@ -242,7 +207,7 @@
 
 
     <!-- =====================================================
-         ESCENA 1
+         PRIMERA ESCENA
          ===================================================== -->
 
     <section
@@ -272,7 +237,7 @@
 
 
     <!-- =====================================================
-         ESCENA 2
+         SEGUNDA ESCENA
          ===================================================== -->
 
     <section
@@ -294,14 +259,14 @@
         </p>
 
         <p>
-            Gracias también por ayudarme
-            a quererme un poco más a mí mismo.
+            Gracias también por ayudarme a quererme
+            un poco más a mí mismo.
         </p>
 
         <p>
-            Puede que no siempre encuentre
-            las palabras correctas para decirte
-            lo mucho que significas para mí...
+            Puede que no siempre encuentre las palabras
+            correctas para decirte lo mucho que significas
+            para mí...
         </p>
 
         <button id="continuar2">
@@ -348,7 +313,6 @@
 
         <div class="firma">
             Con cariño,<br>
-
             <strong>
                 Luis ❤️
             </strong>
@@ -360,4 +324,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>
