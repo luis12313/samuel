@@ -39,20 +39,12 @@
 
                 <!-- ==============================
                      CAPA SUPERIOR DEL MAPA
-
-                     IMPORTANTE:
-                     america.svg utiliza:
-
-                     viewBox="800 250 1100 850"
-
-                     Por eso el overlay utiliza
-                     exactamente el mismo sistema.
                 =============================== -->
                 <svg
                     id="overlayMapa"
                     class="overlay-mapa"
                     viewBox="800 250 1100 850"
-                    preserveAspectRatio="none"
+                    preserveAspectRatio="xMidYMid meet"
                     aria-hidden="true"
                 >
 
@@ -74,13 +66,7 @@
                         "
                     />
 
-                    <!-- ==========================
-                         PUNTO COLOMBIA
-
-                         Coordenadas calculadas
-                         dentro del viewBox real
-                         de america.svg.
-                    =========================== -->
+                    <!-- PUNTO COLOMBIA -->
                     <circle
                         id="puntoColombia"
                         cx="1654"
@@ -88,9 +74,7 @@
                         r="10"
                     />
 
-                    <!-- ==========================
-                         PUNTO COSTA RICA
-                    =========================== -->
+                    <!-- PUNTO COSTA RICA -->
                     <circle
                         id="puntoCostaRica"
                         cx="1462"
@@ -98,9 +82,7 @@
                         r="10"
                     />
 
-                    <!-- ==========================
-                         NOMBRE COLOMBIA
-                    =========================== -->
+                    <!-- NOMBRE COLOMBIA -->
                     <text
                         x="1654"
                         y="875"
@@ -110,9 +92,7 @@
                         COLOMBIA 🇨🇴
                     </text>
 
-                    <!-- ==========================
-                         NOMBRE COSTA RICA
-                    =========================== -->
+                    <!-- NOMBRE COSTA RICA -->
                     <text
                         x="1462"
                         y="700"
@@ -124,9 +104,6 @@
 
                     <!-- ==========================
                          AVIÓN
-
-                         script.js mueve este grupo
-                         mediante transform="translate(...)"
                     =========================== -->
                     <g id="avion">
 
@@ -287,9 +264,6 @@
     <div id="particulas"></div>
 
 
-    <!-- ==============================
-         JAVASCRIPT
-    =============================== -->
     <script src="script.js"></script>
 
 </body>
