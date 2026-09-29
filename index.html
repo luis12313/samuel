@@ -31,7 +31,7 @@
 
 
     <!-- =====================================================
-         VIAJE INICIAL
+         VIAJE
          ===================================================== -->
 
     <section
@@ -47,280 +47,71 @@
         <div class="mapa">
 
             <!--
-                MAPA DE AMÉRICA
+                MAPA REAL
 
-                El SVG contiene América del Norte,
-                Centroamérica y América del Sur.
-
-                Colombia y Costa Rica están
-                resaltados.
+                Basado en Natural Earth.
+                El SVG contiene las fronteras
+                de los países.
             -->
+
+            <img
+                class="mapa-america"
+                src="https://upload.wikimedia.org/wikipedia/commons/5/5e/NED_worldmap_110m.svg"
+                alt="Mapa de América"
+            >
+
+
+            <!-- =================================================
+                 CAPA PARA LA RUTA
+                 ================================================= -->
 
             <svg
                 id="mapaSvg"
-                class="mapa-svg"
-                viewBox="0 0 1000 650"
+                class="ruta-svg"
+                viewBox="0 0 800 400"
+                preserveAspectRatio="xMidYMid meet"
                 xmlns="http://www.w3.org/2000/svg"
             >
 
-                <!-- =================================================
-                     AMÉRICA DEL NORTE
-                     ================================================= -->
+                <!--
+                    Colombia → Costa Rica
 
-                <path
-                    class="continente"
-                    d="
-                    M100 95
-                    L145 65
-                    L205 55
-                    L260 70
-                    L320 62
-                    L380 80
-                    L430 105
-                    L470 140
-                    L505 175
-                    L530 205
-                    L515 225
-                    L485 215
-                    L460 230
-                    L430 215
-                    L400 205
-                    L370 190
-                    L345 175
-                    L315 165
-                    L285 155
-                    L250 145
-                    L215 135
-                    L180 125
-                    L145 120
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     MÉXICO
-                     ================================================= -->
-
-                <path
-                    class="pais-secundario"
-                    d="
-                    M280 180
-                    L310 185
-                    L335 200
-                    L355 215
-                    L370 230
-                    L365 245
-                    L345 250
-                    L330 240
-                    L315 225
-                    L295 215
-                    L275 205
-                    L265 190
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     CENTROAMÉRICA
-                     ================================================= -->
-
-                <path
-                    class="centroamerica"
-                    d="
-                    M365 245
-                    C390 250
-                    410 258
-                    425 270
-
-                    C440 282
-                    455 292
-                    470 300
-
-                    C485 307
-                    500 315
-                    515 325
-
-                    C530 333
-                    545 338
-                    560 342
-                    "
-                />
-
-
-                <!-- =================================================
-                     COSTA RICA
-                     ================================================= -->
-
-                <path
-                    id="costaRica"
-                    class="pais-destino"
-                    d="
-                    M468 296
-                    L478 291
-                    L489 295
-                    L498 302
-                    L505 310
-                    L500 318
-                    L490 321
-                    L480 318
-                    L471 313
-                    L464 306
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     PANAMÁ
-                     ================================================= -->
-
-                <path
-                    class="pais-secundario"
-                    d="
-                    M505 310
-                    C520 315
-                    535 320
-                    550 330
-                    L565 342
-                    L552 350
-                    L535 344
-                    L520 337
-                    L505 325
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     AMÉRICA DEL SUR
-                     ================================================= -->
-
-                <path
-                    class="continente"
-                    d="
-                    M565 345
-                    L590 355
-                    L610 375
-                    L625 405
-                    L635 440
-                    L630 475
-                    L615 510
-                    L600 545
-                    L580 575
-                    L555 600
-                    L530 615
-                    L510 605
-                    L500 580
-                    L485 555
-                    L470 525
-                    L455 490
-                    L445 455
-                    L450 420
-                    L460 390
-                    L475 365
-                    L495 350
-                    L520 340
-                    L545 340
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     COLOMBIA
-                     ================================================= -->
-
-                <path
-                    id="colombia"
-                    class="pais-origen"
-                    d="
-                    M490 345
-                    L505 333
-                    L522 338
-                    L538 348
-                    L550 362
-                    L548 378
-                    L558 391
-                    L550 405
-                    L538 416
-                    L530 432
-                    L518 438
-                    L505 430
-                    L495 417
-                    L482 410
-                    L470 397
-                    L462 382
-                    L468 368
-                    L478 357
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     RUTA DEL AVIÓN
-                     ================================================= -->
+                    La ruta se dibuja sobre el mapa.
+                -->
 
                 <path
                     id="rutaInicial"
                     class="ruta-curva"
                     d="
-                    M515 382
+                        M 218 276
 
-                    C500 330
-                    450 265
-                    420 220
+                        C 205 250
+                          214 220
+                          236 195
 
-                    C385 170
-                    350 145
-                    315 130
-                    "
-                    style="
-                    display:none;
+                        C 255 173
+                          275 157
+                          292 145
                     "
                 />
 
-            </svg>
+                <!-- Puntos de origen y destino -->
 
+                <circle
+                    class="punto-mapa"
+                    cx="218"
+                    cy="276"
+                    r="5"
+                />
 
-            <!-- =================================================
-                 RUTA VISUAL SOBRE EL MAPA
-
-                 Esta ruta es independiente del mapa
-                 para poder controlar perfectamente
-                 el vuelo del avión.
-                 ================================================= -->
-
-            <svg
-                class="ruta-overlay"
-                viewBox="0 0 1000 650"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-
-                <path
-                    id="rutaVisible"
-                    class="ruta-visible"
-                    d="
-                    M515 382
-
-                    C500 330
-                    470 290
-                    450 250
-
-                    C425 205
-                    390 165
-                    350 145
-
-                    C320 130
-                    300 125
-                    280 125
-                    "
+                <circle
+                    class="punto-mapa"
+                    cx="292"
+                    cy="145"
+                    r="5"
                 />
 
             </svg>
-
 
 
             <!-- =================================================
@@ -343,9 +134,8 @@
             </div>
 
 
-
             <!-- =================================================
-                 NOMBRES
+                 ETIQUETAS
                  ================================================= -->
 
             <div
@@ -388,6 +178,7 @@
         >
 
             <div class="contador-bloque">
+
                 <span id="dias">
                     00
                 </span>
@@ -395,6 +186,7 @@
                 <small>
                     DÍAS
                 </small>
+
             </div>
 
 
@@ -404,6 +196,7 @@
 
 
             <div class="contador-bloque">
+
                 <span id="horas">
                     00
                 </span>
@@ -411,6 +204,7 @@
                 <small>
                     HORAS
                 </small>
+
             </div>
 
 
@@ -420,6 +214,7 @@
 
 
             <div class="contador-bloque">
+
                 <span id="minutos">
                     00
                 </span>
@@ -427,6 +222,7 @@
                 <small>
                     MIN
                 </small>
+
             </div>
 
 
@@ -436,6 +232,7 @@
 
 
             <div class="contador-bloque">
+
                 <span id="segundos">
                     00
                 </span>
@@ -443,6 +240,7 @@
                 <small>
                     SEG
                 </small>
+
             </div>
 
         </div>
@@ -587,6 +385,7 @@
 
         <div class="firma">
             Con cariño,<br>
+
             <strong>
                 Luis ❤️
             </strong>
@@ -595,10 +394,6 @@
     </section>
 
 
-
-    <!-- =====================================================
-         JAVASCRIPT
-         ===================================================== -->
 
     <script src="script.js"></script>
 
