@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Samuel ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- PARTICULAS -->
+    <div class="particulas" id="particulas"></div>
+
+
+    <!-- ==========================================
+         VIAJE INICIAL
+         ========================================== -->
+
+    <section class="viaje-inicial" id="viajeInicial">
+
+        <div class="viaje-titulo">
+            Una pequeña carta...
+        </div>
+
+
+        <div class="mapa mapa-inicial">
+
+            <svg
+                class="mapa-svg"
+                viewBox="0 0 700 330"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <!-- COLOMBIA -->
+                <path
+                    class="territorio colombia-mapa"
+                    d="M105 90
+                       L130 70
+                       L155 78
+                       L171 95
+                       L190 105
+                       L185 125
+                       L205 142
+                       L190 158
+                       L172 151
+                       L158 170
+                       L145 162
+                       L130 180
+                       L112 168
+                       L95 150
+                       L105 132
+                       L90 115
+                       Z"
+                />
+
+
+                <!-- CENTROAMÉRICA -->
+                <path
+                    class="centroamerica"
+                    d="M205 142
+                       C225 135 240 130 255 137
+                       C270 145 280 150 292 155
+                       C305 162 320 168 335 171
+                       C350 174 365 178 380 181
+                       C392 183 405 183 415 181"
+                />
+
+
+                <!-- COSTA RICA -->
+                <path
+                    class="territorio costa-rica-mapa"
+                    d="M397 169
+                       L410 164
+                       L423 170
+                       L431 181
+                       L423 191
+                       L409 194
+                       L398 187
+                       L390 177
+                       Z"
+                />
+
+
+                <!-- RUTA DEL AVIÓN -->
+                <path
+                    id="rutaInicial"
+                    class="ruta-curva"
+                    d="M171 142
+                       C245 85 347 88 415 181"
+                />
+
+
+                <!-- PUNTOS -->
+                <circle
+                    class="punto-mapa"
+                    cx="171"
+                    cy="142"
+                    r="7"
+                />
+
+                <circle
+                    class="punto-mapa"
+                    cx="415"
+                    cy="181"
+                    r="7"
+                />
+
+
+                <!-- AVIÓN + CARTA -->
+                <g id="avionInicial">
+
+                    <text
+                        class="avion-icono"
+                        x="0"
+                        y="0"
+                    >
+                        ✈
+                    </text>
+
+                    <text
+                        class="carta-icono"
+                        x="0"
+                        y="19"
+                    >
+                        💌
+                    </text>
+
+                </g>
+
+            </svg>
+
+
+            <!-- NOMBRES -->
+            <div class="nombre-pais colombia-nombre">
+                🇨🇴 Colombia
+            </div>
+
+            <div class="nombre-pais costa-rica-nombre">
+                🇨🇷 Costa Rica
+            </div>
+
+        </div>
+
+
+        <p class="viaje-inicial-texto">
+            💌 Viajando desde Colombia hasta Costa Rica...
+        </p>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         PORTADA
+         ========================================== -->
+
+    <main class="inicio" id="inicio">
+
+        <div class="corazon">
+            ♥
+        </div>
+
+        <h1>
+            Para Samuel
+        </h1>
+
+        <p>
+            Hice algo especialmente para ti...
+        </p>
+
+        <button id="botonAbrir">
+            ABRIR ❤️
+        </button>
+
+    </main>
+
+
+
+    <!-- ==========================================
+         PRIMERA ESCENA
+         ========================================== -->
+
+    <section class="escena carta" id="carta">
+
+        <div class="icono">
+            💌
+        </div>
+
+        <h2>
+            Hay algo que quiero agradecerte...
+        </h2>
+
+        <p>
+            Gracias por hacerme entender muchas cosas que antes no sabía.
+        </p>
+
+        <button id="continuar">
+            CONTINUAR
+        </button>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         SEGUNDA ESCENA
+         ========================================== -->
+
+    <section class="escena segunda" id="segunda">
+
+        <div class="icono">
+            💜
+        </div>
+
+        <h2>
+            Quiero que sepas algo, Samuel...
+        </h2>
+
+        <p>
+            Gracias por hacer que entienda cosas que antes no sabía.
+        </p>
+
+        <p>
+            Gracias también por ayudarme a quererme un poco más a mí mismo.
+        </p>
+
+        <p>
+            Puede que no siempre encuentre las palabras correctas
+            para decirte lo mucho que significas para mí...
+        </p>
+
+        <button id="continuar2">
+            CONTINUAR
+        </button>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         FINAL
+         ========================================== -->
+
+    <section class="escena final" id="final">
+
+        <div
+            class="fuegos"
+            id="fuegos"
+        ></div>
+
+
+        <div class="icono">
+            🎂
+        </div>
+
+
+        <h2>
+            FELICES 15 AÑOS, SAMUEL ❤️
+        </h2>
+
+
+        <p>
+            Espero que este nuevo año de tu vida esté lleno de
+            momentos bonitos, nuevas experiencias y muchas razones
+            para sonreír.
+        </p>
+
+
+        <p>
+            Gracias por estar en mi vida, incluso a pesar de la distancia.
+        </p>
+
+
+        <div class="firma">
+            Con cariño,<br>
+            <strong>Luis ❤️</strong>
+        </div>
+
+    </section>
+
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
