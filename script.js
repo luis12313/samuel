@@ -55,8 +55,6 @@ const mensajeViaje =
     Costa Rica:
         1462,731
 
-    Por lo tanto:
-
     0%   = Colombia
     100% = Costa Rica
 */
@@ -116,14 +114,6 @@ function bezier(
 
 function calcularPosicion(progreso) {
 
-    /*
-        Colombia
-             ↓
-        curva
-             ↓
-        Costa Rica
-    */
-
     return bezier(
 
         colombia.x,
@@ -174,7 +164,9 @@ function actualizarViaje() {
         );
 
 
-    /* Posición */
+    /* =====================================
+       POSICIÓN DEL AVIÓN
+    ====================================== */
 
     const posicion =
         calcularPosicion(
@@ -182,9 +174,45 @@ function actualizarViaje() {
         );
 
 
+    /* =====================================
+       DIRECCIÓN DEL AVIÓN
+    ====================================== */
+
+    const progresoSiguiente =
+        Math.min(
+            1,
+            progreso + 0.001
+        );
+
+
+    const siguiente =
+        calcularPosicion(
+            progresoSiguiente
+        );
+
+
+    const dx =
+        siguiente.x -
+        posicion.x;
+
+
+    const dy =
+        siguiente.y -
+        posicion.y;
+
+
+    const angulo =
+        Math.atan2(
+            dy,
+            dx
+        ) *
+        180 /
+        Math.PI;
+
+
     avion.setAttribute(
         "transform",
-        `translate(${posicion.x}, ${posicion.y})`
+        `translate(${posicion.x}, ${posicion.y}) rotate(${angulo + 45})`
     );
 
 
