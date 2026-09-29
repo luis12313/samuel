@@ -11,13 +11,13 @@
 
 <body>
 
-    <!-- PARTICULAS -->
+    <!-- PARTÍCULAS -->
     <div class="particulas" id="particulas"></div>
 
 
-    <!-- ==========================================
+    <!-- =====================================================
          VIAJE INICIAL
-         ========================================== -->
+         ===================================================== -->
 
     <section class="viaje-inicial" id="viajeInicial">
 
@@ -26,111 +26,126 @@
         </div>
 
 
-        <div class="mapa mapa-inicial">
+        <div class="mapa">
 
+            <!-- MAPA -->
             <svg
+                id="mapaSvg"
                 class="mapa-svg"
-                viewBox="0 0 700 330"
+                viewBox="0 0 900 500"
                 xmlns="http://www.w3.org/2000/svg"
             >
 
                 <!-- COLOMBIA -->
+                <!-- Silueta estilizada basada en la forma geográfica real -->
                 <path
-                    class="territorio colombia-mapa"
-                    d="M105 90
-                       L130 70
-                       L155 78
-                       L171 95
-                       L190 105
-                       L185 125
-                       L205 142
-                       L190 158
-                       L172 151
-                       L158 170
-                       L145 162
-                       L130 180
-                       L112 168
-                       L95 150
-                       L105 132
-                       L90 115
-                       Z"
+                    id="colombia"
+                    class="pais"
+                    d="
+                    M150 150
+                    L165 132
+                    L180 124
+                    L190 105
+                    L207 98
+                    L222 108
+                    L239 104
+                    L254 116
+                    L270 118
+                    L286 131
+                    L300 139
+                    L308 154
+                    L300 168
+                    L309 184
+                    L298 200
+                    L286 214
+                    L276 230
+                    L265 245
+                    L250 250
+                    L242 268
+                    L228 279
+                    L216 294
+                    L200 299
+                    L187 292
+                    L174 301
+                    L160 291
+                    L148 280
+                    L137 264
+                    L128 248
+                    L116 238
+                    L120 222
+                    L111 208
+                    L120 192
+                    L130 180
+                    L126 166
+                    Z
+                    "
                 />
-
-
-                <!-- CENTROAMÉRICA -->
-                <path
-                    class="centroamerica"
-                    d="M205 142
-                       C225 135 240 130 255 137
-                       C270 145 280 150 292 155
-                       C305 162 320 168 335 171
-                       C350 174 365 178 380 181
-                       C392 183 405 183 415 181"
-                />
-
 
                 <!-- COSTA RICA -->
                 <path
-                    class="territorio costa-rica-mapa"
-                    d="M397 169
-                       L410 164
-                       L423 170
-                       L431 181
-                       L423 191
-                       L409 194
-                       L398 187
-                       L390 177
-                       Z"
+                    id="costaRica"
+                    class="pais costa-rica"
+                    d="
+                    M665 218
+                    L678 210
+                    L692 214
+                    L703 222
+                    L716 224
+                    L728 232
+                    L737 243
+                    L733 254
+                    L722 262
+                    L708 264
+                    L696 259
+                    L683 263
+                    L671 256
+                    L660 246
+                    L651 238
+                    L655 228
+                    Z
+                    "
                 />
-
 
                 <!-- RUTA -->
                 <path
                     id="rutaInicial"
                     class="ruta-curva"
-                    d="M171 142
-                       C245 85 347 88 415 181"
+                    d="
+                    M255 205
+                    C350 90 520 95 690 240
+                    "
                 />
 
-
-                <!-- PUNTOS -->
+                <!-- PUNTOS DE SALIDA Y LLEGADA -->
                 <circle
                     class="punto-mapa"
-                    cx="171"
-                    cy="142"
-                    r="7"
+                    cx="255"
+                    cy="205"
+                    r="8"
                 />
 
                 <circle
                     class="punto-mapa"
-                    cx="415"
-                    cy="181"
-                    r="7"
+                    cx="690"
+                    cy="240"
+                    r="8"
                 />
-
-
-                <!-- AVIÓN -->
-                <g id="avionInicial">
-
-                    <text
-                        class="avion-icono"
-                        x="0"
-                        y="0"
-                    >
-                        ✈
-                    </text>
-
-                    <text
-                        class="carta-icono"
-                        x="0"
-                        y="19"
-                    >
-                        💌
-                    </text>
-
-                </g>
 
             </svg>
+
+
+            <!-- AVIÓN -->
+            <div id="avionInicial" class="avion">
+
+                <div class="avion-emoji">
+                    ✈️
+                </div>
+
+                <div class="carta-emoji">
+                    💌
+                </div>
+
+            </div>
 
 
             <!-- NOMBRES -->
@@ -145,7 +160,7 @@
         </div>
 
 
-        <!-- MENSAJE -->
+        <!-- TEXTO -->
         <p
             class="viaje-inicial-texto"
             id="textoViaje"
@@ -154,7 +169,7 @@
         </p>
 
 
-        <!-- CONTADOR -->
+        <!-- CUENTA REGRESIVA -->
         <div
             class="contador"
             id="contador"
@@ -165,27 +180,21 @@
                 <small>DÍAS</small>
             </div>
 
-            <div class="separador">
-                :
-            </div>
+            <div class="separador">:</div>
 
             <div class="contador-bloque">
                 <span id="horas">00</span>
                 <small>HORAS</small>
             </div>
 
-            <div class="separador">
-                :
-            </div>
+            <div class="separador">:</div>
 
             <div class="contador-bloque">
                 <span id="minutos">00</span>
                 <small>MIN</small>
             </div>
 
-            <div class="separador">
-                :
-            </div>
+            <div class="separador">:</div>
 
             <div class="contador-bloque">
                 <span id="segundos">00</span>
@@ -198,9 +207,9 @@
 
 
 
-    <!-- ==========================================
+    <!-- =====================================================
          PORTADA
-         ========================================== -->
+         ===================================================== -->
 
     <main
         class="inicio"
@@ -227,9 +236,9 @@
 
 
 
-    <!-- ==========================================
+    <!-- =====================================================
          PRIMERA ESCENA
-         ========================================== -->
+         ===================================================== -->
 
     <section
         class="escena carta"
@@ -245,8 +254,7 @@
         </h2>
 
         <p>
-            Gracias por hacerme entender muchas cosas
-            que antes no sabía.
+            Gracias por hacerme entender muchas cosas que antes no sabía.
         </p>
 
         <button id="continuar">
@@ -257,9 +265,9 @@
 
 
 
-    <!-- ==========================================
+    <!-- =====================================================
          SEGUNDA ESCENA
-         ========================================== -->
+         ===================================================== -->
 
     <section
         class="escena segunda"
@@ -275,19 +283,15 @@
         </h2>
 
         <p>
-            Gracias por hacer que entienda cosas
-            que antes no sabía.
+            Gracias por hacer que entienda cosas que antes no sabía.
         </p>
 
         <p>
-            Gracias también por ayudarme
-            a quererme un poco más a mí mismo.
+            Gracias también por ayudarme a quererme un poco más a mí mismo.
         </p>
 
         <p>
-            Puede que no siempre encuentre las palabras
-            correctas para decirte lo mucho que significas
-            para mí...
+            Puede que no siempre encuentre las palabras correctas para decirte lo mucho que significas para mí...
         </p>
 
         <button id="continuar2">
@@ -298,9 +302,9 @@
 
 
 
-    <!-- ==========================================
+    <!-- =====================================================
          FINAL
-         ========================================== -->
+         ===================================================== -->
 
     <section
         class="escena final"
@@ -312,30 +316,22 @@
             id="fuegos"
         ></div>
 
-
         <div class="icono">
             🎂
         </div>
-
 
         <h2>
             FELICES 15 AÑOS, SAMUEL ❤️
         </h2>
 
-
         <p>
-            Espero que este nuevo año de tu vida
-            esté lleno de momentos bonitos,
-            nuevas experiencias y muchas razones
-            para sonreír.
+            Espero que este nuevo año de tu vida esté lleno de momentos bonitos,
+            nuevas experiencias y muchas razones para sonreír.
         </p>
 
-
         <p>
-            Gracias por estar en mi vida,
-            incluso a pesar de la distancia.
+            Gracias por estar en mi vida, incluso a pesar de la distancia.
         </p>
-
 
         <div class="firma">
             Con cariño,<br>
@@ -343,7 +339,6 @@
         </div>
 
     </section>
-
 
 
     <script src="script.js"></script>
