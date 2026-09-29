@@ -1,608 +1,607 @@
-/* =====================================================
-   PARTICULAS
-   ===================================================== */
-
-const contenedorParticulas =
-    document.getElementById("particulas");
-
-for (let i = 0; i < 45; i++) {
-
-    const particula =
-        document.createElement("div");
-
-    particula.classList.add("particula");
-
-    const tamaño =
-        Math.random() * 4 + 2;
-
-    particula.style.width =
-        `${tamaño}px`;
-
-    particula.style.height =
-        `${tamaño}px`;
-
-    particula.style.left =
-        `${Math.random() * 100}%`;
-
-    particula.style.animationDuration =
-        `${Math.random() * 8 + 7}s`;
-
-    particula.style.animationDelay =
-        `${Math.random() * 8}s`;
-
-    contenedorParticulas.appendChild(
-        particula
-    );
-}
-
-
-
-/* =====================================================
-   ELEMENTOS
-   ===================================================== */
-
-const viajeInicial =
-    document.getElementById("viajeInicial");
-
-const inicio =
-    document.getElementById("inicio");
-
-const carta =
-    document.getElementById("carta");
-
-const segunda =
-    document.getElementById("segunda");
-
-const final =
-    document.getElementById("final");
-
-const botonAbrir =
-    document.getElementById("botonAbrir");
-
-const continuar =
-    document.getElementById("continuar");
-
-const continuar2 =
-    document.getElementById("continuar2");
-
-const avionInicial =
-    document.getElementById("avionInicial");
-
-const rutaInicial =
-    document.getElementById("rutaInicial");
-
-const mapaSvg =
-    document.getElementById("mapaSvg");
-
-const textoViaje =
-    document.getElementById("textoViaje");
-
-const diasElemento =
-    document.getElementById("dias");
-
-const horasElemento =
-    document.getElementById("horas");
-
-const minutosElemento =
-    document.getElementById("minutos");
-
-const segundosElemento =
-    document.getElementById("segundos");
-
-
-
-/* =====================================================
-   FECHAS DEL VIAJE
-   ===================================================== */
-
-const inicioViaje =
-    new Date("2026-09-28T00:00:00");
-
-const llegadaViaje =
-    new Date("2026-10-18T00:00:00");
-
-let llegadaProcesada = false;
-
-
-
-/* =====================================================
-   CUENTA REGRESIVA
-   ===================================================== */
-
-function actualizarContador() {
-
-    const ahora =
-        new Date();
-
-    const diferencia =
-        llegadaViaje - ahora;
-
-
-    if (diferencia <= 0) {
-
-        diasElemento.textContent = "00";
-        horasElemento.textContent = "00";
-        minutosElemento.textContent = "00";
-        segundosElemento.textContent = "00";
-
-        textoViaje.textContent =
-            "💌 ¡La carta llegó a Costa Rica!";
-
-        return;
-    }
-
-
-    const dias =
-        Math.floor(
-            diferencia /
-            (1000 * 60 * 60 * 24)
-        );
-
-
-    const horas =
-        Math.floor(
-            (
-                diferencia %
-                (1000 * 60 * 60 * 24)
-            ) /
-            (1000 * 60 * 60)
-        );
-
-
-    const minutos =
-        Math.floor(
-            (
-                diferencia %
-                (1000 * 60 * 60)
-            ) /
-            (1000 * 60)
-        );
-
-
-    const segundos =
-        Math.floor(
-            (
-                diferencia %
-                (1000 * 60)
-            ) /
-            1000
-        );
-
-
-    diasElemento.textContent =
-        String(dias).padStart(2, "0");
-
-    horasElemento.textContent =
-        String(horas).padStart(2, "0");
-
-    minutosElemento.textContent =
-        String(minutos).padStart(2, "0");
-
-    segundosElemento.textContent =
-        String(segundos).padStart(2, "0");
-}
-
-
-
-/* =====================================================
-   POSICIÓN Y RUMBO DEL AVIÓN
-   ===================================================== */
-
-function actualizarAvion() {
-
-    if (
-        !rutaInicial ||
-        !avionInicial ||
-        !mapaSvg
-    ) {
-        return;
-    }
-
-
-    const ahora =
-        new Date();
-
-
-    /* ---------------------------------------------
-       CALCULAR PROGRESO DEL VIAJE
-       --------------------------------------------- */
-
-    const tiempoTotal =
-        llegadaViaje -
-        inicioViaje;
-
-    const tiempoTranscurrido =
-        ahora -
-        inicioViaje;
-
-
-    let progreso =
-        tiempoTranscurrido /
-        tiempoTotal;
-
-
-    progreso =
-        Math.max(
-            0,
-            Math.min(
-                1,
-                progreso
-            )
-        );
-
-
-
-    /* ---------------------------------------------
-       OBTENER LONGITUD TOTAL DE LA CURVA
-       --------------------------------------------- */
-
-    const longitud =
-        rutaInicial.getTotalLength();
-
-
-    const distancia =
-        progreso *
-        longitud;
-
-
-
-    /* ---------------------------------------------
-       PUNTO ACTUAL
-       --------------------------------------------- */
-
-    const puntoActual =
-        rutaInicial.getPointAtLength(
-            distancia
-        );
-
-
-
-    /* ---------------------------------------------
-       PUNTO HACIA ADELANTE
-       
-       Este punto permite calcular exactamente
-       hacia dónde está avanzando el avión.
-       --------------------------------------------- */
-
-    const distanciaAdelante =
-        Math.min(
-            longitud,
-            distancia + 5
-        );
-
-
-    const puntoSiguiente =
-        rutaInicial.getPointAtLength(
-            distanciaAdelante
-        );
-
-
-
-    /* ---------------------------------------------
-       CALCULAR DIRECCIÓN DE LA CURVA
-       --------------------------------------------- */
-
-    const dx =
-        puntoSiguiente.x -
-        puntoActual.x;
-
-    const dy =
-        puntoSiguiente.y -
-        puntoActual.y;
-
-
-    let angulo =
-        Math.atan2(
-            dy,
-            dx
-        )
-        *
-        180 /
-        Math.PI;
-
-
-
-    /* ---------------------------------------------
-       CORRECCIÓN DE ORIENTACIÓN DEL EMOJI
-
-       El emoji ✈️ no apunta hacia la derecha
-       como un vector matemático normal.
-
-       Esta corrección hace que la punta del
-       avión coincida con el rumbo calculado.
-       --------------------------------------------- */
-
-    angulo += 90;
-
-
-
-    /* ---------------------------------------------
-       CONVERTIR COORDENADAS SVG A PANTALLA
-       --------------------------------------------- */
-
-    const puntoSVG =
-        mapaSvg.createSVGPoint();
-
-    puntoSVG.x =
-        puntoActual.x;
-
-    puntoSVG.y =
-        puntoActual.y;
-
-
-    const matriz =
-        rutaInicial.getScreenCTM();
-
-
-    if (!matriz) {
-        return;
-    }
-
-
-    const puntoPantalla =
-        puntoSVG.matrixTransform(
-            matriz
-        );
-
-
-    const rectMapa =
-        mapaSvg.getBoundingClientRect();
-
-
-    const x =
-        puntoPantalla.x -
-        rectMapa.left;
-
-    const y =
-        puntoPantalla.y -
-        rectMapa.top;
-
-
-
-    /* ---------------------------------------------
-       MOVER EL AVIÓN
-       --------------------------------------------- */
-
-    avionInicial.style.left =
-        `${x}px`;
-
-    avionInicial.style.top =
-        `${y}px`;
-
-
-
-    /* ---------------------------------------------
-       ROTAR EL EMOJI
-       --------------------------------------------- */
-
-    const avionEmoji =
-        avionInicial.querySelector(
-            ".avion-emoji"
-        );
-
-
-    if (avionEmoji) {
-
-        avionEmoji.style.transform =
-            `rotate(${angulo}deg)`;
-    }
-
-
-
-    /* ---------------------------------------------
-       LLEGADA A COSTA RICA
-       --------------------------------------------- */
-
-    if (progreso >= 1) {
-
-        textoViaje.textContent =
-            "💌 ¡La carta llegó a Costa Rica!";
-
-
-        if (!llegadaProcesada) {
-
-            llegadaProcesada =
-                true;
-
-
-            setTimeout(() => {
-
-                viajeInicial.classList.add(
-                    "ocultar"
-                );
-
-                inicio.classList.add(
-                    "mostrar"
-                );
-
-            }, 2500);
-        }
-    }
-}
-
-
-
-/* =====================================================
-   BOTÓN ABRIR
-   ===================================================== */
-
-botonAbrir.addEventListener(
-    "click",
-    () => {
-
-        inicio.classList.remove(
-            "mostrar"
-        );
-
-
-        setTimeout(() => {
-
-            carta.classList.add(
-                "mostrar"
-            );
-
-        }, 400);
-    }
-);
-
-
-
-/* =====================================================
-   PRIMERA ESCENA
-   ===================================================== */
-
-continuar.addEventListener(
-    "click",
-    () => {
-
-        carta.classList.remove(
-            "mostrar"
-        );
-
-
-        setTimeout(() => {
-
-            segunda.classList.add(
-                "mostrar"
-            );
-
-        }, 400);
-    }
-);
-
-
-
-/* =====================================================
-   SEGUNDA ESCENA → FINAL
-   ===================================================== */
-
-continuar2.addEventListener(
-    "click",
-    () => {
-
-        segunda.classList.remove(
-            "mostrar"
-        );
-
-
-        setTimeout(() => {
-
-            final.classList.add(
-                "mostrar"
-            );
-
-            iniciarFuegos();
-
-        }, 400);
-    }
-);
-
-
-
-/* =====================================================
-   FUEGOS ARTIFICIALES
-   ===================================================== */
-
-function crearFuego() {
-
-    const fuego =
-        document.createElement("div");
-
-
-    fuego.classList.add(
-        "fuego"
-    );
-
-
-    fuego.style.left =
-        `${Math.random() * 100}%`;
-
-
-    fuego.style.top =
-        `${Math.random() * 70 + 5}%`;
-
-
-    const tamaño =
-        Math.random() * 4 + 4;
-
-
-    fuego.style.width =
-        `${tamaño}px`;
-
-
-    fuego.style.height =
-        `${tamaño}px`;
-
-
-    document
-        .getElementById("fuegos")
-        .appendChild(
-            fuego
-        );
-
-
-    setTimeout(() => {
-
-        fuego.remove();
-
-    }, 1800);
-}
-
-
-
-function iniciarFuegos() {
-
-    let cantidad =
-        0;
-
-
-    const intervalo =
-        setInterval(() => {
-
-            crearFuego();
-
-            cantidad++;
-
-
-            if (cantidad >= 18) {
-
-                clearInterval(
-                    intervalo
-                );
-            }
-
-        }, 280);
-}
-
-
-
-/* =====================================================
-   INICIAR
-   ===================================================== */
-
-actualizarContador();
-
-actualizarAvion();
-
-
-
-/* =====================================================
-   ACTUALIZACIONES
-   ===================================================== */
-
-setInterval(
-    actualizarContador,
-    1000
-);
-
-
-setInterval(
-    actualizarAvion,
-    1000
-);
-
-
-window.addEventListener(
-    "resize",
-    actualizarAvion
-);
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Para Samuel ❤️</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+    <!-- =====================================================
+         PARTICULAS
+         ===================================================== -->
+
+    <div
+        class="particulas"
+        id="particulas"
+    ></div>
+
+
+
+    <!-- =====================================================
+         VIAJE INICIAL
+         ===================================================== -->
+
+    <section
+        class="viaje-inicial"
+        id="viajeInicial"
+    >
+
+        <div class="viaje-titulo">
+            Una pequeña carta...
+        </div>
+
+
+        <div class="mapa">
+
+            <!--
+                MAPA DE AMÉRICA
+
+                El SVG contiene América del Norte,
+                Centroamérica y América del Sur.
+
+                Colombia y Costa Rica están
+                resaltados.
+            -->
+
+            <svg
+                id="mapaSvg"
+                class="mapa-svg"
+                viewBox="0 0 1000 650"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <!-- =================================================
+                     AMÉRICA DEL NORTE
+                     ================================================= -->
+
+                <path
+                    class="continente"
+                    d="
+                    M100 95
+                    L145 65
+                    L205 55
+                    L260 70
+                    L320 62
+                    L380 80
+                    L430 105
+                    L470 140
+                    L505 175
+                    L530 205
+                    L515 225
+                    L485 215
+                    L460 230
+                    L430 215
+                    L400 205
+                    L370 190
+                    L345 175
+                    L315 165
+                    L285 155
+                    L250 145
+                    L215 135
+                    L180 125
+                    L145 120
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     MÉXICO
+                     ================================================= -->
+
+                <path
+                    class="pais-secundario"
+                    d="
+                    M280 180
+                    L310 185
+                    L335 200
+                    L355 215
+                    L370 230
+                    L365 245
+                    L345 250
+                    L330 240
+                    L315 225
+                    L295 215
+                    L275 205
+                    L265 190
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     CENTROAMÉRICA
+                     ================================================= -->
+
+                <path
+                    class="centroamerica"
+                    d="
+                    M365 245
+                    C390 250
+                    410 258
+                    425 270
+
+                    C440 282
+                    455 292
+                    470 300
+
+                    C485 307
+                    500 315
+                    515 325
+
+                    C530 333
+                    545 338
+                    560 342
+                    "
+                />
+
+
+                <!-- =================================================
+                     COSTA RICA
+                     ================================================= -->
+
+                <path
+                    id="costaRica"
+                    class="pais-destino"
+                    d="
+                    M468 296
+                    L478 291
+                    L489 295
+                    L498 302
+                    L505 310
+                    L500 318
+                    L490 321
+                    L480 318
+                    L471 313
+                    L464 306
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     PANAMÁ
+                     ================================================= -->
+
+                <path
+                    class="pais-secundario"
+                    d="
+                    M505 310
+                    C520 315
+                    535 320
+                    550 330
+                    L565 342
+                    L552 350
+                    L535 344
+                    L520 337
+                    L505 325
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     AMÉRICA DEL SUR
+                     ================================================= -->
+
+                <path
+                    class="continente"
+                    d="
+                    M565 345
+                    L590 355
+                    L610 375
+                    L625 405
+                    L635 440
+                    L630 475
+                    L615 510
+                    L600 545
+                    L580 575
+                    L555 600
+                    L530 615
+                    L510 605
+                    L500 580
+                    L485 555
+                    L470 525
+                    L455 490
+                    L445 455
+                    L450 420
+                    L460 390
+                    L475 365
+                    L495 350
+                    L520 340
+                    L545 340
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     COLOMBIA
+                     ================================================= -->
+
+                <path
+                    id="colombia"
+                    class="pais-origen"
+                    d="
+                    M490 345
+                    L505 333
+                    L522 338
+                    L538 348
+                    L550 362
+                    L548 378
+                    L558 391
+                    L550 405
+                    L538 416
+                    L530 432
+                    L518 438
+                    L505 430
+                    L495 417
+                    L482 410
+                    L470 397
+                    L462 382
+                    L468 368
+                    L478 357
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     RUTA DEL AVIÓN
+                     ================================================= -->
+
+                <path
+                    id="rutaInicial"
+                    class="ruta-curva"
+                    d="
+                    M515 382
+
+                    C500 330
+                    450 265
+                    420 220
+
+                    C385 170
+                    350 145
+                    315 130
+                    "
+                    style="
+                    display:none;
+                    "
+                />
+
+            </svg>
+
+
+            <!-- =================================================
+                 RUTA VISUAL SOBRE EL MAPA
+
+                 Esta ruta es independiente del mapa
+                 para poder controlar perfectamente
+                 el vuelo del avión.
+                 ================================================= -->
+
+            <svg
+                class="ruta-overlay"
+                viewBox="0 0 1000 650"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <path
+                    id="rutaVisible"
+                    class="ruta-visible"
+                    d="
+                    M515 382
+
+                    C500 330
+                    470 290
+                    450 250
+
+                    C425 205
+                    390 165
+                    350 145
+
+                    C320 130
+                    300 125
+                    280 125
+                    "
+                />
+
+            </svg>
+
+
+
+            <!-- =================================================
+                 AVIÓN
+                 ================================================= -->
+
+            <div
+                id="avionInicial"
+                class="avion"
+            >
+
+                <div class="avion-emoji">
+                    ✈️
+                </div>
+
+                <div class="carta-emoji">
+                    💌
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NOMBRES
+                 ================================================= -->
+
+            <div
+                class="nombre-pais colombia-nombre"
+            >
+                🇨🇴 Colombia
+            </div>
+
+
+            <div
+                class="nombre-pais costa-rica-nombre"
+            >
+                🇨🇷 Costa Rica
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             TEXTO
+             ===================================================== -->
+
+        <p
+            class="viaje-inicial-texto"
+            id="textoViaje"
+        >
+            💌 Tu carta está viajando...
+        </p>
+
+
+
+        <!-- =====================================================
+             CONTADOR
+             ===================================================== -->
+
+        <div
+            class="contador"
+            id="contador"
+        >
+
+            <div class="contador-bloque">
+                <span id="dias">
+                    00
+                </span>
+
+                <small>
+                    DÍAS
+                </small>
+            </div>
+
+
+            <div class="separador">
+                :
+            </div>
+
+
+            <div class="contador-bloque">
+                <span id="horas">
+                    00
+                </span>
+
+                <small>
+                    HORAS
+                </small>
+            </div>
+
+
+            <div class="separador">
+                :
+            </div>
+
+
+            <div class="contador-bloque">
+                <span id="minutos">
+                    00
+                </span>
+
+                <small>
+                    MIN
+                </small>
+            </div>
+
+
+            <div class="separador">
+                :
+            </div>
+
+
+            <div class="contador-bloque">
+                <span id="segundos">
+                    00
+                </span>
+
+                <small>
+                    SEG
+                </small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PORTADA
+         ===================================================== -->
+
+    <main
+        class="inicio"
+        id="inicio"
+    >
+
+        <div class="corazon">
+            ♥
+        </div>
+
+        <h1>
+            Para Samuel
+        </h1>
+
+        <p>
+            Hice algo especialmente para ti...
+        </p>
+
+        <button id="botonAbrir">
+            ABRIR ❤️
+        </button>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         PRIMERA ESCENA
+         ===================================================== -->
+
+    <section
+        class="escena carta"
+        id="carta"
+    >
+
+        <div class="icono">
+            💌
+        </div>
+
+        <h2>
+            Hay algo que quiero agradecerte...
+        </h2>
+
+        <p>
+            Gracias por hacerme entender muchas cosas
+            que antes no sabía.
+        </p>
+
+        <button id="continuar">
+            CONTINUAR
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SEGUNDA ESCENA
+         ===================================================== -->
+
+    <section
+        class="escena segunda"
+        id="segunda"
+    >
+
+        <div class="icono">
+            💜
+        </div>
+
+        <h2>
+            Quiero que sepas algo, Samuel...
+        </h2>
+
+        <p>
+            Gracias por hacer que entienda cosas
+            que antes no sabía.
+        </p>
+
+        <p>
+            Gracias también por ayudarme
+            a quererme un poco más a mí mismo.
+        </p>
+
+        <p>
+            Puede que no siempre encuentre
+            las palabras correctas para decirte
+            lo mucho que significas para mí...
+        </p>
+
+        <button id="continuar2">
+            CONTINUAR
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FINAL
+         ===================================================== -->
+
+    <section
+        class="escena final"
+        id="final"
+    >
+
+        <div
+            class="fuegos"
+            id="fuegos"
+        ></div>
+
+        <div class="icono">
+            🎂
+        </div>
+
+        <h2>
+            FELICES 15 AÑOS, SAMUEL ❤️
+        </h2>
+
+        <p>
+            Espero que este nuevo año de tu vida
+            esté lleno de momentos bonitos,
+            nuevas experiencias y muchas razones
+            para sonreír.
+        </p>
+
+        <p>
+            Gracias por estar en mi vida,
+            incluso a pesar de la distancia.
+        </p>
+
+        <div class="firma">
+            Con cariño,<br>
+            <strong>
+                Luis ❤️
+            </strong>
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
