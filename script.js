@@ -77,12 +77,6 @@ const mapaSvg =
 const textoViaje =
     document.getElementById("textoViaje");
 
-
-
-/* =====================================================
-   CONTADOR
-   ===================================================== */
-
 const diasElemento =
     document.getElementById("dias");
 
@@ -101,66 +95,33 @@ const segundosElemento =
    FECHAS
    ===================================================== */
 
-/*
-    El viaje comienza:
-
-    28 de septiembre de 2026
-
-    La carta llega:
-
-    18 de octubre de 2026
-*/
-
 const inicioViaje =
-    new Date(
-        "2026-09-28T00:00:00"
-    );
+    new Date("2026-09-28T00:00:00");
 
 const llegadaViaje =
-    new Date(
-        "2026-10-18T00:00:00"
-    );
-
-
-
-/* =====================================================
-   CONTROL DE LLEGADA
-   ===================================================== */
+    new Date("2026-10-18T00:00:00");
 
 let llegadaProcesada = false;
 
 
 
 /* =====================================================
-   CONTADOR
+   CUENTA REGRESIVA
    ===================================================== */
 
 function actualizarContador() {
 
-    const ahora =
-        new Date();
+    const ahora = new Date();
 
     const diferencia =
         llegadaViaje - ahora;
 
-
-    /*
-        Si ya llegó:
-    */
-
     if (diferencia <= 0) {
 
-        diasElemento.textContent =
-            "00";
-
-        horasElemento.textContent =
-            "00";
-
-        minutosElemento.textContent =
-            "00";
-
-        segundosElemento.textContent =
-            "00";
+        diasElemento.textContent = "00";
+        horasElemento.textContent = "00";
+        minutosElemento.textContent = "00";
+        segundosElemento.textContent = "00";
 
         textoViaje.textContent =
             "💌 ¡La carta llegó a Costa Rica!";
@@ -168,13 +129,11 @@ function actualizarContador() {
         return;
     }
 
-
     const dias =
         Math.floor(
             diferencia /
             (1000 * 60 * 60 * 24)
         );
-
 
     const horas =
         Math.floor(
@@ -185,7 +144,6 @@ function actualizarContador() {
             (1000 * 60 * 60)
         );
 
-
     const minutos =
         Math.floor(
             (
@@ -195,7 +153,6 @@ function actualizarContador() {
             (1000 * 60)
         );
 
-
     const segundos =
         Math.floor(
             (
@@ -204,7 +161,6 @@ function actualizarContador() {
             ) /
             1000
         );
-
 
     diasElemento.textContent =
         String(dias).padStart(2, "0");
@@ -222,7 +178,7 @@ function actualizarContador() {
 
 
 /* =====================================================
-   POSICIÓN DEL AVIÓN
+   AVIÓN
    ===================================================== */
 
 function actualizarAvion() {
@@ -235,35 +191,20 @@ function actualizarAvion() {
         return;
     }
 
-
     const ahora =
         new Date();
-
 
     const tiempoTotal =
         llegadaViaje -
         inicioViaje;
 
-
     const tiempoTranscurrido =
         ahora -
         inicioViaje;
 
-
-    /*
-        Calculamos el porcentaje
-        del viaje.
-    */
-
     let progreso =
         tiempoTranscurrido /
         tiempoTotal;
-
-
-    /*
-        Evitamos que sea menor
-        que 0 o mayor que 1.
-    */
 
     progreso =
         Math.max(
@@ -275,22 +216,16 @@ function actualizarAvion() {
         );
 
 
-    /*
-        Longitud total de la ruta.
-    */
+    /* ---------------------------------------------
+       POSICIÓN EN LA RUTA
+       --------------------------------------------- */
 
     const longitud =
         rutaInicial.getTotalLength();
 
-
-    /*
-        Punto actual.
-    */
-
     const distancia =
         progreso *
         longitud;
-
 
     const punto =
         rutaInicial.getPointAtLength(
@@ -298,12 +233,9 @@ function actualizarAvion() {
         );
 
 
-    /*
-        Punto ligeramente anterior.
-
-        Lo usamos para saber hacia
-        dónde está viajando el avión.
-    */
+    /* ---------------------------------------------
+       PUNTO ANTERIOR PARA CALCULAR DIRECCIÓN
+       --------------------------------------------- */
 
     const puntoAnterior =
         rutaInicial.getPointAtLength(
@@ -314,11 +246,11 @@ function actualizarAvion() {
         );
 
 
-    /*
-        Dirección del avión.
-    */
+    /* ---------------------------------------------
+       ÁNGULO DE LA RUTA
+       --------------------------------------------- */
 
-    const angulo =
+    let angulo =
         Math.atan2(
             punto.y -
             puntoAnterior.y,
@@ -332,10 +264,20 @@ function actualizarAvion() {
 
 
     /*
-        Convertimos las coordenadas
-        del SVG a coordenadas reales
-        dentro del mapa HTML.
+        El emoji ✈️ apunta originalmente
+        hacia ARRIBA.
+
+        Por eso agregamos 90 grados
+        para que apunte hacia la dirección
+        de la ruta.
     */
+
+    angulo += 90;
+
+
+    /* ---------------------------------------------
+       CONVERTIR SVG → PANTALLA
+       --------------------------------------------- */
 
     const puntoSVG =
         mapaSvg.createSVGPoint();
@@ -346,15 +288,12 @@ function actualizarAvion() {
     puntoSVG.y =
         punto.y;
 
-
     const matriz =
         rutaInicial.getScreenCTM();
-
 
     if (!matriz) {
         return;
     }
-
 
     const puntoPantalla =
         puntoSVG.matrixTransform(
@@ -366,23 +305,18 @@ function actualizarAvion() {
         mapaSvg.getBoundingClientRect();
 
 
-    /*
-        Posición final del avión.
-    */
-
     const x =
         puntoPantalla.x -
         rectMapa.left;
-
 
     const y =
         puntoPantalla.y -
         rectMapa.top;
 
 
-    /*
-        Movemos el avión.
-    */
+    /* ---------------------------------------------
+       MOVER AVIÓN
+       --------------------------------------------- */
 
     avionInicial.style.left =
         `${x}px`;
@@ -391,22 +325,25 @@ function actualizarAvion() {
         `${y}px`;
 
 
-    /*
-        Giramos solamente el avión.
+    /* ---------------------------------------------
+       GIRAR AVIÓN
+       --------------------------------------------- */
 
-        El emoji originalmente apunta
-        hacia la derecha.
-    */
+    const avionEmoji =
+        avionInicial.querySelector(
+            ".avion-emoji"
+        );
 
-    avionInicial.querySelector(
-        ".avion-emoji"
-    ).style.transform =
-        `rotate(${angulo}deg)`;
+    if (avionEmoji) {
+
+        avionEmoji.style.transform =
+            `rotate(${angulo}deg)`;
+    }
 
 
-    /*
-        Cuando llega a Costa Rica.
-    */
+    /* ---------------------------------------------
+       LLEGADA
+       --------------------------------------------- */
 
     if (progreso >= 1) {
 
@@ -416,14 +353,7 @@ function actualizarAvion() {
 
         if (!llegadaProcesada) {
 
-            llegadaProcesada =
-                true;
-
-
-            /*
-                Esperamos 2.5 segundos
-                antes de mostrar la portada.
-            */
+            llegadaProcesada = true;
 
             setTimeout(() => {
 
@@ -443,19 +373,6 @@ function actualizarAvion() {
 
 
 /* =====================================================
-   ACTUALIZAR VIAJE
-   ===================================================== */
-
-function actualizarViaje() {
-
-    actualizarContador();
-
-    actualizarAvion();
-}
-
-
-
-/* =====================================================
    BOTÓN ABRIR
    ===================================================== */
 
@@ -467,7 +384,6 @@ botonAbrir.addEventListener(
             "mostrar"
         );
 
-
         setTimeout(() => {
 
             carta.classList.add(
@@ -475,7 +391,6 @@ botonAbrir.addEventListener(
             );
 
         }, 400);
-
     }
 );
 
@@ -493,7 +408,6 @@ continuar.addEventListener(
             "mostrar"
         );
 
-
         setTimeout(() => {
 
             segunda.classList.add(
@@ -501,14 +415,13 @@ continuar.addEventListener(
             );
 
         }, 400);
-
     }
 );
 
 
 
 /* =====================================================
-   SEGUNDA → FINAL
+   SEGUNDA ESCENA → FINAL
    ===================================================== */
 
 continuar2.addEventListener(
@@ -519,7 +432,6 @@ continuar2.addEventListener(
             "mostrar"
         );
 
-
         setTimeout(() => {
 
             final.classList.add(
@@ -529,14 +441,13 @@ continuar2.addEventListener(
             iniciarFuegos();
 
         }, 400);
-
     }
 );
 
 
 
 /* =====================================================
-   FUEGOS
+   FUEGOS ARTIFICIALES
    ===================================================== */
 
 function crearFuego() {
@@ -548,31 +459,26 @@ function crearFuego() {
         "fuego"
     );
 
-
     fuego.style.left =
         `${Math.random() * 100}%`;
-
 
     fuego.style.top =
         `${Math.random() * 70 + 5}%`;
 
-
     const tamaño =
         Math.random() * 4 + 4;
-
 
     fuego.style.width =
         `${tamaño}px`;
 
-
     fuego.style.height =
         `${tamaño}px`;
 
-
     document
         .getElementById("fuegos")
-        .appendChild(fuego);
-
+        .appendChild(
+            fuego
+        );
 
     setTimeout(() => {
 
@@ -582,11 +488,9 @@ function crearFuego() {
 }
 
 
-
 function iniciarFuegos() {
 
     let cantidad = 0;
-
 
     const intervalo =
         setInterval(() => {
@@ -595,13 +499,11 @@ function iniciarFuegos() {
 
             cantidad++;
 
-
             if (cantidad >= 18) {
 
                 clearInterval(
                     intervalo
                 );
-
             }
 
         }, 280);
@@ -613,11 +515,13 @@ function iniciarFuegos() {
    INICIAR
    ===================================================== */
 
-actualizarViaje();
+actualizarContador();
+
+actualizarAvion();
 
 
 /*
-    Contador:
+    Actualizar contador
     cada segundo.
 */
 
@@ -628,11 +532,8 @@ setInterval(
 
 
 /*
-    Avión:
-    cada segundo.
-
-    También se actualiza cuando
-    cambia el tamaño de la pantalla.
+    Actualizar posición
+    del avión cada segundo.
 */
 
 setInterval(
@@ -640,6 +541,12 @@ setInterval(
     1000
 );
 
+
+/*
+    Recalcular posición
+    si cambia el tamaño
+    de la pantalla.
+*/
 
 window.addEventListener(
     "resize",
