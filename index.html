@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,293 +11,59 @@
 
 <body>
 
-    <!-- PARTICULAS -->
-    <div class="particulas" id="particulas"></div>
+    <!-- =========================================
+         ESCENA 1 - VIAJE
+    ========================================== -->
+    <section id="viaje" class="escena activa">
 
+        <div class="viaje-contenido">
 
-    <!-- =====================================================
-         VIAJE INICIAL
-         ===================================================== -->
-
-    <section class="viaje-inicial" id="viajeInicial">
-
-        <div class="viaje-titulo">
-            Una pequeña carta...
-        </div>
-
-
-        <div class="mapa">
-
-            <!-- TODO EL MAPA Y LA RUTA ESTAN EN EL MISMO SVG -->
-            <svg
-                id="mapaSvg"
-                class="mapa-svg"
-                viewBox="0 0 800 450"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-
-                <!-- =================================================
-                     COLOMBIA
-                     ================================================= -->
-
-                <path
-                    id="colombia"
-                    class="pais"
-                    d="
-                    M220 275
-                    L214 260
-                    L204 250
-                    L201 235
-                    L205 218
-                    L199 204
-                    L204 188
-                    L214 176
-                    L226 166
-                    L239 160
-                    L251 150
-                    L266 153
-                    L278 160
-                    L292 166
-                    L305 176
-                    L316 185
-                    L325 198
-                    L333 211
-                    L343 222
-                    L353 235
-                    L360 248
-                    L356 260
-                    L346 272
-                    L340 286
-                    L329 297
-                    L316 307
-                    L304 318
-                    L290 323
-                    L276 316
-                    L263 307
-                    L251 298
-                    L239 291
-                    L228 284
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     PANAMA
-                     ================================================= -->
-
-                <path
-                    id="panama"
-                    class="pais"
-                    d="
-                    M350 235
-                    C363 226 377 222 390 224
-                    C404 226 416 232 428 235
-                    C441 238 453 243 465 244
-                    C477 245 488 248 497 254
-                    L491 262
-                    C480 261 469 259 458 257
-                    C446 255 435 252 423 249
-                    C411 246 399 243 387 241
-                    C375 239 363 238 350 235
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     COSTA RICA
-                     ================================================= -->
-
-                <path
-                    id="costaRica"
-                    class="pais"
-                    d="
-                    M497 254
-                    L507 248
-                    L518 250
-                    L527 256
-                    L536 262
-                    L546 269
-                    L554 278
-                    L559 288
-                    L553 297
-                    L543 299
-                    L533 294
-                    L523 289
-                    L514 283
-                    L505 277
-                    L498 269
-                    L491 262
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     NICARAGUA
-                     ================================================= -->
-
-                <path
-                    class="pais pais-secundario"
-                    d="
-                    M559 288
-                    L567 278
-                    L577 275
-                    L587 280
-                    L596 287
-                    L601 297
-                    L596 307
-                    L587 312
-                    L577 309
-                    L568 303
-                    L559 297
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     HONDURAS
-                     ================================================= -->
-
-                <path
-                    class="pais pais-secundario"
-                    d="
-                    M546 244
-                    C557 237 568 237 578 241
-                    L589 248
-                    L597 258
-                    L601 269
-                    L596 278
-                    L587 279
-                    L577 272
-                    L568 264
-                    L558 257
-                    L549 252
-                    Z
-                    "
-                />
-
-
-                <!-- =================================================
-                     RUTA COLOMBIA -> COSTA RICA
-                     ================================================= -->
-
-                <path
-                    id="rutaInicial"
-                    class="ruta-curva"
-                    d="
-                    M275 265
-                    C330 195,
-                     405 175,
-                     500 260
-                    "
-                />
-
-
-                <!-- PUNTO DE SALIDA -->
-                <circle
-                    class="punto-mapa"
-                    cx="275"
-                    cy="265"
-                    r="8"
-                />
-
-
-                <!-- PUNTO DE LLEGADA -->
-                <circle
-                    class="punto-mapa"
-                    cx="500"
-                    cy="260"
-                    r="8"
-                />
-
-
-                <!-- =================================================
-                     AVION
-                     ================================================= -->
-
-                <g id="avionInicial">
-
-                    <text
-                        class="avion-icono"
-                        x="0"
-                        y="0"
-                        text-anchor="middle"
-                        dominant-baseline="middle"
-                    >
-                        ✈
-                    </text>
-
-                    <text
-                        class="carta-icono"
-                        x="0"
-                        y="23"
-                        text-anchor="middle"
-                    >
-                        💌
-                    </text>
-
-                </g>
-
-            </svg>
-
-
-            <!-- NOMBRES -->
-
-            <div class="nombre-pais colombia-nombre">
-                🇨🇴 Colombia
+            <div class="titulo-viaje">
+                ✈️💌
             </div>
 
-            <div class="nombre-pais costa-rica-nombre">
-                🇨🇷 Costa Rica
+            <h1>Una carta está viajando...</h1>
+
+            <p id="mensajeViaje">
+                De Colombia 🇨🇴 a Costa Rica 🇨🇷
+            </p>
+
+            <div class="mapa">
+
+                <!-- ESTE ES EL america.svg DE GITHUB -->
+                <img
+                    src="america.svg"
+                    class="mapa-imagen"
+                    alt="Mapa de Colombia y Costa Rica"
+                >
+
+                <!-- Solo ponemos el avión encima.
+                     El mapa YA contiene la ruta -->
+                <svg
+                    id="avionSvg"
+                    class="avion-overlay"
+                    viewBox="0 0 1000 600"
+                    preserveAspectRatio="none"
+                >
+                    <g id="avion">
+                        <text
+                            x="0"
+                            y="0"
+                            class="avion-icon"
+                        >✈️</text>
+
+                        <text
+                            x="0"
+                            y="28"
+                            class="carta-icon"
+                        >💌</text>
+                    </g>
+                </svg>
+
             </div>
 
-        </div>
-
-
-        <!-- TEXTO -->
-
-        <p
-            class="viaje-inicial-texto"
-            id="textoViaje"
-        >
-            💌 Tu carta está viajando...
-        </p>
-
-
-        <!-- CONTADOR -->
-
-        <div
-            class="contador"
-            id="contador"
-        >
-
-            <div class="contador-bloque">
-                <span id="dias">00</span>
-                <small>DÍAS</small>
-            </div>
-
-            <div class="separador">:</div>
-
-            <div class="contador-bloque">
-                <span id="horas">00</span>
-                <small>HORAS</small>
-            </div>
-
-            <div class="separador">:</div>
-
-            <div class="contador-bloque">
-                <span id="minutos">00</span>
-                <small>MIN</small>
-            </div>
-
-            <div class="separador">:</div>
-
-            <div class="contador-bloque">
-                <span id="segundos">00</span>
-                <small>SEG</small>
+            <div id="contador" class="contador">
+                Calculando viaje...
             </div>
 
         </div>
@@ -306,150 +71,129 @@
     </section>
 
 
+    <!-- =========================================
+         ESCENA 2 - PORTADA
+    ========================================== -->
+    <section id="portada" class="escena">
 
-    <!-- =====================================================
-         PORTADA
-         ===================================================== -->
+        <div class="portada-contenido">
 
-    <main
-        class="inicio"
-        id="inicio"
-    >
+            <div class="sobre">
+                💌
+            </div>
 
-        <div class="corazon">
-            ♥
+            <h1>Para Samuel</h1>
+
+            <p>
+                Hice algo especialmente para ti...
+            </p>
+
+            <button id="abrirBtn">
+                ABRIR ❤️
+            </button>
+
         </div>
 
-        <h1>
-            Para Samuel
-        </h1>
-
-        <p>
-            Hice algo especialmente para ti...
-        </p>
-
-        <button id="botonAbrir">
-            ABRIR ❤️
-        </button>
-
-    </main>
+    </section>
 
 
+    <!-- =========================================
+         ESCENA 3
+    ========================================== -->
+    <section id="escena1" class="escena">
 
-    <!-- =====================================================
-         PRIMERA ESCENA
-         ===================================================== -->
+        <div class="carta-contenido">
 
-    <section
-        class="escena carta"
-        id="carta"
-    >
+            <div class="numero">
+                01
+            </div>
 
-        <div class="icono">
-            💌
+            <h1>
+                Hay algo que quiero agradecerte...
+            </h1>
+
+            <p>
+                Gracias por todos esos momentos,
+                por las conversaciones, las risas
+                y por estar ahí.
+            </p>
+
+            <button class="continuar" data-next="escena2">
+                CONTINUAR
+            </button>
+
         </div>
-
-        <h2>
-            Hay algo que quiero agradecerte...
-        </h2>
-
-        <p>
-            Gracias por hacerme entender muchas cosas
-            que antes no sabía.
-        </p>
-
-        <button id="continuar">
-            CONTINUAR
-        </button>
 
     </section>
 
 
+    <!-- =========================================
+         ESCENA 4
+    ========================================== -->
+    <section id="escena2" class="escena">
 
-    <!-- =====================================================
-         SEGUNDA ESCENA
-         ===================================================== -->
+        <div class="carta-contenido">
 
-    <section
-        class="escena segunda"
-        id="segunda"
-    >
+            <div class="numero">
+                02
+            </div>
 
-        <div class="icono">
-            💜
+            <h1>
+                Quiero que sepas algo, Samuel...
+            </h1>
+
+            <p>
+                Aunque estemos lejos,
+                hay personas que logran sentirse
+                cerca sin importar la distancia.
+            </p>
+
+            <button class="continuar" data-next="final">
+                CONTINUAR
+            </button>
+
         </div>
 
-        <h2>
-            Quiero que sepas algo, Samuel...
-        </h2>
+    </section>
 
-        <p>
-            Gracias por hacer que entienda cosas
-            que antes no sabía.
-        </p>
 
-        <p>
-            Gracias también por ayudarme a quererme
-            un poco más a mí mismo.
-        </p>
+    <!-- =========================================
+         ESCENA FINAL
+    ========================================== -->
+    <section id="final" class="escena final">
 
-        <p>
-            Puede que no siempre encuentre las palabras
-            correctas para decirte lo mucho que significas
-            para mí...
-        </p>
+        <div id="fuegos"></div>
 
-        <button id="continuar2">
-            CONTINUAR
-        </button>
+        <div class="final-contenido">
+
+            <div class="cumple">
+                🎂
+            </div>
+
+            <h1>
+                FELICES 15 AÑOS,
+                <span>SAMUEL</span> ❤️
+            </h1>
+
+            <p>
+                Espero que este nuevo año
+                esté lleno de momentos increíbles.
+            </p>
+
+            <div class="corazones">
+                💙 💜 💙
+            </div>
+
+        </div>
 
     </section>
 
 
-
-    <!-- =====================================================
-         FINAL
-         ===================================================== -->
-
-    <section
-        class="escena final"
-        id="final"
-    >
-
-        <div
-            class="fuegos"
-            id="fuegos"
-        ></div>
-
-        <div class="icono">
-            🎂
-        </div>
-
-        <h2>
-            FELICES 15 AÑOS, SAMUEL ❤️
-        </h2>
-
-        <p>
-            Espero que este nuevo año de tu vida esté
-            lleno de momentos bonitos, nuevas experiencias
-            y muchas razones para sonreír.
-        </p>
-
-        <p>
-            Gracias por estar en mi vida,
-            incluso a pesar de la distancia.
-        </p>
-
-        <div class="firma">
-            Con cariño,<br>
-            <strong>Luis ❤️</strong>
-        </div>
-
-    </section>
+    <!-- Partículas -->
+    <div id="particulas"></div>
 
 
     <script src="script.js"></script>
 
 </body>
-
 </html>
