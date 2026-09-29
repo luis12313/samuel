@@ -13,7 +13,10 @@ body {
 body {
     overflow: hidden;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     background:
         radial-gradient(
@@ -27,12 +30,13 @@ body {
 }
 
 
-/* ==========================================
-   PARTICULAS
-   ========================================== */
+/* =====================================================
+   PARTÍCULAS
+   ===================================================== */
 
 .particulas {
     position: fixed;
+
     inset: 0;
 
     overflow: hidden;
@@ -77,16 +81,15 @@ body {
         transform: translateY(-10vh);
         opacity: 0;
     }
-
 }
 
 
-/* ==========================================
+
+/* =====================================================
    VIAJE
-   ========================================== */
+   ===================================================== */
 
 .viaje-inicial {
-
     position: fixed;
 
     inset: 0;
@@ -116,15 +119,12 @@ body {
 }
 
 .viaje-inicial.ocultar {
-
     opacity: 0;
 
     visibility: hidden;
 }
 
-
 .viaje-titulo {
-
     font-size:
         clamp(22px, 4vw, 36px);
 
@@ -140,20 +140,20 @@ body {
 }
 
 
-/* ==========================================
+
+/* =====================================================
    MAPA
-   ========================================== */
+   ===================================================== */
 
 .mapa {
-
     position: relative;
 
-    width:
-        min(700px, 95vw);
+    width: min(850px, 95vw);
+
+    height: auto;
 }
 
 .mapa-svg {
-
     width: 100%;
 
     height: auto;
@@ -162,76 +162,57 @@ body {
 }
 
 
-/* TERRITORIOS */
+/* PAÍSES */
 
-.territorio {
-
+.pais {
     fill:
-        rgba(90, 50, 150, 0.35);
+        rgba(115, 70, 190, 0.38);
 
     stroke:
         #a66cff;
 
-    stroke-width: 2;
+    stroke-width:
+        3;
+
+    stroke-linejoin:
+        round;
 
     filter:
         drop-shadow(
             0 0 8px
-            rgba(166, 108, 255, 0.7)
+            rgba(166, 108, 255, 0.8)
         );
 }
 
-
-.colombia-mapa {
-
+.costa-rica {
     fill:
-        rgba(100, 65, 180, 0.45);
-}
-
-
-/* CENTROAMÉRICA */
-
-.centroamerica {
-
-    fill: none;
-
-    stroke:
-        rgba(166, 108, 255, 0.7);
-
-    stroke-width: 3;
-
-    stroke-linecap: round;
-}
-
-
-/* COSTA RICA */
-
-.costa-rica-mapa {
-
-    fill:
-        rgba(120, 70, 200, 0.45);
+        rgba(130, 80, 210, 0.42);
 }
 
 
 /* RUTA */
 
 .ruta-curva {
-
     fill: none;
 
     stroke:
         #8ed8ff;
 
-    stroke-width: 2;
+    stroke-width:
+        3;
 
     stroke-dasharray:
-        8 8;
+        9 9;
 
-    opacity: 0.7;
+    stroke-linecap:
+        round;
+
+    opacity: 0.85;
 
     filter:
         drop-shadow(
-            0 0 6px #8ed8ff
+            0 0 7px
+            #8ed8ff
         );
 }
 
@@ -239,57 +220,91 @@ body {
 /* PUNTOS */
 
 .punto-mapa {
-
     fill:
         #8ed8ff;
 
+    stroke:
+        #ffffff;
+
+    stroke-width:
+        2;
+
     filter:
         drop-shadow(
-            0 0 8px #8ed8ff
+            0 0 10px
+            #8ed8ff
         );
 }
 
 
-/* AVIÓN */
+
+/* =====================================================
+   AVIÓN
+   ===================================================== */
 
 #avionInicial {
+    position: absolute;
 
-    transform-origin:
-        center;
+    left: 0;
+
+    top: 0;
+
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    transform:
+        translate(-50%, -50%);
 }
 
+.avion-emoji {
+    font-size: 34px;
 
-.avion-icono {
-
-    font-size: 25px;
-
-    fill: white;
-
-    text-anchor: middle;
-
-    dominant-baseline: middle;
+    line-height: 1;
 
     filter:
         drop-shadow(
-            0 0 8px #8ed8ff
+            0 0 8px
+            #8ed8ff
+        );
+
+    transform:
+        rotate(0deg);
+}
+
+.carta-emoji {
+    font-size: 20px;
+
+    line-height: 1;
+
+    margin-top: 1px;
+
+    filter:
+        drop-shadow(
+            0 0 7px
+            rgba(255, 150, 220, 0.8)
         );
 }
 
 
-.carta-icono {
 
-    font-size: 17px;
-
-    text-anchor: middle;
-}
-
-
-/* ==========================================
+/* =====================================================
    NOMBRES
-   ========================================== */
+   ===================================================== */
 
 .nombre-pais {
-
     position: absolute;
 
     font-size:
@@ -299,32 +314,32 @@ body {
 
     text-shadow:
         0 0 8px
-        rgba(180, 100, 255, 0.8);
-}
+        rgba(180, 100, 255, 0.9);
 
+    z-index: 5;
+
+    white-space: nowrap;
+}
 
 .colombia-nombre {
-
     left: 20%;
 
-    top: 45%;
+    top: 39%;
 }
-
 
 .costa-rica-nombre {
+    right: 9%;
 
-    right: 14%;
-
-    top: 58%;
+    top: 48%;
 }
 
 
-/* ==========================================
-   TEXTO VIAJE
-   ========================================== */
+
+/* =====================================================
+   TEXTO DEL VIAJE
+   ===================================================== */
 
 .viaje-inicial-texto {
-
     margin-top: 12px;
 
     font-size:
@@ -341,12 +356,12 @@ body {
 }
 
 
-/* ==========================================
+
+/* =====================================================
    CONTADOR
-   ========================================== */
+   ===================================================== */
 
 .contador {
-
     display: flex;
 
     align-items: center;
@@ -376,9 +391,7 @@ body {
         blur(8px);
 }
 
-
 .contador-bloque {
-
     display: flex;
 
     flex-direction: column;
@@ -388,9 +401,7 @@ body {
     min-width: 55px;
 }
 
-
 .contador-bloque span {
-
     font-size:
         clamp(22px, 5vw, 34px);
 
@@ -404,9 +415,7 @@ body {
         rgba(142, 216, 255, 0.7);
 }
 
-
 .contador-bloque small {
-
     margin-top: 2px;
 
     font-size: 9px;
@@ -417,9 +426,7 @@ body {
     letter-spacing: 1px;
 }
 
-
 .separador {
-
     font-size: 25px;
 
     color:
@@ -429,12 +436,12 @@ body {
 }
 
 
-/* ==========================================
+
+/* =====================================================
    PORTADA
-   ========================================== */
+   ===================================================== */
 
 .inicio {
-
     position: fixed;
 
     inset: 0;
@@ -466,9 +473,7 @@ body {
     z-index: 5;
 }
 
-
 .inicio.mostrar {
-
     opacity: 1;
 
     visibility: visible;
@@ -477,9 +482,7 @@ body {
         scale(1);
 }
 
-
 .corazon {
-
     font-size: 75px;
 
     color:
@@ -493,23 +496,21 @@ body {
         latido 1.5s infinite;
 }
 
-
 @keyframes latido {
 
     0%,
     100% {
-        transform: scale(1);
+        transform:
+            scale(1);
     }
 
     50% {
-        transform: scale(1.12);
+        transform:
+            scale(1.12);
     }
-
 }
 
-
 .inicio h1 {
-
     margin-top: 10px;
 
     font-size:
@@ -520,9 +521,7 @@ body {
         rgba(160, 100, 255, 0.8);
 }
 
-
 .inicio p {
-
     margin-top: 15px;
 
     font-size:
@@ -533,12 +532,12 @@ body {
 }
 
 
-/* ==========================================
+
+/* =====================================================
    BOTONES
-   ========================================== */
+   ===================================================== */
 
 button {
-
     margin-top: 30px;
 
     padding:
@@ -572,9 +571,7 @@ button {
         box-shadow 0.2s ease;
 }
 
-
 button:hover {
-
     transform:
         scale(1.06);
 
@@ -583,20 +580,18 @@ button:hover {
         rgba(156, 82, 232, 0.9);
 }
 
-
 button:active {
-
     transform:
         scale(0.97);
 }
 
 
-/* ==========================================
+
+/* =====================================================
    ESCENAS
-   ========================================== */
+   ===================================================== */
 
 .escena {
-
     position: fixed;
 
     inset: 0;
@@ -629,9 +624,7 @@ button:active {
     z-index: 5;
 }
 
-
 .escena.mostrar {
-
     opacity: 1;
 
     visibility: visible;
@@ -640,13 +633,7 @@ button:active {
         translateY(0);
 }
 
-
-/* ==========================================
-   CONTENIDO
-   ========================================== */
-
 .icono {
-
     font-size: 65px;
 
     margin-bottom: 20px;
@@ -658,9 +645,7 @@ button:active {
         );
 }
 
-
 .escena h2 {
-
     max-width: 800px;
 
     font-size:
@@ -673,9 +658,7 @@ button:active {
         rgba(170, 100, 255, 0.7);
 }
 
-
 .escena p {
-
     max-width: 700px;
 
     margin-top: 12px;
@@ -690,28 +673,24 @@ button:active {
 }
 
 
-/* ==========================================
+
+/* =====================================================
    FINAL
-   ========================================== */
+   ===================================================== */
 
 .final {
-
     overflow: hidden;
 }
-
 
 .final h2,
 .final p,
 .firma {
-
     position: relative;
 
     z-index: 5;
 }
 
-
 .firma {
-
     margin-top: 25px;
 
     font-size: 20px;
@@ -722,9 +701,7 @@ button:active {
         #dcd8ff;
 }
 
-
 .firma strong {
-
     color:
         #9ddcff;
 
@@ -732,12 +709,12 @@ button:active {
 }
 
 
-/* ==========================================
-   FUEGOS
-   ========================================== */
+
+/* =====================================================
+   FUEGOS ARTIFICIALES
+   ===================================================== */
 
 .fuegos {
-
     position: absolute;
 
     inset: 0;
@@ -747,9 +724,7 @@ button:active {
     overflow: hidden;
 }
 
-
 .fuego {
-
     position: absolute;
 
     border-radius: 50%;
@@ -765,11 +740,9 @@ button:active {
         explotar 1.8s ease-out forwards;
 }
 
-
 @keyframes explotar {
 
     0% {
-
         transform:
             scale(0);
 
@@ -777,7 +750,6 @@ button:active {
     }
 
     30% {
-
         transform:
             scale(3);
 
@@ -785,103 +757,89 @@ button:active {
     }
 
     100% {
-
         transform:
             scale(0);
 
         opacity: 0;
     }
-
 }
 
 
-/* ==========================================
-   CELULAR
-   ========================================== */
+
+/* =====================================================
+   MÓVIL
+   ===================================================== */
 
 @media (max-width: 600px) {
 
     .viaje-titulo {
-
         margin-bottom: 5px;
     }
 
-
     .viaje-inicial-texto {
-
         margin-top: 5px;
     }
 
-
     .nombre-pais {
-
         font-size: 13px;
     }
 
-
     .contador {
-
         gap: 4px;
 
         padding:
             10px 8px;
     }
 
-
     .contador-bloque {
-
         min-width: 48px;
     }
 
-
     .contador-bloque span {
-
         font-size: 22px;
     }
 
-
     .contador-bloque small {
-
         font-size: 7px;
     }
 
-
     .separador {
-
         font-size: 20px;
 
         margin-bottom: 10px;
     }
 
+    #avionInicial {
+        width: 45px;
+        height: 45px;
+    }
+
+    .avion-emoji {
+        font-size: 27px;
+    }
+
+    .carta-emoji {
+        font-size: 16px;
+    }
 
     .inicio {
-
         padding: 20px;
     }
 
-
     .corazon {
-
         font-size: 60px;
     }
 
-
     .escena {
-
         padding: 20px;
     }
 
-
     .icono {
-
         font-size: 50px;
     }
 
-
     button {
-
         padding:
             13px 25px;
     }
-
 }
