@@ -11,9 +11,9 @@
 
 <body>
 
-    <!-- =========================================
-         ESCENA 1 - VIAJE
-    ========================================== -->
+    <!-- ==============================
+         VIAJE
+    =============================== -->
     <section id="viaje" class="escena activa">
 
         <div class="viaje-contenido">
@@ -30,34 +30,101 @@
 
             <div class="mapa">
 
-                <!-- ESTE ES EL america.svg DE GITHUB -->
+                <!-- TU MAPA DE GITHUB, SIN MODIFICAR -->
                 <img
                     src="america.svg"
                     class="mapa-imagen"
-                    alt="Mapa de Colombia y Costa Rica"
+                    alt="Mapa"
                 >
 
-                <!-- Solo ponemos el avión encima.
-                     El mapa YA contiene la ruta -->
+                <!--
+                    CAPA SUPERIOR
+
+                    Esta capa NO modifica america.svg.
+                    Aquí van:
+                    - ruta
+                    - puntos
+                    - nombres
+                    - avión
+                -->
                 <svg
-                    id="avionSvg"
-                    class="avion-overlay"
-                    viewBox="0 0 1000 600"
+                    id="overlayMapa"
+                    class="overlay-mapa"
+                    viewBox="0 0 2752.766 1537.631"
                     preserveAspectRatio="none"
                 >
+
+                    <!-- RUTA -->
+                    <path
+                        id="rutaViaje"
+                        d="
+                            M 712 724
+
+                            C 695 710,
+                              675 695,
+                              655 686
+
+                            C 645 682,
+                              635 678,
+                              627 677
+                        "
+                    />
+
+                    <!-- PUNTO COLOMBIA -->
+                    <circle
+                        id="puntoColombia"
+                        cx="712"
+                        cy="724"
+                        r="10"
+                    />
+
+                    <!-- PUNTO COSTA RICA -->
+                    <circle
+                        id="puntoCostaRica"
+                        cx="627"
+                        cy="677"
+                        r="10"
+                    />
+
+                    <!-- NOMBRE COLOMBIA -->
+                    <text
+                        x="712"
+                        y="755"
+                        class="nombre-pais"
+                    >
+                        COLOMBIA 🇨🇴
+                    </text>
+
+                    <!-- NOMBRE COSTA RICA -->
+                    <text
+                        x="627"
+                        y="650"
+                        class="nombre-pais"
+                    >
+                        COSTA RICA 🇨🇷
+                    </text>
+
+                    <!-- AVIÓN -->
                     <g id="avion">
+
                         <text
                             x="0"
                             y="0"
                             class="avion-icon"
-                        >✈️</text>
+                        >
+                            ✈️
+                        </text>
 
                         <text
                             x="0"
-                            y="28"
+                            y="34"
                             class="carta-icon"
-                        >💌</text>
+                        >
+                            💌
+                        </text>
+
                     </g>
+
                 </svg>
 
             </div>
@@ -71,9 +138,9 @@
     </section>
 
 
-    <!-- =========================================
-         ESCENA 2 - PORTADA
-    ========================================== -->
+    <!-- ==============================
+         PORTADA
+    =============================== -->
     <section id="portada" class="escena">
 
         <div class="portada-contenido">
@@ -97,9 +164,9 @@
     </section>
 
 
-    <!-- =========================================
-         ESCENA 3
-    ========================================== -->
+    <!-- ==============================
+         CARTA 01
+    =============================== -->
     <section id="escena1" class="escena">
 
         <div class="carta-contenido">
@@ -127,9 +194,9 @@
     </section>
 
 
-    <!-- =========================================
-         ESCENA 4
-    ========================================== -->
+    <!-- ==============================
+         CARTA 02
+    =============================== -->
     <section id="escena2" class="escena">
 
         <div class="carta-contenido">
@@ -157,9 +224,9 @@
     </section>
 
 
-    <!-- =========================================
-         ESCENA FINAL
-    ========================================== -->
+    <!-- ==============================
+         FINAL
+    =============================== -->
     <section id="final" class="escena final">
 
         <div id="fuegos"></div>
@@ -189,7 +256,7 @@
     </section>
 
 
-    <!-- Partículas -->
+    <!-- PARTÍCULAS -->
     <div id="particulas"></div>
 
 
