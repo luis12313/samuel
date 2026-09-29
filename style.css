@@ -181,9 +181,10 @@ body {
 
     margin: 0 auto;
 
+    /* Proporción REAL de america.svg */
     aspect-ratio:
-        2752.766 /
-        1537.631;
+        1100 /
+        850;
 
     overflow: hidden;
 
@@ -245,18 +246,17 @@ body {
 ================================= */
 
 #rutaViaje {
-
     fill: none;
 
     stroke: #8fd8ff;
 
-    stroke-width: 7;
+    stroke-width: 5;
 
     stroke-linecap: round;
 
     stroke-linejoin: round;
 
-    stroke-dasharray: 18 14;
+    stroke-dasharray: 14 10;
 
     opacity: 0.95;
 
@@ -349,7 +349,6 @@ body {
 ================================= */
 
 #avion {
-
     transform-origin:
         center center;
 }
