@@ -1,34 +1,35 @@
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+   ===================================================== */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
 
 html,
 body {
     width: 100%;
-    min-height: 100%;
-}
+    height: 100%;
 
-body {
-    min-height: 100vh;
-
-    overflow-x: hidden;
+    overflow: hidden;
 
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    color: white;
-
     background:
         radial-gradient(
-            circle at 50% 20%,
-            #24144a 0%,
-            #10091f 45%,
-            #05030d 100%
+            circle at center,
+            #17102d 0%,
+            #090817 45%,
+            #03040a 100%
         );
+
+    color: white;
 }
 
 
@@ -41,46 +42,55 @@ body {
 
     inset: 0;
 
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
 
     pointer-events: none;
+
+    overflow: hidden;
 
     z-index: 1;
 }
 
+
 .particula {
     position: absolute;
 
-    bottom: -10px;
+    background: #9bdcff;
 
     border-radius: 50%;
 
-    background: #8fd8ff;
+    opacity: 0.7;
 
-    opacity: 0.55;
+    box-shadow:
+        0 0 8px #7fd4ff;
 
     animation:
-        subirParticula
-        linear infinite;
+        flotar linear infinite;
 }
 
-@keyframes subirParticula {
+
+@keyframes flotar {
 
     0% {
         transform:
-            translateY(0)
+            translateY(110vh)
             translateX(0);
 
         opacity: 0;
     }
 
-    15% {
-        opacity: 0.55;
+    20% {
+        opacity: 0.8;
+    }
+
+    80% {
+        opacity: 0.8;
     }
 
     100% {
         transform:
-            translateY(-110vh)
+            translateY(-10vh)
             translateX(40px);
 
         opacity: 0;
@@ -88,11 +98,13 @@ body {
 }
 
 
+
 /* =====================================================
-   VIAJE
+   VIAJE INICIAL
    ===================================================== */
 
 .viaje-inicial {
+
     position: fixed;
 
     inset: 0;
@@ -109,21 +121,22 @@ body {
 
     padding: 20px;
 
-    text-align: center;
-
     background:
         radial-gradient(
-            circle at center,
-            rgba(35, 18, 72, 0.96),
-            rgba(5, 3, 13, 0.99)
-        );
+            circle at 50% 50%,
+            rgba(87, 45, 145, 0.18),
+            transparent 55%
+        ),
+        #05050c;
 
     transition:
         opacity 1s ease,
         visibility 1s ease;
 }
 
+
 .viaje-inicial.ocultar {
+
     opacity: 0;
 
     visibility: hidden;
@@ -131,20 +144,28 @@ body {
     pointer-events: none;
 }
 
-.viaje-titulo {
-    margin-bottom: 20px;
 
-    font-size:
-        clamp(
-            22px,
-            4vw,
-            32px
-        );
+.viaje-titulo {
+
+    font-size: clamp(
+        22px,
+        4vw,
+        34px
+    );
 
     font-weight: 600;
 
-    letter-spacing: 2px;
+    color: #e7ddff;
+
+    margin-bottom: 15px;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 15px
+        rgba(168, 108, 255, 0.7);
 }
+
 
 
 /* =====================================================
@@ -152,97 +173,98 @@ body {
    ===================================================== */
 
 .mapa {
+
     position: relative;
 
-    width:
-        min(
-            900px,
-            96vw
-        );
+    width: min(
+        850px,
+        94vw
+    );
 
-    aspect-ratio:
-        5 / 3;
+    height: min(
+        55vh,
+        560px
+    );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 }
 
 
-/* =====================================================
-   MAPA SVG LOCAL
-   ===================================================== */
-
 .mapa-america {
+
     position: absolute;
 
-    inset: 0;
-
     width: 100%;
-
     height: 100%;
 
     object-fit: contain;
 
-    pointer-events: none;
-
-    user-select: none;
+    /*
+       El mapa original es oscuro.
+       Lo aclaramos para que combine
+       con el diseño.
+    */
 
     filter:
+        invert(1)
+        opacity(0.68)
         drop-shadow(
-            0 0 10px
-            rgba(
-                120,
-                70,
-                255,
-                0.15
-            )
+            0 0 12px
+            rgba(150, 90, 255, 0.35)
         );
 }
 
 
 /* =====================================================
-   RUTA
+   SVG DE LA RUTA
    ===================================================== */
 
 .ruta-svg {
+
     position: absolute;
 
     inset: 0;
 
     width: 100%;
-
     height: 100%;
 
-    z-index: 5;
+    overflow: visible;
 
     pointer-events: none;
 
-    overflow: visible;
+    z-index: 3;
 }
 
+
 .ruta-curva {
+
     fill: none;
 
-    stroke: #8fd8ff;
+    stroke: #9bdcff;
 
-    stroke-width: 3;
+    stroke-width: 5;
 
     stroke-linecap: round;
 
-    stroke-dasharray:
-        9 8;
+    stroke-dasharray: 12 12;
 
     filter:
         drop-shadow(
-            0 0 5px
-            rgba(
-                143,
-                216,
-                255,
-                0.8
-            )
+            0 0 6px
+            #75cfff
         );
+
+    opacity: 0.9;
 }
 
+
 .punto-mapa {
-    fill: #8fd8ff;
+
+    fill: #9bdcff;
 
     stroke: white;
 
@@ -250,174 +272,156 @@ body {
 
     filter:
         drop-shadow(
-            0 0 6px
-            rgba(
-                143,
-                216,
-                255,
-                0.9
-            )
+            0 0 8px
+            #7bd5ff
         );
 }
 
 
+
 /* =====================================================
-   AVION
+   AVIÓN
    ===================================================== */
 
 .avion {
+
     position: absolute;
 
-    left: 0;
+    z-index: 10;
 
-    top: 0;
+    width: 70px;
 
-    width: 55px;
-
-    height: 55px;
-
-    z-index: 20;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
+    height: 70px;
 
     transform:
-        translate(
-            -50%,
-            -50%
-        );
+        translate(-50%, -50%);
 
     pointer-events: none;
 
     transition:
-        left 0.7s linear,
-        top 0.7s linear;
+        left 0.8s linear,
+        top 0.8s linear;
 }
 
+
 .avion-emoji {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
     font-size: 34px;
 
     line-height: 1;
 
-    transform-origin:
-        center center;
-
     filter:
         drop-shadow(
-            0 0 6px
-            rgba(
-                255,
-                255,
-                255,
-                0.8
-            )
+            0 0 7px
+            rgba(255,255,255,0.8)
         );
 
     transition:
-        transform 0.7s linear;
+        transform 0.8s linear;
 }
+
 
 .carta-emoji {
-    margin-top: -2px;
 
-    font-size: 18px;
+    position: absolute;
 
-    line-height: 1;
+    left: 50%;
+
+    top: 75%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size: 19px;
+
+    filter:
+        drop-shadow(
+            0 0 7px
+            rgba(255,100,190,0.8)
+        );
 }
+
 
 
 /* =====================================================
-   NOMBRES
+   NOMBRES DE LOS PAÍSES
    ===================================================== */
 
 .nombre-pais {
+
     position: absolute;
 
-    z-index: 15;
+    z-index: 8;
 
-    padding:
-        7px 12px;
+    padding: 7px 12px;
 
     border-radius: 20px;
 
     background:
-        rgba(
-            10,
-            6,
-            25,
-            0.85
-        );
+        rgba(9, 6, 20, 0.85);
 
     border:
         1px solid
-        rgba(
-            143,
-            216,
-            255,
-            0.45
-        );
+        rgba(170, 110, 255, 0.45);
+
+    color: white;
+
+    font-size: 14px;
+
+    white-space: nowrap;
 
     box-shadow:
         0 0 15px
-        rgba(
-            143,
-            216,
-            255,
-            0.15
-        );
-
-    font-size:
-        clamp(
-            11px,
-            2vw,
-            15px
-        );
-
-    white-space: nowrap;
+        rgba(130, 70, 220, 0.25);
 }
+
 
 .colombia-nombre {
-    left: 47%;
 
-    top: 68%;
-}
-
-.costa-rica-nombre {
     left: 53%;
 
-    top: 30%;
+    top: 62%;
 }
+
+
+.costa-rica-nombre {
+
+    left: 43%;
+
+    top: 39%;
+}
+
 
 
 /* =====================================================
-   TEXTO
+   TEXTO DEL VIAJE
    ===================================================== */
 
 .viaje-inicial-texto {
-    margin-top: 18px;
 
-    min-height: 24px;
+    margin-top: 5px;
 
-    font-size:
-        clamp(
-            15px,
-            2.5vw,
-            19px
-        );
+    color: #d9d3eb;
 
-    color:
-        rgba(
-            255,
-            255,
-            255,
-            0.9
-        );
+    font-size: 17px;
+
+    text-align: center;
+
+    min-height: 25px;
+
+    text-shadow:
+        0 0 10px
+        rgba(170,120,255,0.4);
 }
+
 
 
 /* =====================================================
@@ -425,75 +429,79 @@ body {
    ===================================================== */
 
 .contador {
+
     display: flex;
 
     align-items: center;
 
     justify-content: center;
 
-    gap: 8px;
+    gap: 10px;
 
-    margin-top: 18px;
+    margin-top: 16px;
 }
 
-.contador-bloque {
-    min-width: 58px;
 
-    padding:
-        8px 6px;
+.contador-bloque {
+
+    min-width: 62px;
+
+    padding: 9px 7px;
 
     border-radius: 12px;
 
     background:
-        rgba(
-            255,
-            255,
-            255,
-            0.06
-        );
+        rgba(18, 12, 36, 0.8);
 
     border:
         1px solid
-        rgba(
-            143,
-            216,
-            255,
-            0.2
-        );
+        rgba(150, 90, 255, 0.35);
+
+    text-align: center;
+
+    box-shadow:
+        0 0 15px
+        rgba(120, 70, 220, 0.15);
 }
+
 
 .contador-bloque span {
+
     display: block;
 
-    color: #8fd8ff;
-
-    font-size:
-        clamp(
-            19px,
-            4vw,
-            27px
-        );
+    font-size: 25px;
 
     font-weight: bold;
+
+    color: #a8ddff;
+
+    text-shadow:
+        0 0 8px
+        rgba(100, 200, 255, 0.6);
 }
 
+
 .contador-bloque small {
+
     display: block;
 
     margin-top: 3px;
 
-    font-size: 8px;
+    font-size: 9px;
 
-    letter-spacing: 1px;
-
-    opacity: 0.65;
+    color: #aaa2bb;
 }
+
 
 .separador {
-    color: #8fd8ff;
 
-    font-size: 22px;
+    color: #9e73df;
+
+    font-size: 25px;
+
+    font-weight: bold;
 }
+
 
 
 /* =====================================================
@@ -501,6 +509,7 @@ body {
    ===================================================== */
 
 .inicio {
+
     position: fixed;
 
     inset: 0;
@@ -511,20 +520,20 @@ body {
 
     flex-direction: column;
 
-    align-items: center;
-
     justify-content: center;
 
-    padding: 25px;
+    align-items: center;
 
     text-align: center;
+
+    padding: 25px;
 
     opacity: 0;
 
     visibility: hidden;
 
     transform:
-        translateY(20px);
+        scale(1.05);
 
     transition:
         opacity 0.8s ease,
@@ -532,35 +541,34 @@ body {
         visibility 0.8s ease;
 }
 
+
 .inicio.mostrar {
+
     opacity: 1;
 
     visibility: visible;
 
     transform:
-        translateY(0);
+        scale(1);
 }
+
 
 .corazon {
-    color: #b77cff;
 
-    font-size: 80px;
+    font-size: 65px;
+
+    color: #a76cff;
 
     text-shadow:
-        0 0 25px
-        rgba(
-            183,
-            124,
-            255,
-            0.7
-        );
+        0 0 20px
+        #8b4dff,
+        0 0 45px
+        rgba(130,70,255,0.5);
 
     animation:
-        latido
-        1.5s
-        ease-in-out
-        infinite;
+        latido 1.5s infinite;
 }
+
 
 @keyframes latido {
 
@@ -570,28 +578,39 @@ body {
     }
 
     50% {
-        transform: scale(1.08);
+        transform: scale(1.12);
     }
 }
 
+
 .inicio h1 {
+
     margin-top: 10px;
 
     font-size:
         clamp(
-            38px,
+            40px,
             8vw,
-            70px
+            72px
         );
+
+    color: white;
+
+    text-shadow:
+        0 0 20px
+        rgba(160,100,255,0.6);
 }
+
 
 .inicio p {
+
     margin-top: 12px;
 
-    font-size: 18px;
+    color: #bbb5cc;
 
-    opacity: 0.8;
+    font-size: 18px;
 }
+
 
 
 /* =====================================================
@@ -599,23 +618,24 @@ body {
    ===================================================== */
 
 button {
-    margin-top: 28px;
+
+    margin-top: 30px;
 
     padding:
-        13px 28px;
+        14px 30px;
 
     border: none;
 
     border-radius: 30px;
 
-    color: white;
-
     background:
         linear-gradient(
             135deg,
-            #7d3cff,
-            #a75cff
+            #7b42d8,
+            #a15cf3
         );
+
+    color: white;
 
     font-size: 15px;
 
@@ -625,31 +645,31 @@ button {
 
     box-shadow:
         0 0 20px
-        rgba(
-            135,
-            70,
-            255,
-            0.4
-        );
+        rgba(140,80,240,0.45);
 
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
 }
 
+
 button:hover {
+
     transform:
-        translateY(-2px);
+        translateY(-3px);
 
     box-shadow:
         0 0 30px
-        rgba(
-            135,
-            70,
-            255,
-            0.65
-        );
+        rgba(160,100,255,0.7);
 }
+
+
+button:active {
+
+    transform:
+        scale(0.96);
+}
+
 
 
 /* =====================================================
@@ -657,38 +677,42 @@ button:hover {
    ===================================================== */
 
 .escena {
+
     position: fixed;
 
     inset: 0;
 
-    z-index: 5;
+    z-index: 20;
 
     display: flex;
 
     flex-direction: column;
 
-    align-items: center;
-
     justify-content: center;
 
-    padding: 25px;
+    align-items: center;
 
     text-align: center;
+
+    padding:
+        25px;
 
     opacity: 0;
 
     visibility: hidden;
 
     transform:
-        translateY(25px);
+        translateY(20px);
 
     transition:
-        opacity 0.8s ease,
-        transform 0.8s ease,
-        visibility 0.8s ease;
+        opacity 0.7s ease,
+        transform 0.7s ease,
+        visibility 0.7s ease;
 }
 
+
 .escena.mostrar {
+
     opacity: 1;
 
     visibility: visible;
@@ -697,39 +721,60 @@ button:hover {
         translateY(0);
 }
 
-.icono {
-    margin-bottom: 15px;
+
+.escena .icono {
 
     font-size: 65px;
+
+    margin-bottom: 20px;
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            rgba(170,100,255,0.6)
+        );
 }
 
+
 .escena h2 {
+
     max-width: 800px;
 
     font-size:
         clamp(
             28px,
-            6vw,
-            50px
+            5vw,
+            48px
         );
+
+    line-height: 1.15;
+
+    color: white;
+
+    text-shadow:
+        0 0 15px
+        rgba(160,100,255,0.45);
 }
 
+
 .escena p {
-    max-width: 650px;
 
-    margin-top: 16px;
+    max-width: 700px;
 
-    line-height: 1.6;
+    margin-top: 18px;
+
+    color: #c8c2d2;
 
     font-size:
         clamp(
-            15px,
+            16px,
             2.5vw,
-            18px
+            20px
         );
 
-    opacity: 0.85;
+    line-height: 1.6;
 }
+
 
 
 /* =====================================================
@@ -737,32 +782,49 @@ button:hover {
    ===================================================== */
 
 .final {
-    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(77,35,125,0.2),
+            transparent 55%
+        );
 }
 
-.final h2,
-.final p,
-.final .firma,
-.final .icono {
-    position: relative;
 
-    z-index: 5;
+.final h2 {
+
+    color: #eee5ff;
 }
+
 
 .firma {
-    margin-top: 25px;
 
-    font-size: 18px;
+    margin-top: 30px;
+
+    color: #b8dfff;
+
+    font-size: 19px;
 
     line-height: 1.6;
 }
 
 
+.firma strong {
+
+    color: white;
+
+    font-size: 25px;
+}
+
+
+
 /* =====================================================
-   FUEGOS
+   FUEGOS ARTIFICIALES
    ===================================================== */
 
 .fuegos {
+
     position: absolute;
 
     inset: 0;
@@ -770,88 +832,140 @@ button:hover {
     overflow: hidden;
 
     pointer-events: none;
+
+    z-index: -1;
 }
 
+
 .fuego {
+
     position: absolute;
 
     border-radius: 50%;
 
-    background: #8fd8ff;
+    background: #9bdcff;
 
     box-shadow:
-        0 0 10px #8fd8ff,
-        0 0 20px #8fd8ff;
+        0 0 10px #9bdcff,
+        0 0 25px #74cfff,
+        0 0 45px #74cfff;
 
     animation:
-        explosion
-        1.8s
-        ease-out
-        forwards;
+        explotar 1.8s ease-out forwards;
 }
 
-@keyframes explosion {
+
+@keyframes explotar {
 
     0% {
-        transform: scale(0);
+
+        transform:
+            scale(0);
 
         opacity: 1;
     }
 
-    60% {
-        transform: scale(5);
+    30% {
 
-        opacity: 0.8;
+        transform:
+            scale(1);
+            
+        opacity: 1;
     }
 
     100% {
-        transform: scale(0);
+
+        transform:
+            scale(18);
 
         opacity: 0;
     }
 }
 
 
+
 /* =====================================================
-   CELULAR
+   MÓVIL
    ===================================================== */
 
 @media (max-width: 600px) {
 
+    .viaje-titulo {
+
+        font-size: 24px;
+    }
+
+
     .mapa {
-        width: 100vw;
+
+        width: 100%;
+
+        height: 45vh;
     }
 
-    .avion {
-        width: 45px;
 
-        height: 45px;
+    .contador {
+
+        gap: 4px;
     }
 
-    .avion-emoji {
-        font-size: 28px;
+
+    .contador-bloque {
+
+        min-width: 53px;
+
+        padding: 7px 4px;
     }
 
-    .carta-emoji {
-        font-size: 15px;
+
+    .contador-bloque span {
+
+        font-size: 20px;
     }
+
+
+    .contador-bloque small {
+
+        font-size: 8px;
+    }
+
+
+    .separador {
+
+        font-size: 20px;
+    }
+
 
     .nombre-pais {
-        font-size: 10px;
+
+        font-size: 11px;
 
         padding:
             5px 8px;
     }
 
-    .contador {
-        gap: 4px;
+
+    .avion-emoji {
+
+        font-size: 29px;
     }
 
-    .contador-bloque {
-        min-width: 50px;
+
+    .carta-emoji {
+
+        font-size: 16px;
     }
 
-    .separador {
-        font-size: 18px;
+
+    .escena {
+
+        padding: 20px;
     }
+
+
+    .escena .icono {
+
+        font-size: 50px;
+    }
+
 }
