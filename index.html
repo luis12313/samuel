@@ -3,40 +3,24 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Para Samuel ❤️</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- =====================================================
-         PARTICULAS
-         ===================================================== -->
-
-    <div
-        class="particulas"
-        id="particulas"
-    ></div>
+    <!-- PARTICULAS -->
+    <div class="particulas" id="particulas"></div>
 
 
     <!-- =====================================================
-         VIAJE COLOMBIA → COSTA RICA
+         VIAJE INICIAL
          ===================================================== -->
 
-    <section
-        class="viaje-inicial"
-        id="viajeInicial"
-    >
+    <section class="viaje-inicial" id="viajeInicial">
 
         <div class="viaje-titulo">
             Una pequeña carta...
@@ -45,74 +29,224 @@
 
         <div class="mapa">
 
-            <!-- MAPA REAL DE AMÉRICA -->
-            <img
-                src="america.svg"
-                class="mapa-america"
-                alt="Mapa de América"
-            >
-
-
-            <!-- CAPA PARA LA RUTA -->
+            <!-- TODO EL MAPA Y LA RUTA ESTAN EN EL MISMO SVG -->
             <svg
                 id="mapaSvg"
-                class="ruta-svg"
-                viewBox="0 0 1000 1000"
-                preserveAspectRatio="xMidYMid meet"
+                class="mapa-svg"
+                viewBox="0 0 800 450"
+                xmlns="http://www.w3.org/2000/svg"
             >
 
-                <!-- Ruta Colombia → Costa Rica -->
+                <!-- =================================================
+                     COLOMBIA
+                     ================================================= -->
+
+                <path
+                    id="colombia"
+                    class="pais"
+                    d="
+                    M220 275
+                    L214 260
+                    L204 250
+                    L201 235
+                    L205 218
+                    L199 204
+                    L204 188
+                    L214 176
+                    L226 166
+                    L239 160
+                    L251 150
+                    L266 153
+                    L278 160
+                    L292 166
+                    L305 176
+                    L316 185
+                    L325 198
+                    L333 211
+                    L343 222
+                    L353 235
+                    L360 248
+                    L356 260
+                    L346 272
+                    L340 286
+                    L329 297
+                    L316 307
+                    L304 318
+                    L290 323
+                    L276 316
+                    L263 307
+                    L251 298
+                    L239 291
+                    L228 284
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     PANAMA
+                     ================================================= -->
+
+                <path
+                    id="panama"
+                    class="pais"
+                    d="
+                    M350 235
+                    C363 226 377 222 390 224
+                    C404 226 416 232 428 235
+                    C441 238 453 243 465 244
+                    C477 245 488 248 497 254
+                    L491 262
+                    C480 261 469 259 458 257
+                    C446 255 435 252 423 249
+                    C411 246 399 243 387 241
+                    C375 239 363 238 350 235
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     COSTA RICA
+                     ================================================= -->
+
+                <path
+                    id="costaRica"
+                    class="pais"
+                    d="
+                    M497 254
+                    L507 248
+                    L518 250
+                    L527 256
+                    L536 262
+                    L546 269
+                    L554 278
+                    L559 288
+                    L553 297
+                    L543 299
+                    L533 294
+                    L523 289
+                    L514 283
+                    L505 277
+                    L498 269
+                    L491 262
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     NICARAGUA
+                     ================================================= -->
+
+                <path
+                    class="pais pais-secundario"
+                    d="
+                    M559 288
+                    L567 278
+                    L577 275
+                    L587 280
+                    L596 287
+                    L601 297
+                    L596 307
+                    L587 312
+                    L577 309
+                    L568 303
+                    L559 297
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     HONDURAS
+                     ================================================= -->
+
+                <path
+                    class="pais pais-secundario"
+                    d="
+                    M546 244
+                    C557 237 568 237 578 241
+                    L589 248
+                    L597 258
+                    L601 269
+                    L596 278
+                    L587 279
+                    L577 272
+                    L568 264
+                    L558 257
+                    L549 252
+                    Z
+                    "
+                />
+
+
+                <!-- =================================================
+                     RUTA COLOMBIA -> COSTA RICA
+                     ================================================= -->
+
                 <path
                     id="rutaInicial"
                     class="ruta-curva"
-                    d="M 540 610
-                       C 525 575
-                         510 535
-                         495 500
-                       C 485 475
-                         475 455
-                         465 435"
-                ></path>
+                    d="
+                    M275 265
+                    C330 195,
+                     405 175,
+                     500 260
+                    "
+                />
 
 
-                <!-- Punto Colombia -->
+                <!-- PUNTO DE SALIDA -->
                 <circle
                     class="punto-mapa"
-                    cx="540"
-                    cy="610"
-                    r="7"
-                ></circle>
+                    cx="275"
+                    cy="265"
+                    r="8"
+                />
 
 
-                <!-- Punto Costa Rica -->
+                <!-- PUNTO DE LLEGADA -->
                 <circle
                     class="punto-mapa"
-                    cx="465"
-                    cy="435"
-                    r="7"
-                ></circle>
+                    cx="500"
+                    cy="260"
+                    r="8"
+                />
+
+
+                <!-- =================================================
+                     AVION
+                     ================================================= -->
+
+                <g id="avionInicial">
+
+                    <text
+                        class="avion-icono"
+                        x="0"
+                        y="0"
+                        text-anchor="middle"
+                        dominant-baseline="middle"
+                    >
+                        ✈
+                    </text>
+
+                    <text
+                        class="carta-icono"
+                        x="0"
+                        y="23"
+                        text-anchor="middle"
+                    >
+                        💌
+                    </text>
+
+                </g>
 
             </svg>
 
 
-            <!-- AVIÓN -->
-            <div
-                id="avionInicial"
-                class="avion"
-            >
-
-                <div class="avion-emoji">
-                    ✈️
-                </div>
-
-                <div class="carta-emoji">
-                    💌
-                </div>
-
-            </div>
-
-
             <!-- NOMBRES -->
+
             <div class="nombre-pais colombia-nombre">
                 🇨🇴 Colombia
             </div>
@@ -124,6 +258,8 @@
         </div>
 
 
+        <!-- TEXTO -->
+
         <p
             class="viaje-inicial-texto"
             id="textoViaje"
@@ -132,7 +268,7 @@
         </p>
 
 
-        <!-- CUENTA REGRESIVA -->
+        <!-- CONTADOR -->
 
         <div
             class="contador"
@@ -144,27 +280,21 @@
                 <small>DÍAS</small>
             </div>
 
-            <div class="separador">
-                :
-            </div>
+            <div class="separador">:</div>
 
             <div class="contador-bloque">
                 <span id="horas">00</span>
                 <small>HORAS</small>
             </div>
 
-            <div class="separador">
-                :
-            </div>
+            <div class="separador">:</div>
 
             <div class="contador-bloque">
                 <span id="minutos">00</span>
                 <small>MIN</small>
             </div>
 
-            <div class="separador">
-                :
-            </div>
+            <div class="separador">:</div>
 
             <div class="contador-bloque">
                 <span id="segundos">00</span>
@@ -300,10 +430,9 @@
         </h2>
 
         <p>
-            Espero que este nuevo año de tu vida
-            esté lleno de momentos bonitos,
-            nuevas experiencias y muchas razones
-            para sonreír.
+            Espero que este nuevo año de tu vida esté
+            lleno de momentos bonitos, nuevas experiencias
+            y muchas razones para sonreír.
         </p>
 
         <p>
@@ -313,9 +442,7 @@
 
         <div class="firma">
             Con cariño,<br>
-            <strong>
-                Luis ❤️
-            </strong>
+            <strong>Luis ❤️</strong>
         </div>
 
     </section>
