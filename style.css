@@ -1,7 +1,3 @@
-/* =========================================
-   CONFIGURACIÓN GENERAL
-========================================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -34,13 +30,12 @@ body {
 }
 
 
-/* =========================================
+/* =================================
    ESCENAS
-========================================= */
+================================= */
 
 .escena {
     position: fixed;
-
     inset: 0;
 
     width: 100%;
@@ -66,17 +61,17 @@ body {
 .escena.activa {
     opacity: 1;
     visibility: visible;
+
     transform: scale(1);
 }
 
 
-/* =========================================
-   PARTÍCULAS
-========================================= */
+/* =================================
+   PARTICULAS
+================================= */
 
 #particulas {
     position: fixed;
-
     inset: 0;
 
     pointer-events: none;
@@ -121,12 +116,13 @@ body {
         opacity: 0;
         transform: translateY(-40px);
     }
+
 }
 
 
-/* =========================================
+/* =================================
    VIAJE
-========================================= */
+================================= */
 
 #viaje {
     z-index: 20;
@@ -144,16 +140,25 @@ body {
     margin-bottom: 10px;
 
     filter:
-        drop-shadow(0 0 12px rgba(143, 216, 255, 0.8));
+        drop-shadow(
+            0 0 12px
+            rgba(143, 216, 255, 0.8)
+        );
 }
 
 .viaje-contenido h1 {
-    font-size: clamp(25px, 4vw, 42px);
+    font-size:
+        clamp(
+            25px,
+            4vw,
+            42px
+        );
 
     margin-bottom: 10px;
 
     text-shadow:
-        0 0 20px rgba(160, 110, 255, 0.7);
+        0 0 20px
+        rgba(160, 110, 255, 0.7);
 }
 
 .viaje-contenido p {
@@ -165,9 +170,9 @@ body {
 }
 
 
-/* =========================================
+/* =================================
    MAPA
-========================================= */
+================================= */
 
 .mapa {
     position: relative;
@@ -176,7 +181,9 @@ body {
 
     margin: 0 auto;
 
-    aspect-ratio: 1000 / 600;
+    aspect-ratio:
+        2752.766 /
+        1537.631;
 
     overflow: hidden;
 
@@ -190,11 +197,12 @@ body {
         );
 
     box-shadow:
-        0 0 35px rgba(143, 99, 255, 0.25);
+        0 0 35px
+        rgba(143, 99, 255, 0.25);
 }
 
 
-/* EL MAPA DE GITHUB */
+/* MAPA ORIGINAL */
 
 .mapa-imagen {
     position: absolute;
@@ -212,11 +220,11 @@ body {
 }
 
 
-/* =========================================
-   AVIÓN
-========================================= */
+/* =================================
+   CAPA SOBRE EL MAPA
+================================= */
 
-.avion-overlay {
+.overlay-mapa {
     position: absolute;
 
     inset: 0;
@@ -224,46 +232,171 @@ body {
     width: 100%;
     height: 100%;
 
-    overflow: visible;
-
-    z-index: 5;
+    z-index: 10;
 
     pointer-events: none;
+
+    overflow: visible;
 }
 
+
+/* =================================
+   RUTA
+================================= */
+
+#rutaViaje {
+
+    fill: none;
+
+    stroke: #8fd8ff;
+
+    stroke-width: 7;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+    stroke-dasharray: 18 14;
+
+    opacity: 0.95;
+
+    filter:
+        drop-shadow(
+            0 0 7px
+            rgba(143, 216, 255, 0.9)
+        );
+}
+
+
+/* =================================
+   PUNTOS
+================================= */
+
+#puntoColombia,
+#puntoCostaRica {
+
+    fill: #8fd8ff;
+
+    stroke: white;
+
+    stroke-width: 4;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            #8fd8ff
+        );
+
+    animation:
+        pulsoPunto 1.8s
+        ease-in-out
+        infinite;
+}
+
+@keyframes pulsoPunto {
+
+    0%,
+    100% {
+        opacity: 1;
+        r: 10;
+    }
+
+    50% {
+        opacity: 0.6;
+        r: 14;
+    }
+
+}
+
+
+/* =================================
+   NOMBRES
+================================= */
+
+.nombre-pais {
+
+    fill: #8fd8ff;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    text-anchor: middle;
+
+    paint-order: stroke;
+
+    stroke: #080514;
+
+    stroke-width: 8;
+
+    stroke-linejoin: round;
+
+    filter:
+        drop-shadow(
+            0 0 7px
+            rgba(143, 216, 255, 0.8)
+        );
+}
+
+
+/* =================================
+   AVIÓN
+================================= */
+
 #avion {
-    transform-origin: center;
+
+    transform-origin:
+        center center;
 }
 
 .avion-icon {
-    font-size: 31px;
+
+    fill: white;
+
+    font-size: 38px;
 
     text-anchor: middle;
 
     dominant-baseline: middle;
 
     filter:
-        drop-shadow(0 0 6px #8fd8ff)
-        drop-shadow(0 0 12px rgba(143, 216, 255, 0.8));
+        drop-shadow(
+            0 0 8px
+            #8fd8ff
+        )
+        drop-shadow(
+            0 0 16px
+            rgba(143, 216, 255, 0.8)
+        );
 }
 
 .carta-icon {
-    font-size: 20px;
+
+    font-size: 23px;
 
     text-anchor: middle;
 
     dominant-baseline: middle;
 
     filter:
-        drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+        drop-shadow(
+            0 0 6px
+            white
+        );
 }
 
 
-/* =========================================
+/* =================================
    CONTADOR
-========================================= */
+================================= */
 
 .contador {
+
     margin-top: 18px;
 
     font-size: 18px;
@@ -273,30 +406,38 @@ body {
     font-weight: bold;
 
     text-shadow:
-        0 0 10px rgba(143, 216, 255, 0.6);
+        0 0 10px
+        rgba(143, 216, 255, 0.6);
 }
 
 
-/* =========================================
+/* =================================
    PORTADA
-========================================= */
+================================= */
 
 .portada-contenido {
+
     text-align: center;
 
     padding: 30px;
 }
 
 .sobre {
+
     font-size: 100px;
 
     margin-bottom: 20px;
 
     animation:
-        flotar 3s ease-in-out infinite;
+        flotar 3s
+        ease-in-out
+        infinite;
 
     filter:
-        drop-shadow(0 0 20px rgba(143, 216, 255, 0.6));
+        drop-shadow(
+            0 0 20px
+            rgba(143, 216, 255, 0.6)
+        );
 }
 
 @keyframes flotar {
@@ -309,10 +450,17 @@ body {
     50% {
         transform: translateY(-12px);
     }
+
 }
 
 .portada-contenido h1 {
-    font-size: clamp(45px, 8vw, 80px);
+
+    font-size:
+        clamp(
+            45px,
+            8vw,
+            80px
+        );
 
     margin-bottom: 15px;
 
@@ -325,15 +473,14 @@ body {
         );
 
     -webkit-background-clip: text;
+
     background-clip: text;
 
     color: transparent;
-
-    text-shadow:
-        0 0 25px rgba(143, 216, 255, 0.15);
 }
 
 .portada-contenido p {
+
     color: #d5d0e8;
 
     font-size: 20px;
@@ -342,14 +489,16 @@ body {
 }
 
 
-/* =========================================
+/* =================================
    BOTONES
-========================================= */
+================================= */
 
 button {
+
     border: none;
 
-    padding: 15px 32px;
+    padding:
+        15px 32px;
 
     border-radius: 50px;
 
@@ -369,7 +518,8 @@ button {
     cursor: pointer;
 
     box-shadow:
-        0 0 20px rgba(139, 92, 246, 0.45);
+        0 0 20px
+        rgba(139, 92, 246, 0.45);
 
     transition:
         transform 0.25s ease,
@@ -377,43 +527,73 @@ button {
 }
 
 button:hover {
-    transform: translateY(-3px) scale(1.04);
+
+    transform:
+        translateY(-3px)
+        scale(1.04);
 
     box-shadow:
-        0 0 30px rgba(139, 92, 246, 0.75);
+        0 0 30px
+        rgba(139, 92, 246, 0.75);
 }
 
 button:active {
-    transform: scale(0.97);
+
+    transform:
+        scale(0.97);
 }
 
 
-/* =========================================
-   CARTAS
-========================================= */
+/* =================================
+   CARTA
+================================= */
 
 .carta-contenido {
-    width: min(90vw, 750px);
+
+    width:
+        min(
+            90vw,
+            750px
+        );
 
     padding: 45px;
 
     text-align: center;
 
     background:
-        rgba(17, 10, 38, 0.75);
+        rgba(
+            17,
+            10,
+            38,
+            0.75
+        );
 
     border:
-        1px solid rgba(143, 99, 255, 0.35);
+        1px solid
+        rgba(
+            143,
+            99,
+            255,
+            0.35
+        );
 
     border-radius: 25px;
 
     box-shadow:
-        0 0 50px rgba(100, 60, 180, 0.25);
+        0 0 50px
+        rgba(
+            100,
+            60,
+            180,
+            0.25
+        );
 
-    backdrop-filter: blur(12px);
+    backdrop-filter:
+        blur(12px);
 }
 
 .numero {
+
     font-size: 14px;
 
     letter-spacing: 5px;
@@ -424,7 +604,13 @@ button:active {
 }
 
 .carta-contenido h1 {
-    font-size: clamp(28px, 5vw, 48px);
+
+    font-size:
+        clamp(
+            28px,
+            5vw,
+            48px
+        );
 
     margin-bottom: 25px;
 
@@ -432,6 +618,7 @@ button:active {
 }
 
 .carta-contenido p {
+
     font-size: 19px;
 
     line-height: 1.8;
@@ -442,11 +629,12 @@ button:active {
 }
 
 
-/* =========================================
+/* =================================
    FINAL
-========================================= */
+================================= */
 
 .final {
+
     background:
         radial-gradient(
             circle at center,
@@ -457,6 +645,7 @@ button:active {
 }
 
 .final-contenido {
+
     position: relative;
 
     z-index: 50;
@@ -467,33 +656,48 @@ button:active {
 }
 
 .cumple {
+
     font-size: 90px;
 
     margin-bottom: 15px;
 
     filter:
-        drop-shadow(0 0 20px rgba(143, 216, 255, 0.7));
+        drop-shadow(
+            0 0 20px
+            rgba(143, 216, 255, 0.7)
+        );
 }
 
 .final-contenido h1 {
-    font-size: clamp(35px, 7vw, 75px);
+
+    font-size:
+        clamp(
+            35px,
+            7vw,
+            75px
+        );
 
     line-height: 1.1;
 
     margin-bottom: 25px;
-
-    text-shadow:
-        0 0 25px rgba(143, 99, 255, 0.6);
 }
 
 .final-contenido h1 span {
+
     color: #8fd8ff;
 
     text-shadow:
-        0 0 20px rgba(143, 216, 255, 0.7);
+        0 0 20px
+        rgba(
+            143,
+            216,
+            255,
+            0.7
+        );
 }
 
 .final-contenido p {
+
     color: #d8d4e5;
 
     font-size: 19px;
@@ -502,17 +706,19 @@ button:active {
 }
 
 .corazones {
+
     font-size: 28px;
 
     letter-spacing: 10px;
 }
 
 
-/* =========================================
-   FUEGOS ARTIFICIALES
-========================================= */
+/* =================================
+   FUEGOS
+================================= */
 
 #fuegos {
+
     position: absolute;
 
     inset: 0;
@@ -523,6 +729,7 @@ button:active {
 }
 
 .fuego {
+
     position: absolute;
 
     width: 5px;
@@ -537,7 +744,9 @@ button:active {
         0 0 20px #8fd8ff;
 
     animation:
-        explosion 1.8s ease-out forwards;
+        explosion 1.8s
+        ease-out
+        forwards;
 }
 
 @keyframes explosion {
@@ -551,6 +760,7 @@ button:active {
     }
 
     100% {
+
         opacity: 0;
 
         transform:
@@ -563,9 +773,9 @@ button:active {
 }
 
 
-/* =========================================
+/* =================================
    CELULAR
-========================================= */
+================================= */
 
 @media (max-width: 700px) {
 
@@ -583,6 +793,10 @@ button:active {
 
     .contador {
         font-size: 15px;
+    }
+
+    .nombre-pais {
+        font-size: 21px;
     }
 
     .sobre {
@@ -603,7 +817,6 @@ button:active {
 
     .carta-contenido p {
         font-size: 17px;
-
         line-height: 1.6;
     }
 
