@@ -30,87 +30,111 @@
 
             <div class="mapa">
 
-                <!-- TU MAPA DE GITHUB, SIN MODIFICAR -->
+                <!-- MAPA ORIGINAL -->
                 <img
                     src="america.svg"
                     class="mapa-imagen"
-                    alt="Mapa"
+                    alt="Mapa de América"
                 >
 
-                <!--
-                    CAPA SUPERIOR
+                <!-- ==============================
+                     CAPA SUPERIOR DEL MAPA
 
-                    Esta capa NO modifica america.svg.
-                    Aquí van:
-                    - ruta
-                    - puntos
-                    - nombres
-                    - avión
-                -->
+                     IMPORTANTE:
+                     america.svg utiliza:
+
+                     viewBox="800 250 1100 850"
+
+                     Por eso el overlay utiliza
+                     exactamente el mismo sistema.
+                =============================== -->
                 <svg
                     id="overlayMapa"
                     class="overlay-mapa"
-                    viewBox="0 0 2752.766 1537.631"
+                    viewBox="800 250 1100 850"
                     preserveAspectRatio="none"
+                    aria-hidden="true"
                 >
 
-                    <!-- RUTA -->
+                    <!-- ==========================
+                         RUTA COLOMBIA → COSTA RICA
+                    =========================== -->
                     <path
                         id="rutaViaje"
                         d="
-                            M 712 724
+                            M 1654 837
 
-                            C 695 710,
-                              675 695,
-                              655 686
+                            C 1605 825,
+                              1560 790,
+                              1515 760
 
-                            C 645 682,
-                              635 678,
-                              627 677
+                            C 1490 745,
+                              1475 735,
+                              1462 731
                         "
                     />
 
-                    <!-- PUNTO COLOMBIA -->
+                    <!-- ==========================
+                         PUNTO COLOMBIA
+
+                         Coordenadas calculadas
+                         dentro del viewBox real
+                         de america.svg.
+                    =========================== -->
                     <circle
                         id="puntoColombia"
-                        cx="712"
-                        cy="724"
+                        cx="1654"
+                        cy="837"
                         r="10"
                     />
 
-                    <!-- PUNTO COSTA RICA -->
+                    <!-- ==========================
+                         PUNTO COSTA RICA
+                    =========================== -->
                     <circle
                         id="puntoCostaRica"
-                        cx="627"
-                        cy="677"
+                        cx="1462"
+                        cy="731"
                         r="10"
                     />
 
-                    <!-- NOMBRE COLOMBIA -->
+                    <!-- ==========================
+                         NOMBRE COLOMBIA
+                    =========================== -->
                     <text
-                        x="712"
-                        y="755"
+                        x="1654"
+                        y="875"
                         class="nombre-pais"
+                        text-anchor="middle"
                     >
                         COLOMBIA 🇨🇴
                     </text>
 
-                    <!-- NOMBRE COSTA RICA -->
+                    <!-- ==========================
+                         NOMBRE COSTA RICA
+                    =========================== -->
                     <text
-                        x="627"
-                        y="650"
+                        x="1462"
+                        y="700"
                         class="nombre-pais"
+                        text-anchor="middle"
                     >
                         COSTA RICA 🇨🇷
                     </text>
 
-                    <!-- AVIÓN -->
+                    <!-- ==========================
+                         AVIÓN
+
+                         script.js mueve este grupo
+                         mediante transform="translate(...)"
+                    =========================== -->
                     <g id="avion">
 
                         <text
                             x="0"
                             y="0"
                             class="avion-icon"
+                            text-anchor="middle"
                         >
                             ✈️
                         </text>
@@ -119,6 +143,7 @@
                             x="0"
                             y="34"
                             class="carta-icon"
+                            text-anchor="middle"
                         >
                             💌
                         </text>
@@ -256,10 +281,15 @@
     </section>
 
 
-    <!-- PARTÍCULAS -->
+    <!-- ==============================
+         PARTÍCULAS
+    =============================== -->
     <div id="particulas"></div>
 
 
+    <!-- ==============================
+         JAVASCRIPT
+    =============================== -->
     <script src="script.js"></script>
 
 </body>
