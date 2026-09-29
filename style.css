@@ -1,35 +1,32 @@
-/* =====================================================
-   CONFIGURACIÓN GENERAL
-   ===================================================== */
-
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
-
 
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+}
 
-    overflow: hidden;
+body {
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(104, 57, 180, 0.25),
+            transparent 45%
+        ),
+        #080612;
+
+    color: white;
 
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #17102d 0%,
-            #090817 45%,
-            #03040a 100%
-        );
-
-    color: white;
+    overflow-x: hidden;
 }
 
 
@@ -39,44 +36,36 @@ body {
 
 .particulas {
     position: fixed;
-
     inset: 0;
 
-    width: 100%;
-    height: 100%;
-
     pointer-events: none;
-
-    overflow: hidden;
 
     z-index: 1;
 }
 
-
 .particula {
     position: absolute;
 
-    background: #9bdcff;
+    width: 3px;
+    height: 3px;
+
+    background: #8fd8ff;
 
     border-radius: 50%;
 
     opacity: 0.7;
 
     box-shadow:
-        0 0 8px #7fd4ff;
+        0 0 8px #8fd8ff;
 
     animation:
         flotar linear infinite;
 }
 
-
 @keyframes flotar {
 
-    0% {
-        transform:
-            translateY(110vh)
-            translateX(0);
-
+    from {
+        transform: translateY(100vh);
         opacity: 0;
     }
 
@@ -88,28 +77,23 @@ body {
         opacity: 0.8;
     }
 
-    100% {
-        transform:
-            translateY(-10vh)
-            translateX(40px);
-
+    to {
+        transform: translateY(-20vh);
         opacity: 0;
     }
 }
 
 
-
 /* =====================================================
-   VIAJE INICIAL
+   VIAJE
    ===================================================== */
 
 .viaje-inicial {
-
     position: fixed;
 
     inset: 0;
 
-    z-index: 10;
+    z-index: 20;
 
     display: flex;
 
@@ -123,49 +107,35 @@ body {
 
     background:
         radial-gradient(
-            circle at 50% 50%,
-            rgba(87, 45, 145, 0.18),
+            circle at center,
+            rgba(105, 52, 180, 0.20),
             transparent 55%
         ),
-        #05050c;
+        #080612;
 
     transition:
         opacity 1s ease,
         visibility 1s ease;
 }
 
-
 .viaje-inicial.ocultar {
-
     opacity: 0;
-
     visibility: hidden;
-
     pointer-events: none;
 }
 
-
 .viaje-titulo {
-
-    font-size: clamp(
-        22px,
-        4vw,
-        34px
-    );
+    font-size: 25px;
 
     font-weight: 600;
 
-    color: #e7ddff;
-
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
     text-align: center;
 
     text-shadow:
-        0 0 15px
-        rgba(168, 108, 255, 0.7);
+        0 0 15px rgba(170, 120, 255, 0.6);
 }
-
 
 
 /* =====================================================
@@ -173,58 +143,16 @@ body {
    ===================================================== */
 
 .mapa {
-
     position: relative;
 
-    width: min(
-        850px,
-        94vw
-    );
+    width: min(850px, 94vw);
 
-    height: min(
-        55vh,
-        560px
-    );
+    aspect-ratio: 800 / 450;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
+    margin: 10px auto;
 }
 
-
-.mapa-america {
-
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-
-    /*
-       El mapa original es oscuro.
-       Lo aclaramos para que combine
-       con el diseño.
-    */
-
-    filter:
-        invert(1)
-        opacity(0.68)
-        drop-shadow(
-            0 0 12px
-            rgba(150, 90, 255, 0.35)
-        );
-}
-
-
-/* =====================================================
-   SVG DE LA RUTA
-   ===================================================== */
-
-.ruta-svg {
-
+.mapa-svg {
     position: absolute;
 
     inset: 0;
@@ -233,38 +161,61 @@ body {
     height: 100%;
 
     overflow: visible;
-
-    pointer-events: none;
-
-    z-index: 3;
 }
 
 
-.ruta-curva {
+/* PAISES */
 
-    fill: none;
+.pais {
+    fill: #15102a;
 
-    stroke: #9bdcff;
+    stroke: #9364ff;
 
-    stroke-width: 5;
+    stroke-width: 3;
+
+    stroke-linejoin: round;
 
     stroke-linecap: round;
 
-    stroke-dasharray: 12 12;
-
     filter:
         drop-shadow(
-            0 0 6px
-            #75cfff
+            0 0 5px rgba(147, 100, 255, 0.35)
         );
+}
 
-    opacity: 0.9;
+.pais-secundario {
+    opacity: 0.65;
+
+    stroke-width: 2;
 }
 
 
-.punto-mapa {
+/* RUTA */
 
-    fill: #9bdcff;
+.ruta-curva {
+    fill: none;
+
+    stroke: #8fd8ff;
+
+    stroke-width: 4;
+
+    stroke-linecap: round;
+
+    stroke-dasharray: 10 9;
+
+    opacity: 0.95;
+
+    filter:
+        drop-shadow(
+            0 0 7px rgba(143, 216, 255, 0.7)
+        );
+}
+
+
+/* PUNTOS */
+
+.punto-mapa {
+    fill: #8fd8ff;
 
     stroke: white;
 
@@ -272,156 +223,92 @@ body {
 
     filter:
         drop-shadow(
-            0 0 8px
-            #7bd5ff
+            0 0 8px rgba(143, 216, 255, 0.9)
         );
 }
 
 
+/* AVION */
 
-/* =====================================================
-   AVIÓN
-   ===================================================== */
+.avion-icono {
+    fill: white;
 
-.avion {
-
-    position: absolute;
-
-    z-index: 10;
-
-    width: 70px;
-
-    height: 70px;
-
-    transform:
-        translate(-50%, -50%);
-
-    pointer-events: none;
-
-    transition:
-        left 0.8s linear,
-        top 0.8s linear;
-}
-
-
-.avion-emoji {
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-    font-size: 34px;
-
-    line-height: 1;
+    font-size: 28px;
 
     filter:
         drop-shadow(
-            0 0 7px
-            rgba(255,255,255,0.8)
+            0 0 8px rgba(143, 216, 255, 1)
         );
-
-    transition:
-        transform 0.8s linear;
 }
 
-
-.carta-emoji {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 75%;
-
-    transform:
-        translate(-50%, -50%);
-
-    font-size: 19px;
+.carta-icono {
+    font-size: 18px;
 
     filter:
         drop-shadow(
-            0 0 7px
-            rgba(255,100,190,0.8)
+            0 0 5px rgba(255,255,255,0.8)
         );
 }
 
 
-
-/* =====================================================
-   NOMBRES DE LOS PAÍSES
-   ===================================================== */
+/* NOMBRES */
 
 .nombre-pais {
-
     position: absolute;
 
-    z-index: 8;
-
-    padding: 7px 12px;
+    padding: 7px 13px;
 
     border-radius: 20px;
 
     background:
-        rgba(9, 6, 20, 0.85);
+        rgba(9, 6, 20, 0.82);
 
     border:
-        1px solid
-        rgba(170, 110, 255, 0.45);
+        1px solid rgba(147, 100, 255, 0.65);
 
     color: white;
 
     font-size: 14px;
 
+    font-weight: 600;
+
     white-space: nowrap;
 
-    box-shadow:
-        0 0 15px
-        rgba(130, 70, 220, 0.25);
-}
+    backdrop-filter: blur(6px);
 
+    box-shadow:
+        0 0 15px rgba(120, 70, 255, 0.25);
+}
 
 .colombia-nombre {
+    left: 24%;
 
-    left: 53%;
-
-    top: 62%;
+    top: 67%;
 }
-
 
 .costa-rica-nombre {
+    left: 61%;
 
-    left: 43%;
-
-    top: 39%;
+    top: 52%;
 }
-
 
 
 /* =====================================================
-   TEXTO DEL VIAJE
+   TEXTO VIAJE
    ===================================================== */
 
 .viaje-inicial-texto {
-
     margin-top: 5px;
-
-    color: #d9d3eb;
-
-    font-size: 17px;
 
     text-align: center;
 
-    min-height: 25px;
+    font-size: 18px;
+
+    color: white;
 
     text-shadow:
-        0 0 10px
-        rgba(170,120,255,0.4);
+        0 0 10px rgba(147, 100, 255, 0.7);
 }
-
 
 
 /* =====================================================
@@ -429,79 +316,49 @@ body {
    ===================================================== */
 
 .contador {
-
     display: flex;
 
     align-items: center;
 
     justify-content: center;
 
-    gap: 10px;
+    gap: 8px;
 
-    margin-top: 16px;
+    margin-top: 15px;
 }
-
 
 .contador-bloque {
+    display: flex;
 
-    min-width: 62px;
+    flex-direction: column;
 
-    padding: 9px 7px;
+    align-items: center;
 
-    border-radius: 12px;
-
-    background:
-        rgba(18, 12, 36, 0.8);
-
-    border:
-        1px solid
-        rgba(150, 90, 255, 0.35);
-
-    text-align: center;
-
-    box-shadow:
-        0 0 15px
-        rgba(120, 70, 220, 0.15);
+    min-width: 55px;
 }
-
 
 .contador-bloque span {
-
-    display: block;
-
     font-size: 25px;
 
-    font-weight: bold;
+    font-weight: 700;
 
-    color: #a8ddff;
+    color: #ffffff;
 
     text-shadow:
-        0 0 8px
-        rgba(100, 200, 255, 0.6);
+        0 0 12px rgba(143, 216, 255, 0.8);
 }
-
 
 .contador-bloque small {
-
-    display: block;
-
-    margin-top: 3px;
-
     font-size: 9px;
 
-    color: #aaa2bb;
+    color: #aaa;
 }
-
 
 .separador {
+    font-size: 23px;
 
-    color: #9e73df;
-
-    font-size: 25px;
-
-    font-weight: bold;
+    color: #8fd8ff;
 }
-
 
 
 /* =====================================================
@@ -509,7 +366,6 @@ body {
    ===================================================== */
 
 .inicio {
-
     position: fixed;
 
     inset: 0;
@@ -520,55 +376,37 @@ body {
 
     flex-direction: column;
 
-    justify-content: center;
-
     align-items: center;
 
-    text-align: center;
+    justify-content: center;
 
-    padding: 25px;
+    text-align: center;
 
     opacity: 0;
 
     visibility: hidden;
 
-    transform:
-        scale(1.05);
-
     transition:
-        opacity 0.8s ease,
-        transform 0.8s ease,
-        visibility 0.8s ease;
+        opacity 1s ease;
 }
 
-
 .inicio.mostrar {
-
     opacity: 1;
 
     visibility: visible;
-
-    transform:
-        scale(1);
 }
 
-
 .corazon {
-
     font-size: 65px;
 
-    color: #a76cff;
+    color: #a879ff;
 
     text-shadow:
-        0 0 20px
-        #8b4dff,
-        0 0 45px
-        rgba(130,70,255,0.5);
+        0 0 25px rgba(168, 121, 255, 0.8);
 
     animation:
         latido 1.5s infinite;
 }
-
 
 @keyframes latido {
 
@@ -582,57 +420,32 @@ body {
     }
 }
 
-
 .inicio h1 {
+    font-size: 45px;
 
-    margin-top: 10px;
-
-    font-size:
-        clamp(
-            40px,
-            8vw,
-            72px
-        );
-
-    color: white;
-
-    text-shadow:
-        0 0 20px
-        rgba(160,100,255,0.6);
+    margin: 10px 0;
 }
-
 
 .inicio p {
-
-    margin-top: 12px;
-
-    color: #bbb5cc;
-
     font-size: 18px;
+
+    color: #cfcfcf;
+
+    margin-bottom: 25px;
 }
 
-
-
-/* =====================================================
-   BOTONES
-   ===================================================== */
-
 button {
-
-    margin-top: 30px;
-
-    padding:
-        14px 30px;
-
     border: none;
+
+    padding: 13px 28px;
 
     border-radius: 30px;
 
     background:
         linear-gradient(
             135deg,
-            #7b42d8,
-            #a15cf3
+            #7c3aed,
+            #9b5cff
         );
 
     color: white;
@@ -644,32 +457,19 @@ button {
     cursor: pointer;
 
     box-shadow:
-        0 0 20px
-        rgba(140,80,240,0.45);
+        0 0 20px rgba(124, 58, 237, 0.45);
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        transform 0.2s,
+        box-shadow 0.2s;
 }
-
 
 button:hover {
-
-    transform:
-        translateY(-3px);
+    transform: scale(1.05);
 
     box-shadow:
-        0 0 30px
-        rgba(160,100,255,0.7);
+        0 0 30px rgba(155, 92, 255, 0.7);
 }
-
-
-button:active {
-
-    transform:
-        scale(0.96);
-}
-
 
 
 /* =====================================================
@@ -677,295 +477,200 @@ button:active {
    ===================================================== */
 
 .escena {
-
     position: fixed;
 
     inset: 0;
 
-    z-index: 20;
+    z-index: 10;
 
     display: flex;
 
     flex-direction: column;
 
-    justify-content: center;
-
     align-items: center;
+
+    justify-content: center;
 
     text-align: center;
 
-    padding:
-        25px;
+    padding: 30px;
 
     opacity: 0;
 
     visibility: hidden;
 
-    transform:
-        translateY(20px);
+    transform: translateY(20px);
 
     transition:
-        opacity 0.7s ease,
-        transform 0.7s ease,
-        visibility 0.7s ease;
+        opacity 0.8s ease,
+        transform 0.8s ease;
 }
 
-
-.escena.mostrar {
-
+.escena.activa {
     opacity: 1;
 
     visibility: visible;
 
-    transform:
-        translateY(0);
+    transform: translateY(0);
 }
-
 
 .escena .icono {
-
-    font-size: 65px;
+    font-size: 60px;
 
     margin-bottom: 20px;
-
-    filter:
-        drop-shadow(
-            0 0 15px
-            rgba(170,100,255,0.6)
-        );
 }
 
-
 .escena h2 {
+    font-size: 32px;
 
     max-width: 800px;
 
-    font-size:
-        clamp(
-            28px,
-            5vw,
-            48px
-        );
-
-    line-height: 1.15;
-
-    color: white;
-
-    text-shadow:
-        0 0 15px
-        rgba(160,100,255,0.45);
+    margin-bottom: 20px;
 }
-
 
 .escena p {
-
     max-width: 700px;
 
-    margin-top: 18px;
+    line-height: 1.7;
 
-    color: #c8c2d2;
+    color: #ddd;
 
-    font-size:
-        clamp(
-            16px,
-            2.5vw,
-            20px
-        );
-
-    line-height: 1.6;
+    margin-bottom: 12px;
 }
-
 
 
 /* =====================================================
    FINAL
    ===================================================== */
 
-.final {
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(77,35,125,0.2),
-            transparent 55%
-        );
-}
-
-
 .final h2 {
+    color: white;
 
-    color: #eee5ff;
+    text-shadow:
+        0 0 15px rgba(143, 216, 255, 0.6);
 }
-
 
 .firma {
+    margin-top: 25px;
 
-    margin-top: 30px;
-
-    color: #b8dfff;
-
-    font-size: 19px;
+    font-size: 18px;
 
     line-height: 1.6;
 }
 
 
-.firma strong {
-
-    color: white;
-
-    font-size: 25px;
-}
-
-
-
 /* =====================================================
-   FUEGOS ARTIFICIALES
+   FUEGOS
    ===================================================== */
 
 .fuegos {
-
     position: absolute;
 
     inset: 0;
 
-    overflow: hidden;
-
     pointer-events: none;
+
+    overflow: hidden;
 
     z-index: -1;
 }
 
-
 .fuego {
-
     position: absolute;
+
+    width: 5px;
+
+    height: 5px;
 
     border-radius: 50%;
 
-    background: #9bdcff;
+    background: #8fd8ff;
 
     box-shadow:
-        0 0 10px #9bdcff,
-        0 0 25px #74cfff,
-        0 0 45px #74cfff;
+        0 0 8px #8fd8ff;
 
     animation:
-        explotar 1.8s ease-out forwards;
+        explotar 1.5s ease-out forwards;
 }
-
 
 @keyframes explotar {
 
-    0% {
-
+    from {
         transform:
-            scale(0);
-
-        opacity: 1;
-    }
-
-    30% {
-
-        transform:
+            translate(0, 0)
             scale(1);
-            
+
         opacity: 1;
     }
 
-    100% {
-
+    to {
         transform:
-            scale(18);
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0);
 
         opacity: 0;
     }
 }
 
 
-
 /* =====================================================
-   MÓVIL
+   MOVIL
    ===================================================== */
 
 @media (max-width: 600px) {
 
     .viaje-titulo {
-
-        font-size: 24px;
+        font-size: 21px;
     }
-
 
     .mapa {
-
-        width: 100%;
-
-        height: 45vh;
+        width: 98vw;
     }
-
-
-    .contador {
-
-        gap: 4px;
-    }
-
-
-    .contador-bloque {
-
-        min-width: 53px;
-
-        padding: 7px 4px;
-    }
-
-
-    .contador-bloque span {
-
-        font-size: 20px;
-    }
-
-
-    .contador-bloque small {
-
-        font-size: 8px;
-    }
-
-
-    .separador {
-
-        font-size: 20px;
-    }
-
 
     .nombre-pais {
-
         font-size: 11px;
 
-        padding:
-            5px 8px;
+        padding: 5px 9px;
     }
 
-
-    .avion-emoji {
-
-        font-size: 29px;
+    .colombia-nombre {
+        left: 21%;
+        top: 68%;
     }
 
-
-    .carta-emoji {
-
-        font-size: 16px;
+    .costa-rica-nombre {
+        left: 60%;
+        top: 52%;
     }
 
-
-    .escena {
-
-        padding: 20px;
+    .avion-icono {
+        font-size: 22px;
     }
 
-
-    .escena .icono {
-
-        font-size: 50px;
+    .carta-icono {
+        font-size: 15px;
     }
 
+    .ruta-curva {
+        stroke-width: 3;
+    }
+
+    .contador-bloque {
+        min-width: 45px;
+    }
+
+    .contador-bloque span {
+        font-size: 20px;
+    }
+
+    .inicio h1 {
+        font-size: 34px;
+    }
+
+    .escena h2 {
+        font-size: 25px;
+    }
 }
