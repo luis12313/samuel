@@ -92,7 +92,7 @@ const segundosElemento =
 
 
 /* =====================================================
-   FECHAS
+   FECHAS DEL VIAJE
    ===================================================== */
 
 const inicioViaje =
@@ -111,10 +111,12 @@ let llegadaProcesada = false;
 
 function actualizarContador() {
 
-    const ahora = new Date();
+    const ahora =
+        new Date();
 
     const diferencia =
         llegadaViaje - ahora;
+
 
     if (diferencia <= 0) {
 
@@ -129,11 +131,13 @@ function actualizarContador() {
         return;
     }
 
+
     const dias =
         Math.floor(
             diferencia /
             (1000 * 60 * 60 * 24)
         );
+
 
     const horas =
         Math.floor(
@@ -144,6 +148,7 @@ function actualizarContador() {
             (1000 * 60 * 60)
         );
 
+
     const minutos =
         Math.floor(
             (
@@ -153,6 +158,7 @@ function actualizarContador() {
             (1000 * 60)
         );
 
+
     const segundos =
         Math.floor(
             (
@@ -161,6 +167,7 @@ function actualizarContador() {
             ) /
             1000
         );
+
 
     diasElemento.textContent =
         String(dias).padStart(2, "0");
@@ -178,7 +185,7 @@ function actualizarContador() {
 
 
 /* =====================================================
-   AVIÓN
+   POSICIÓN Y RUMBO DEL AVIÓN
    ===================================================== */
 
 function actualizarAvion() {
@@ -191,8 +198,14 @@ function actualizarAvion() {
         return;
     }
 
+
     const ahora =
         new Date();
+
+
+    /* ---------------------------------------------
+       CALCULAR PROGRESO DEL VIAJE
+       --------------------------------------------- */
 
     const tiempoTotal =
         llegadaViaje -
@@ -202,9 +215,11 @@ function actualizarAvion() {
         ahora -
         inicioViaje;
 
+
     let progreso =
         tiempoTranscurrido /
         tiempoTotal;
+
 
     progreso =
         Math.max(
@@ -216,84 +231,113 @@ function actualizarAvion() {
         );
 
 
+
     /* ---------------------------------------------
-       POSICIÓN EN LA RUTA
+       OBTENER LONGITUD TOTAL DE LA CURVA
        --------------------------------------------- */
 
     const longitud =
         rutaInicial.getTotalLength();
 
+
     const distancia =
         progreso *
         longitud;
 
-    const punto =
+
+
+    /* ---------------------------------------------
+       PUNTO ACTUAL
+       --------------------------------------------- */
+
+    const puntoActual =
         rutaInicial.getPointAtLength(
             distancia
         );
 
 
+
     /* ---------------------------------------------
-       PUNTO ANTERIOR PARA CALCULAR DIRECCIÓN
+       PUNTO HACIA ADELANTE
+       
+       Este punto permite calcular exactamente
+       hacia dónde está avanzando el avión.
        --------------------------------------------- */
 
-    const puntoAnterior =
-        rutaInicial.getPointAtLength(
-            Math.max(
-                0,
-                distancia - 3
-            )
+    const distanciaAdelante =
+        Math.min(
+            longitud,
+            distancia + 5
         );
 
 
+    const puntoSiguiente =
+        rutaInicial.getPointAtLength(
+            distanciaAdelante
+        );
+
+
+
     /* ---------------------------------------------
-       ÁNGULO DE LA RUTA
+       CALCULAR DIRECCIÓN DE LA CURVA
        --------------------------------------------- */
+
+    const dx =
+        puntoSiguiente.x -
+        puntoActual.x;
+
+    const dy =
+        puntoSiguiente.y -
+        puntoActual.y;
+
 
     let angulo =
         Math.atan2(
-            punto.y -
-            puntoAnterior.y,
-
-            punto.x -
-            puntoAnterior.x
+            dy,
+            dx
         )
         *
         180 /
         Math.PI;
 
 
-    /*
-        El emoji ✈️ apunta originalmente
-        hacia ARRIBA.
 
-        Por eso agregamos 90 grados
-        para que apunte hacia la dirección
-        de la ruta.
-    */
+    /* ---------------------------------------------
+       CORRECCIÓN DE ORIENTACIÓN DEL EMOJI
+
+       El emoji ✈️ no apunta hacia la derecha
+       como un vector matemático normal.
+
+       Esta corrección hace que la punta del
+       avión coincida con el rumbo calculado.
+       --------------------------------------------- */
 
     angulo += 90;
 
 
+
     /* ---------------------------------------------
-       CONVERTIR SVG → PANTALLA
+       CONVERTIR COORDENADAS SVG A PANTALLA
        --------------------------------------------- */
 
     const puntoSVG =
         mapaSvg.createSVGPoint();
 
     puntoSVG.x =
-        punto.x;
+        puntoActual.x;
 
     puntoSVG.y =
-        punto.y;
+        puntoActual.y;
+
 
     const matriz =
         rutaInicial.getScreenCTM();
 
+
     if (!matriz) {
         return;
     }
+
 
     const puntoPantalla =
         puntoSVG.matrixTransform(
@@ -314,8 +358,9 @@ function actualizarAvion() {
         rectMapa.top;
 
 
+
     /* ---------------------------------------------
-       MOVER AVIÓN
+       MOVER EL AVIÓN
        --------------------------------------------- */
 
     avionInicial.style.left =
@@ -325,14 +370,16 @@ function actualizarAvion() {
         `${y}px`;
 
 
+
     /* ---------------------------------------------
-       GIRAR AVIÓN
+       ROTAR EL EMOJI
        --------------------------------------------- */
 
     const avionEmoji =
         avionInicial.querySelector(
             ".avion-emoji"
         );
+
 
     if (avionEmoji) {
 
@@ -341,8 +388,9 @@ function actualizarAvion() {
     }
 
 
+
     /* ---------------------------------------------
-       LLEGADA
+       LLEGADA A COSTA RICA
        --------------------------------------------- */
 
     if (progreso >= 1) {
@@ -353,7 +401,9 @@ function actualizarAvion() {
 
         if (!llegadaProcesada) {
 
-            llegadaProcesada = true;
+            llegadaProcesada =
+                true;
+
 
             setTimeout(() => {
 
@@ -384,6 +434,7 @@ botonAbrir.addEventListener(
             "mostrar"
         );
 
+
         setTimeout(() => {
 
             carta.classList.add(
@@ -407,6 +458,7 @@ continuar.addEventListener(
         carta.classList.remove(
             "mostrar"
         );
+
 
         setTimeout(() => {
 
@@ -432,6 +484,7 @@ continuar2.addEventListener(
             "mostrar"
         );
 
+
         setTimeout(() => {
 
             final.classList.add(
@@ -455,30 +508,38 @@ function crearFuego() {
     const fuego =
         document.createElement("div");
 
+
     fuego.classList.add(
         "fuego"
     );
 
+
     fuego.style.left =
         `${Math.random() * 100}%`;
+
 
     fuego.style.top =
         `${Math.random() * 70 + 5}%`;
 
+
     const tamaño =
         Math.random() * 4 + 4;
+
 
     fuego.style.width =
         `${tamaño}px`;
 
+
     fuego.style.height =
         `${tamaño}px`;
+
 
     document
         .getElementById("fuegos")
         .appendChild(
             fuego
         );
+
 
     setTimeout(() => {
 
@@ -488,9 +549,12 @@ function crearFuego() {
 }
 
 
+
 function iniciarFuegos() {
 
-    let cantidad = 0;
+    let cantidad =
+        0;
+
 
     const intervalo =
         setInterval(() => {
@@ -498,6 +562,7 @@ function iniciarFuegos() {
             crearFuego();
 
             cantidad++;
+
 
             if (cantidad >= 18) {
 
@@ -520,10 +585,10 @@ actualizarContador();
 actualizarAvion();
 
 
-/*
-    Actualizar contador
-    cada segundo.
-*/
+
+/* =====================================================
+   ACTUALIZACIONES
+   ===================================================== */
 
 setInterval(
     actualizarContador,
@@ -531,22 +596,11 @@ setInterval(
 );
 
 
-/*
-    Actualizar posición
-    del avión cada segundo.
-*/
-
 setInterval(
     actualizarAvion,
     1000
 );
 
-
-/*
-    Recalcular posición
-    si cambia el tamaño
-    de la pantalla.
-*/
 
 window.addEventListener(
     "resize",
