@@ -1,46 +1,89 @@
+/* =========================================
+   CONFIGURACIÓN GENERAL
+========================================= */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html,
 body {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
 }
 
 body {
-    background:
-        radial-gradient(
-            circle at 50% 30%,
-            rgba(104, 57, 180, 0.25),
-            transparent 45%
-        ),
-        #080612;
-
-    color: white;
+    overflow: hidden;
 
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    overflow-x: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #24134f 0%,
+            #120b29 45%,
+            #070514 100%
+        );
+
+    color: white;
 }
 
 
-/* =====================================================
-   PARTICULAS
-   ===================================================== */
+/* =========================================
+   ESCENAS
+========================================= */
 
-.particulas {
+.escena {
     position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: scale(1.03);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease,
+        visibility 1s ease;
+
+    z-index: 10;
+}
+
+.escena.activa {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+
+/* =========================================
+   PARTÍCULAS
+========================================= */
+
+#particulas {
+    position: fixed;
+
     inset: 0;
 
     pointer-events: none;
 
-    z-index: 1;
+    z-index: 2;
+
+    overflow: hidden;
 }
 
 .particula {
@@ -49,110 +92,131 @@ body {
     width: 3px;
     height: 3px;
 
-    background: #8fd8ff;
-
     border-radius: 50%;
 
-    opacity: 0.7;
+    background: #8fd8ff;
 
     box-shadow:
-        0 0 8px #8fd8ff;
+        0 0 8px #8fd8ff,
+        0 0 15px rgba(143, 216, 255, 0.6);
+
+    opacity: 0;
 
     animation:
-        flotar linear infinite;
+        aparecerParticula 4s ease-in-out infinite;
 }
 
-@keyframes flotar {
+@keyframes aparecerParticula {
 
-    from {
-        transform: translateY(100vh);
+    0% {
         opacity: 0;
+        transform: translateY(20px);
     }
 
-    20% {
+    50% {
         opacity: 0.8;
     }
 
-    80% {
-        opacity: 0.8;
-    }
-
-    to {
-        transform: translateY(-20vh);
+    100% {
         opacity: 0;
+        transform: translateY(-40px);
     }
 }
 
 
-/* =====================================================
+/* =========================================
    VIAJE
-   ===================================================== */
+========================================= */
 
-.viaje-inicial {
-    position: fixed;
-
-    inset: 0;
-
+#viaje {
     z-index: 20;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(105, 52, 180, 0.20),
-            transparent 55%
-        ),
-        #080612;
-
-    transition:
-        opacity 1s ease,
-        visibility 1s ease;
 }
 
-.viaje-inicial.ocultar {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+.viaje-contenido {
+    width: min(95vw, 1100px);
+
+    text-align: center;
 }
 
-.viaje-titulo {
-    font-size: 25px;
-
-    font-weight: 600;
+.titulo-viaje {
+    font-size: 55px;
 
     margin-bottom: 10px;
 
-    text-align: center;
+    filter:
+        drop-shadow(0 0 12px rgba(143, 216, 255, 0.8));
+}
+
+.viaje-contenido h1 {
+    font-size: clamp(25px, 4vw, 42px);
+
+    margin-bottom: 10px;
 
     text-shadow:
-        0 0 15px rgba(170, 120, 255, 0.6);
+        0 0 20px rgba(160, 110, 255, 0.7);
+}
+
+.viaje-contenido p {
+    font-size: 18px;
+
+    color: #cfd7ff;
+
+    margin-bottom: 20px;
 }
 
 
-/* =====================================================
+/* =========================================
    MAPA
-   ===================================================== */
+========================================= */
 
 .mapa {
     position: relative;
 
-    width: min(850px, 94vw);
+    width: min(92vw, 1000px);
 
-    aspect-ratio: 800 / 450;
+    margin: 0 auto;
 
-    margin: 10px auto;
+    aspect-ratio: 1000 / 600;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(45, 24, 90, 0.35),
+            rgba(5, 4, 15, 0.2)
+        );
+
+    box-shadow:
+        0 0 35px rgba(143, 99, 255, 0.25);
 }
 
-.mapa-svg {
+
+/* EL MAPA DE GITHUB */
+
+.mapa-imagen {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: fill;
+
+    z-index: 1;
+}
+
+
+/* =========================================
+   AVIÓN
+========================================= */
+
+.avion-overlay {
     position: absolute;
 
     inset: 0;
@@ -161,425 +225,307 @@ body {
     height: 100%;
 
     overflow: visible;
-}
-
-
-/* PAISES */
-
-.pais {
-    fill: #15102a;
-
-    stroke: #9364ff;
-
-    stroke-width: 3;
-
-    stroke-linejoin: round;
-
-    stroke-linecap: round;
-
-    filter:
-        drop-shadow(
-            0 0 5px rgba(147, 100, 255, 0.35)
-        );
-}
-
-.pais-secundario {
-    opacity: 0.65;
-
-    stroke-width: 2;
-}
-
-
-/* RUTA */
-
-.ruta-curva {
-    fill: none;
-
-    stroke: #8fd8ff;
-
-    stroke-width: 4;
-
-    stroke-linecap: round;
-
-    stroke-dasharray: 10 9;
-
-    opacity: 0.95;
-
-    filter:
-        drop-shadow(
-            0 0 7px rgba(143, 216, 255, 0.7)
-        );
-}
-
-
-/* PUNTOS */
-
-.punto-mapa {
-    fill: #8fd8ff;
-
-    stroke: white;
-
-    stroke-width: 2;
-
-    filter:
-        drop-shadow(
-            0 0 8px rgba(143, 216, 255, 0.9)
-        );
-}
-
-
-/* AVION */
-
-.avion-icono {
-    fill: white;
-
-    font-size: 28px;
-
-    filter:
-        drop-shadow(
-            0 0 8px rgba(143, 216, 255, 1)
-        );
-}
-
-.carta-icono {
-    font-size: 18px;
-
-    filter:
-        drop-shadow(
-            0 0 5px rgba(255,255,255,0.8)
-        );
-}
-
-
-/* NOMBRES */
-
-.nombre-pais {
-    position: absolute;
-
-    padding: 7px 13px;
-
-    border-radius: 20px;
-
-    background:
-        rgba(9, 6, 20, 0.82);
-
-    border:
-        1px solid rgba(147, 100, 255, 0.65);
-
-    color: white;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    backdrop-filter: blur(6px);
-
-    box-shadow:
-        0 0 15px rgba(120, 70, 255, 0.25);
-}
-
-.colombia-nombre {
-    left: 24%;
-
-    top: 67%;
-}
-
-.costa-rica-nombre {
-    left: 61%;
-
-    top: 52%;
-}
-
-
-/* =====================================================
-   TEXTO VIAJE
-   ===================================================== */
-
-.viaje-inicial-texto {
-    margin-top: 5px;
-
-    text-align: center;
-
-    font-size: 18px;
-
-    color: white;
-
-    text-shadow:
-        0 0 10px rgba(147, 100, 255, 0.7);
-}
-
-
-/* =====================================================
-   CONTADOR
-   ===================================================== */
-
-.contador {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    margin-top: 15px;
-}
-
-.contador-bloque {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    min-width: 55px;
-}
-
-.contador-bloque span {
-    font-size: 25px;
-
-    font-weight: 700;
-
-    color: #ffffff;
-
-    text-shadow:
-        0 0 12px rgba(143, 216, 255, 0.8);
-}
-
-.contador-bloque small {
-    font-size: 9px;
-
-    color: #aaa;
-}
-
-.separador {
-    font-size: 23px;
-
-    color: #8fd8ff;
-}
-
-
-/* =====================================================
-   PORTADA
-   ===================================================== */
-
-.inicio {
-    position: fixed;
-
-    inset: 0;
 
     z-index: 5;
 
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    transition:
-        opacity 1s ease;
+    pointer-events: none;
 }
 
-.inicio.mostrar {
-    opacity: 1;
-
-    visibility: visible;
+#avion {
+    transform-origin: center;
 }
 
-.corazon {
-    font-size: 65px;
+.avion-icon {
+    font-size: 31px;
 
-    color: #a879ff;
+    text-anchor: middle;
+
+    dominant-baseline: middle;
+
+    filter:
+        drop-shadow(0 0 6px #8fd8ff)
+        drop-shadow(0 0 12px rgba(143, 216, 255, 0.8));
+}
+
+.carta-icon {
+    font-size: 20px;
+
+    text-anchor: middle;
+
+    dominant-baseline: middle;
+
+    filter:
+        drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+}
+
+
+/* =========================================
+   CONTADOR
+========================================= */
+
+.contador {
+    margin-top: 18px;
+
+    font-size: 18px;
+
+    color: #8fd8ff;
+
+    font-weight: bold;
 
     text-shadow:
-        0 0 25px rgba(168, 121, 255, 0.8);
-
-    animation:
-        latido 1.5s infinite;
+        0 0 10px rgba(143, 216, 255, 0.6);
 }
 
-@keyframes latido {
+
+/* =========================================
+   PORTADA
+========================================= */
+
+.portada-contenido {
+    text-align: center;
+
+    padding: 30px;
+}
+
+.sobre {
+    font-size: 100px;
+
+    margin-bottom: 20px;
+
+    animation:
+        flotar 3s ease-in-out infinite;
+
+    filter:
+        drop-shadow(0 0 20px rgba(143, 216, 255, 0.6));
+}
+
+@keyframes flotar {
 
     0%,
     100% {
-        transform: scale(1);
+        transform: translateY(0);
     }
 
     50% {
-        transform: scale(1.12);
+        transform: translateY(-12px);
     }
 }
 
-.inicio h1 {
-    font-size: 45px;
+.portada-contenido h1 {
+    font-size: clamp(45px, 8vw, 80px);
 
-    margin: 10px 0;
+    margin-bottom: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #bba0ff,
+            #8fd8ff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    text-shadow:
+        0 0 25px rgba(143, 216, 255, 0.15);
 }
 
-.inicio p {
-    font-size: 18px;
+.portada-contenido p {
+    color: #d5d0e8;
 
-    color: #cfcfcf;
+    font-size: 20px;
 
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
+
+
+/* =========================================
+   BOTONES
+========================================= */
 
 button {
     border: none;
 
-    padding: 13px 28px;
+    padding: 15px 32px;
 
-    border-radius: 30px;
+    border-radius: 50px;
 
     background:
         linear-gradient(
             135deg,
-            #7c3aed,
-            #9b5cff
+            #8b5cf6,
+            #6339c7
         );
 
     color: white;
 
-    font-size: 15px;
+    font-size: 16px;
 
     font-weight: bold;
 
     cursor: pointer;
 
     box-shadow:
-        0 0 20px rgba(124, 58, 237, 0.45);
+        0 0 20px rgba(139, 92, 246, 0.45);
 
     transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 button:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px) scale(1.04);
 
     box-shadow:
-        0 0 30px rgba(155, 92, 255, 0.7);
+        0 0 30px rgba(139, 92, 246, 0.75);
+}
+
+button:active {
+    transform: scale(0.97);
 }
 
 
-/* =====================================================
-   ESCENAS
-   ===================================================== */
+/* =========================================
+   CARTAS
+========================================= */
 
-.escena {
-    position: fixed;
+.carta-contenido {
+    width: min(90vw, 750px);
 
-    inset: 0;
-
-    z-index: 10;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
+    padding: 45px;
 
     text-align: center;
 
-    padding: 30px;
+    background:
+        rgba(17, 10, 38, 0.75);
 
-    opacity: 0;
+    border:
+        1px solid rgba(143, 99, 255, 0.35);
 
-    visibility: hidden;
+    border-radius: 25px;
 
-    transform: translateY(20px);
+    box-shadow:
+        0 0 50px rgba(100, 60, 180, 0.25);
 
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
+    backdrop-filter: blur(12px);
 }
 
-.escena.activa {
-    opacity: 1;
+.numero {
+    font-size: 14px;
 
-    visibility: visible;
+    letter-spacing: 5px;
 
-    transform: translateY(0);
+    color: #8fd8ff;
+
+    margin-bottom: 25px;
 }
 
-.escena .icono {
-    font-size: 60px;
+.carta-contenido h1 {
+    font-size: clamp(28px, 5vw, 48px);
 
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+
+    line-height: 1.15;
 }
 
-.escena h2 {
-    font-size: 32px;
+.carta-contenido p {
+    font-size: 19px;
 
-    max-width: 800px;
+    line-height: 1.8;
 
-    margin-bottom: 20px;
-}
+    color: #d8d4e5;
 
-.escena p {
-    max-width: 700px;
-
-    line-height: 1.7;
-
-    color: #ddd;
-
-    margin-bottom: 12px;
+    margin-bottom: 30px;
 }
 
 
-/* =====================================================
+/* =========================================
    FINAL
-   ===================================================== */
+========================================= */
 
-.final h2 {
-    color: white;
+.final {
+    background:
+        radial-gradient(
+            circle at center,
+            #25104d 0%,
+            #100820 55%,
+            #05030d 100%
+        );
+}
+
+.final-contenido {
+    position: relative;
+
+    z-index: 50;
+
+    text-align: center;
+
+    padding: 25px;
+}
+
+.cumple {
+    font-size: 90px;
+
+    margin-bottom: 15px;
+
+    filter:
+        drop-shadow(0 0 20px rgba(143, 216, 255, 0.7));
+}
+
+.final-contenido h1 {
+    font-size: clamp(35px, 7vw, 75px);
+
+    line-height: 1.1;
+
+    margin-bottom: 25px;
 
     text-shadow:
-        0 0 15px rgba(143, 216, 255, 0.6);
+        0 0 25px rgba(143, 99, 255, 0.6);
 }
 
-.firma {
-    margin-top: 25px;
+.final-contenido h1 span {
+    color: #8fd8ff;
 
-    font-size: 18px;
+    text-shadow:
+        0 0 20px rgba(143, 216, 255, 0.7);
+}
 
-    line-height: 1.6;
+.final-contenido p {
+    color: #d8d4e5;
+
+    font-size: 19px;
+
+    margin-bottom: 25px;
+}
+
+.corazones {
+    font-size: 28px;
+
+    letter-spacing: 10px;
 }
 
 
-/* =====================================================
-   FUEGOS
-   ===================================================== */
+/* =========================================
+   FUEGOS ARTIFICIALES
+========================================= */
 
-.fuegos {
+#fuegos {
     position: absolute;
 
     inset: 0;
 
-    pointer-events: none;
-
     overflow: hidden;
 
-    z-index: -1;
+    pointer-events: none;
 }
 
 .fuego {
     position: absolute;
 
     width: 5px;
-
     height: 5px;
 
     border-radius: 50%;
@@ -587,90 +533,85 @@ button:hover {
     background: #8fd8ff;
 
     box-shadow:
-        0 0 8px #8fd8ff;
+        0 0 8px #8fd8ff,
+        0 0 20px #8fd8ff;
 
     animation:
-        explotar 1.5s ease-out forwards;
+        explosion 1.8s ease-out forwards;
 }
 
-@keyframes explotar {
+@keyframes explosion {
 
-    from {
+    0% {
+        opacity: 1;
+
         transform:
             translate(0, 0)
             scale(1);
-
-        opacity: 1;
     }
 
-    to {
+    100% {
+        opacity: 0;
+
         transform:
             translate(
                 var(--x),
                 var(--y)
             )
-            scale(0);
-
-        opacity: 0;
+            scale(0.2);
     }
 }
 
 
-/* =====================================================
-   MOVIL
-   ===================================================== */
+/* =========================================
+   CELULAR
+========================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
-    .viaje-titulo {
-        font-size: 21px;
+    .titulo-viaje {
+        font-size: 42px;
     }
 
-    .mapa {
-        width: 98vw;
-    }
-
-    .nombre-pais {
-        font-size: 11px;
-
-        padding: 5px 9px;
-    }
-
-    .colombia-nombre {
-        left: 21%;
-        top: 68%;
-    }
-
-    .costa-rica-nombre {
-        left: 60%;
-        top: 52%;
-    }
-
-    .avion-icono {
-        font-size: 22px;
-    }
-
-    .carta-icono {
+    .viaje-contenido p {
         font-size: 15px;
     }
 
-    .ruta-curva {
-        stroke-width: 3;
+    .mapa {
+        width: 96vw;
     }
 
-    .contador-bloque {
-        min-width: 45px;
+    .contador {
+        font-size: 15px;
     }
 
-    .contador-bloque span {
-        font-size: 20px;
+    .sobre {
+        font-size: 75px;
     }
 
-    .inicio h1 {
-        font-size: 34px;
+    .portada-contenido h1 {
+        font-size: 48px;
     }
 
-    .escena h2 {
-        font-size: 25px;
+    .portada-contenido p {
+        font-size: 17px;
+    }
+
+    .carta-contenido {
+        padding: 30px 22px;
+    }
+
+    .carta-contenido p {
+        font-size: 17px;
+
+        line-height: 1.6;
+    }
+
+    .final-contenido h1 {
+        font-size: 38px;
+    }
+
+    .cumple {
+        font-size: 70px;
     }
 }
