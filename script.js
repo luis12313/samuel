@@ -2,24 +2,31 @@
    CAMBIO DE ESCENAS
 ========================================= */
 
-const escenas = document.querySelectorAll(".escena");
+const escenas =
+    document.querySelectorAll(".escena");
+
 
 function mostrarEscena(id) {
 
     escenas.forEach(escena => {
+
         escena.classList.remove("activa");
+
     });
 
-    const escena = document.getElementById(id);
+    const escena =
+        document.getElementById(id);
 
     if (escena) {
+
         escena.classList.add("activa");
+
     }
 }
 
 
 /* =========================================
-   VIAJE COLOMBIA -> COSTA RICA
+   VIAJE
 ========================================= */
 
 const inicioViaje =
@@ -28,26 +35,6 @@ const inicioViaje =
 const llegadaViaje =
     new Date("2026-10-18T00:00:00");
 
-
-/*
-    Esta es EXACTAMENTE la ruta que
-    ya existe dentro de america.svg.
-
-    No estamos dibujando otra ruta.
-*/
-
-const ruta = {
-    x1: 610,
-    y1: 329,
-
-    x2: 340,
-    y2: 205
-};
-
-
-/* =========================================
-   ELEMENTOS
-========================================= */
 
 const avion =
     document.getElementById("avion");
@@ -59,49 +46,36 @@ const mensajeViaje =
     document.getElementById("mensajeViaje");
 
 
+/*
+    COORDENADAS DEL MAPA ORIGINAL
+
+    Colombia:
+        712,724
+
+    Costa Rica:
+        627,677
+
+    Por lo tanto:
+
+    0%   = Colombia
+    100% = Costa Rica
+*/
+
+
+const colombia = {
+    x: 712,
+    y: 724
+};
+
+const costaRica = {
+    x: 627,
+    y: 677
+};
+
+
 /* =========================================
    BEZIER
-
-   Misma forma aproximada de la ruta
-   del SVG.
 ========================================= */
-
-function calcularPosicion(t) {
-
-    /*
-        Ruta original del SVG:
-
-        M610 329
-        C575 285 520 252 449 235
-        C410 226 375 216 340 205
-    */
-
-    if (t <= 0.5) {
-
-        const localT = t * 2;
-
-        return bezier(
-            610, 329,
-            575, 285,
-            520, 252,
-            449, 235,
-            localT
-        );
-
-    } else {
-
-        const localT = (t - 0.5) * 2;
-
-        return bezier(
-            449, 235,
-            410, 226,
-            375, 216,
-            340, 205,
-            localT
-        );
-    }
-}
-
 
 function bezier(
     x0,
@@ -129,37 +103,84 @@ function bezier(
         3 * u * t * t * y2 +
         t * t * t * y3;
 
-    return { x, y };
+    return {
+        x,
+        y
+    };
 }
 
 
 /* =========================================
-   ANIMACIÓN DEL AVIÓN
+   POSICIÓN DEL AVIÓN
+========================================= */
+
+function calcularPosicion(progreso) {
+
+    /*
+        Colombia
+             ↓
+        curva
+             ↓
+        Costa Rica
+    */
+
+    return bezier(
+
+        colombia.x,
+        colombia.y,
+
+        690,
+        705,
+
+        650,
+        680,
+
+        costaRica.x,
+        costaRica.y,
+
+        progreso
+
+    );
+}
+
+
+/* =========================================
+   ACTUALIZAR VIAJE
 ========================================= */
 
 function actualizarViaje() {
 
-    const ahora = new Date();
+    const ahora =
+        new Date();
+
 
     let progreso =
-        (ahora - inicioViaje) /
-        (llegadaViaje - inicioViaje);
+        (
+            ahora - inicioViaje
+        ) /
+        (
+            llegadaViaje -
+            inicioViaje
+        );
+
 
     progreso =
         Math.max(
             0,
-            Math.min(1, progreso)
+            Math.min(
+                1,
+                progreso
+            )
         );
 
 
+    /* Posición */
+
     const posicion =
-        calcularPosicion(progreso);
+        calcularPosicion(
+            progreso
+        );
 
-
-    /*
-        El avión usa las mismas coordenadas
-        del viewBox del america.svg.
-    */
 
     avion.setAttribute(
         "transform",
@@ -183,20 +204,23 @@ function actualizarViaje() {
         mensajeViaje.textContent =
             "💌 ¡La carta llegó a Costa Rica!";
 
-        /*
-            Después de llegar dejamos unos
-            segundos para mostrar el mensaje.
-        */
 
-        if (!window.cartaLlegadaMostrada) {
+        if (
+            !window.cartaLlegadaMostrada
+        ) {
 
-            window.cartaLlegadaMostrada = true;
+            window.cartaLlegadaMostrada =
+                true;
+
 
             setTimeout(() => {
 
-                mostrarEscena("portada");
+                mostrarEscena(
+                    "portada"
+                );
 
             }, 2500);
+
         }
 
         return;
@@ -206,27 +230,60 @@ function actualizarViaje() {
     const dias =
         Math.floor(
             diferencia /
-            (1000 * 60 * 60 * 24)
+            (
+                1000 *
+                60 *
+                60 *
+                24
+            )
         );
+
 
     const horas =
         Math.floor(
-            (diferencia %
-                (1000 * 60 * 60 * 24)) /
-            (1000 * 60 * 60)
+            (
+                diferencia %
+                (
+                    1000 *
+                    60 *
+                    60 *
+                    24
+                )
+            ) /
+            (
+                1000 *
+                60 *
+                60
+            )
         );
+
 
     const minutos =
         Math.floor(
-            (diferencia %
-                (1000 * 60 * 60)) /
-            (1000 * 60)
+            (
+                diferencia %
+                (
+                    1000 *
+                    60 *
+                    60
+                )
+            ) /
+            (
+                1000 *
+                60
+            )
         );
+
 
     const segundos =
         Math.floor(
-            (diferencia %
-                (1000 * 60)) /
+            (
+                diferencia %
+                (
+                    1000 *
+                    60
+                )
+            ) /
             1000
         );
 
@@ -236,9 +293,8 @@ function actualizarViaje() {
 }
 
 
-/* Actualizar cada segundo */
-
 actualizarViaje();
+
 
 setInterval(
     actualizarViaje,
@@ -251,13 +307,18 @@ setInterval(
 ========================================= */
 
 const abrirBtn =
-    document.getElementById("abrirBtn");
+    document.getElementById(
+        "abrirBtn"
+    );
+
 
 abrirBtn.addEventListener(
     "click",
     () => {
 
-        mostrarEscena("escena1");
+        mostrarEscena(
+            "escena1"
+        );
 
     }
 );
@@ -278,14 +339,15 @@ document
                 const siguiente =
                     boton.dataset.next;
 
-                mostrarEscena(siguiente);
 
-                /*
-                    Si llegamos al final,
-                    iniciamos los fuegos.
-                */
+                mostrarEscena(
+                    siguiente
+                );
 
-                if (siguiente === "final") {
+
+                if (
+                    siguiente === "final"
+                ) {
 
                     iniciarFuegos();
 
@@ -298,40 +360,56 @@ document
 
 
 /* =========================================
-   PARTÍCULAS
+   PARTICULAS
 ========================================= */
 
 const contenedorParticulas =
-    document.getElementById("particulas");
+    document.getElementById(
+        "particulas"
+    );
 
 
 function crearParticulas() {
 
-    for (let i = 0; i < 45; i++) {
+    for (
+        let i = 0;
+        i < 45;
+        i++
+    ) {
 
         const particula =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         particula.className =
             "particula";
 
+
         particula.style.left =
             `${Math.random() * 100}%`;
+
 
         particula.style.top =
             `${Math.random() * 100}%`;
 
+
         particula.style.animationDelay =
             `${Math.random() * 4}s`;
+
 
         particula.style.animationDuration =
             `${3 + Math.random() * 4}s`;
 
+
         contenedorParticulas.appendChild(
             particula
         );
+
     }
 }
+
 
 crearParticulas();
 
@@ -343,43 +421,59 @@ crearParticulas();
 function iniciarFuegos() {
 
     const contenedor =
-        document.getElementById("fuegos");
+        document.getElementById(
+            "fuegos"
+        );
 
-    /*
-        Limpiar fuegos anteriores.
-    */
 
     contenedor.innerHTML = "";
 
 
-    /*
-        Lanzamos varios fuegos.
-    */
+    for (
+        let i = 0;
+        i < 9;
+        i++
+    ) {
 
-    for (let i = 0; i < 9; i++) {
+        setTimeout(
+            () => {
 
-        setTimeout(() => {
+                crearFuego(
+                    15 +
+                    Math.random() * 70,
 
-            crearFuego(
-                15 + Math.random() * 70,
-                15 + Math.random() * 50
-            );
+                    15 +
+                    Math.random() * 50
+                );
 
-        }, i * 500);
+            },
+
+            i * 500
+        );
+
     }
 }
 
 
-function crearFuego(x, y) {
+function crearFuego(
+    x,
+    y
+) {
 
-    const cantidad =
-        30;
+    const cantidad = 30;
 
 
-    for (let i = 0; i < cantidad; i++) {
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
 
         const particula =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         particula.className =
             "fuego";
@@ -409,6 +503,7 @@ function crearFuego(x, y) {
         particula.style.left =
             `${x}%`;
 
+
         particula.style.top =
             `${y}%`;
 
@@ -417,6 +512,7 @@ function crearFuego(x, y) {
             "--x",
             `${destinoX}px`
         );
+
 
         particula.style.setProperty(
             "--y",
@@ -428,15 +524,26 @@ function crearFuego(x, y) {
             `${Math.random() * 0.15}s`;
 
 
-        document
-            .getElementById("fuegos")
-            .appendChild(particula);
+        contenedorFuegos =
+            document.getElementById(
+                "fuegos"
+            );
 
 
-        setTimeout(() => {
+        contenedorFuegos.appendChild(
+            particula
+        );
 
-            particula.remove();
 
-        }, 2200);
+        setTimeout(
+            () => {
+
+                particula.remove();
+
+            },
+
+            2200
+        );
+
     }
 }
